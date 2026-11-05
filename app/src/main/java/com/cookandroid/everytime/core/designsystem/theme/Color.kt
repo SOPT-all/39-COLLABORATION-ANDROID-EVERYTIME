@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.ui.core.designsystem.theme
+package com.cookandroid.everytime.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
