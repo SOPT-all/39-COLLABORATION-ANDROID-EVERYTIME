@@ -1,7 +1,7 @@
 ---
 name: "이슈 템플릿"
 about: "새로운 기능이나 개선할 내용을 작성합니다."
-title: "[feat/#이슈번호] "
+title: "[feat] "
 labels: ""
 assignees: ""
 ---
