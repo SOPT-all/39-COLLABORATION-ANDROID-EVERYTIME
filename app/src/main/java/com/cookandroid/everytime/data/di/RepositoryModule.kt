@@ -1,5 +1,9 @@
 package com.cookandroid.mjhackathon.data.di
 
+import com.cookandroid.mjhackathon.data.repository.home.LecturelistRepository
+import com.cookandroid.mjhackathon.data.repository.home.LecturelistRepositoryImpl
+import com.cookandroid.mjhackathon.data.repository.home.ReviewRepository
+import com.cookandroid.mjhackathon.data.repository.home.ReviewRepositoryImpl
 import com.cookandroid.mjhackathon.data.repository.home.TimetableRepository
 import com.cookandroid.mjhackathon.data.repository.home.TimetableRepositoryImpl
 import dagger.Binds
@@ -12,13 +16,13 @@ import dagger.hilt.components.SingletonComponent
 abstract class RepositoryModule {
     @Binds
     abstract fun bindLecturelistRepository(
-        impl: TimetableRepositoryImpl,
-    ): TimetableRepository
+        impl: LecturelistRepositoryImpl,
+    ): LecturelistRepository
 
     @Binds
     abstract fun bindReviewRepository(
-        impl: PostDailyRepositoryImpl,
-    ): PostDailyRepository
+        impl: ReviewRepositoryImpl,
+    ): ReviewRepository
 
     @Binds
     abstract fun bindTimetableRepository(

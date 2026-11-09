@@ -1,4 +1,4 @@
-package com.cookandroid.mjhackathon.data.service.detail
+package com.cookandroid.mjhackathon.data.service.timetable
 
 interface TimetableService {
 }
