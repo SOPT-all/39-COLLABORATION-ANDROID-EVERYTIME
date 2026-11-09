@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.main
+package com.cookandroid.everytime.presentaiton.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
