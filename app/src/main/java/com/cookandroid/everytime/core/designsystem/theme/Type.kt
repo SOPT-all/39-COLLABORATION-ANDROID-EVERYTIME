@@ -8,15 +8,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.cookandroid.everytime.R
 
-val PretendardFontFamily = FontFamily(
+val pretendardFontFamily = FontFamily(
     Font(R.font.pretendard_regular, FontWeight.Normal),
     Font(R.font.pretendard_semibold, FontWeight.SemiBold),
     Font(R.font.pretendard_bold, FontWeight.Bold)
 )
 
-val Typography = Typography(
+val typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = PretendardFontFamily,
+        fontFamily = pretendardFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,
