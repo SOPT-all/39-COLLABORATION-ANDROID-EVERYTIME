@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.cookandroid.everytime.presentation.lecturelist.LecturelistRoute
+import com.cookandroid.everytime.presentation.review.ReviewRoute
 import com.cookandroid.everytime.presentation.timetable.TimetableRoute
 import kotlinx.serialization.Serializable
 
@@ -14,6 +15,9 @@ private data object TimetableDestination
 
 @Serializable
 private data object LectureListDestination
+
+@Serializable
+private data object LectureDetailDestination
 
 @Composable
 internal fun MainAppHost(
@@ -34,7 +38,15 @@ internal fun MainAppHost(
         }
 
         composable<LectureListDestination> {
-            LecturelistRoute()
+            LecturelistRoute(
+                onLectureClick = {
+                    appState.navController.navigate(LectureDetailDestination)
+                },
+            )
+        }
+
+        composable<LectureDetailDestination> {
+            ReviewRoute()
         }
     }
 }

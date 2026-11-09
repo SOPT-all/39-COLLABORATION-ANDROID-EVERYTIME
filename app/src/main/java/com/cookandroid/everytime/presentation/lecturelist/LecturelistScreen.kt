@@ -1,32 +1,46 @@
 package com.cookandroid.everytime.presentation.lecturelist
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.cookandroid.everytime.core.designsystem.theme.EVERYTIMETheme
 
 @Composable
 fun LecturelistRoute(
+    onLectureClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LecturelistViewModel = hiltViewModel(),
 ) {
-    LecturelistScreen(modifier = modifier)
+    LecturelistScreen(
+        onLectureClick = onLectureClick,
+        modifier = modifier
+    )
 }
 
 @Composable
 fun LecturelistScreen(
+    onLectureClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Box(
+    Column(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
+        verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(text = "강의 목록")
+
+        Button(onClick = onLectureClick) {
+            Text(text = "샘플 강의")
+        }
     }
 }
 
@@ -34,6 +48,6 @@ fun LecturelistScreen(
 @Composable
 private fun LecturelistScreenPreview() {
     EVERYTIMETheme {
-        LecturelistScreen()
+        LecturelistScreen(onLectureClick = {})
     }
 }
