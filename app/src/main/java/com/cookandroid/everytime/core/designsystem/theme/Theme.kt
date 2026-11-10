@@ -1,57 +1,72 @@
 package com.cookandroid.everytime.core.designsystem.theme
 
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.activity.compose.LocalActivity
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
+private val LocalEverytimeColorsProvider = staticCompositionLocalOf {
+    defaultEverytimeColors
+}
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
-)
+private val LocalEverytimeTypographyProvider = staticCompositionLocalOf {
+    defaultEverytimeTypography
+}
 
 @Composable
 fun EVERYTIMETheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    colors: EverytimeColors = defaultEverytimeColors,
+    typography: EverytimeTypography = defaultEverytimeTypography,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
+    val view = LocalView.current
+    val activity = LocalActivity.current
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+    // 밝은 배경에서 상태 표시줄 아이콘을 어둡게 표시
+    if (!view.isInEditMode) {
+        SideEffect {
+            activity?.window?.let { window ->
+                WindowCompat.getInsetsController(window, view)
+                    .isAppearanceLightStatusBars = true
+            }
+        }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
+    // 현재 Figma의 라이트 테마를 기준으로 적용하고 동적 색상은 제외
+    // 명시하지 않은 Material 색상 역할은 Material 기본값을 사용
+    val materialColorScheme = lightColorScheme(
+        primary = colors.primary900,
+        onPrimary = colors.white,
+        background = colors.white
     )
+
+    CompositionLocalProvider(
+        LocalEverytimeColorsProvider provides colors,
+        LocalEverytimeTypographyProvider provides typography
+    ) {
+        MaterialTheme(
+            colorScheme = materialColorScheme,
+            content = content
+        )
+    }
+}
+
+// 화면에서는 EverytimeTheme.colors와 EverytimeTheme.typography로 접근한다
+object EverytimeTheme {
+
+    val colors: EverytimeColors
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalEverytimeColorsProvider.current
+
+    val typography: EverytimeTypography
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalEverytimeTypographyProvider.current
 }
