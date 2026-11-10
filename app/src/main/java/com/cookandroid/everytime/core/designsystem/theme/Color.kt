@@ -3,19 +3,11 @@ package com.cookandroid.everytime.core.designsystem.theme
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 
-// 기존 Material 테마에서 참조하는 샘플 색상으로 Theme.kt의 참조를 교체한 뒤 함께 제거한다
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF6650A4)
-val PurpleGrey40 = Color(0xFF625B71)
-val Pink40 = Color(0xFF7D5260)
-
-// DS 팔레트
+// DS 팔레트는 파일 내부에서 관리
 
 // Base
 private val white = Color(0xFFFFFFFF)
+private val black = Color(0xFF000000)
 
 // Primary
 private val primary900 = Color(0xFFF91F15)
@@ -50,65 +42,31 @@ private val ratingInactive = Color(0xFFD6D6D6)
 private val stateGreen = Color(0xFF2BCF0E)
 private val stateOrange = Color(0xFFFF8F0B)
 
-/**
- * 화면과 컴포넌트에서 사용하는 역할별 색상 토큰
- * 같은 색상값을 사용하더라도 역할 다르면 별도 프로퍼티로 관리한다
- */
+// Point
+private val pointYellow = Color(0xFFFBF3B6)
+
+// 화면에서는 EverytimeTheme.colors를 통해 DS 색상을 사용
 @Immutable
 data class EverytimeColors(
-    // 기본 화면 배경
-    val backgroundDefault: Color,
+    // Base
+    val white: Color,
+    val black: Color,
 
-    // 주요 버튼: 평가하기, 적용 등
-    val buttonPrimaryBackground: Color,
-    val buttonPrimaryContent: Color,
+    // Primary
+    val primary900: Color,
+    val primary100: Color,
 
-    // 테두리가 있는 보조 버튼: 마법사, 직접 추가 등
-    val buttonSecondaryBackground: Color,
-    val buttonSecondaryContent: Color,
-    val buttonSecondaryBorder: Color,
+    // Neutral
+    val neutral900: Color,
+    val neutral800: Color,
+    val neutral700: Color,
+    val neutral400: Color,
+    val neutral300: Color,
+    val neutral200: Color,
+    val neutral100: Color,
+    val neutral50: Color,
 
-    // 하단 탭: 선택 배경과 글자·아이콘
-    val tabSelectedBackground: Color,
-    val tabContent: Color,
-
-    // 검색 필터 칩: 선택값, 배경, 보조 글자, 삭제 아이콘
-    val filterSelectedText: Color,
-    val filterChipBackground: Color,
-    val filterSecondaryText: Color,
-    val filterClearBackground: Color,
-    val filterClearContent: Color,
-
-    // 강의평: 본문, 구분선, 정렬 필터, 추천·신고 버튼
-    val reviewBodyText: Color,
-    val reviewDivider: Color,
-    val reviewFilterBackground: Color,
-    val reviewActionBackground: Color,
-    val reviewActionContent: Color,
-
-    // 수강 학기, 시간 선택 안내 등 보조 설명
-    val textDescription: Color,
-
-    // 기본 아이콘과 보조 아이콘
-    val iconPrimary: Color,
-    val iconSecondary: Color,
-
-    // 상태 점: Figma의 Under·Over variant 이름을 사용한다
-    val stateUnder: Color,
-    val stateOver: Color,
-
-    // 별점: 평균 점수, 채워진 별, 비어 있는 별
-    // 반쪽 별은 active와 inactive 색상을 조합한다
-    val ratingScoreText: Color,
-    val ratingActive: Color,
-    val ratingInactive: Color,
-
-    // 시간표: 격자선, 시간 숫자, 블록 내부 글자
-    val timetableGridLine: Color,
-    val timetableTimeText: Color,
-    val timetableBlockContent: Color,
-
-    // 시간표 블록 배경 색상
+    // Timetable
     val timetableCoral: Color,
     val timetableRose: Color,
     val timetableOrange: Color,
@@ -117,63 +75,41 @@ data class EverytimeColors(
     val timetableMint: Color,
     val timetableBlue: Color,
     val timetablePurple: Color,
-    val timetableGray: Color
+    val timetableGray: Color,
+
+    // Rating
+    val ratingActive: Color,
+    val ratingInactive: Color,
+
+    // State
+    val stateGreen: Color,
+    val stateOrange: Color,
+
+    // Point
+    val pointYellow: Color
 )
 
-// 역할별 토큰과 DS 팔레트를 연결한 기본 색상 객체
+// DS 팔레트를 연결한 기본 색상 객체
 val defaultEverytimeColors = EverytimeColors(
-    // 기본 화면 배경
-    backgroundDefault = white,
+    // Base
+    white = white,
+    black = black,
 
-    // 주요 버튼
-    buttonPrimaryBackground = primary900,
-    buttonPrimaryContent = white,
+    // Primary
+    primary900 = primary900,
+    primary100 = primary100,
 
-    // 보조 버튼
-    buttonSecondaryBackground = white,
-    buttonSecondaryContent = neutral800,
-    buttonSecondaryBorder = neutral300,
+    // Neutral
+    neutral900 = neutral900,
+    neutral800 = neutral800,
+    neutral700 = neutral700,
+    neutral400 = neutral400,
+    neutral300 = neutral300,
+    neutral200 = neutral200,
+    neutral100 = neutral100,
+    neutral50 = neutral50,
 
-    // 하단 탭
-    tabSelectedBackground = primary100,
-    tabContent = neutral900,
-
-    // 검색 필터 칩
-    filterSelectedText = primary900,
-    filterChipBackground = neutral50,
-    filterSecondaryText = neutral700,
-    filterClearBackground = neutral300,
-    filterClearContent = white,
-
-    // 강의평
-    reviewBodyText = neutral800,
-    reviewDivider = neutral200,
-    reviewFilterBackground = neutral100,
-    reviewActionBackground = neutral50,
-    reviewActionContent = neutral400,
-
-    // 보조 설명
-    textDescription = neutral400,
-
-    // 아이콘
-    iconPrimary = neutral900,
-    iconSecondary = neutral400,
-
-    // 상태 점
-    stateUnder = stateGreen,
-    stateOver = stateOrange,
-
-    // 별점
-    ratingScoreText = neutral900,
-    ratingActive = ratingActive,
-    ratingInactive = ratingInactive,
-
-    // 시간표 공통 요소
-    timetableGridLine = neutral200,
-    timetableTimeText = neutral800,
-    timetableBlockContent = white,
-
-    // 시간표 블록 배경
+    // Timetable
     timetableCoral = timetableCoral,
     timetableRose = timetableRose,
     timetableOrange = timetableOrange,
@@ -182,5 +118,16 @@ val defaultEverytimeColors = EverytimeColors(
     timetableMint = timetableMint,
     timetableBlue = timetableBlue,
     timetablePurple = timetablePurple,
-    timetableGray = timetableGray
+    timetableGray = timetableGray,
+
+    // Rating
+    ratingActive = ratingActive,
+    ratingInactive = ratingInactive,
+
+    // State
+    stateGreen = stateGreen,
+    stateOrange = stateOrange,
+
+    // Point
+    pointYellow = pointYellow
 )

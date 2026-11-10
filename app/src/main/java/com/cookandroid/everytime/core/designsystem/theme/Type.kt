@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.cookandroid.everytime.R
 
-val pretendardFontFamily = FontFamily(
+private val pretendardFontFamily = FontFamily(
     Font(R.font.pretendard_regular, FontWeight.Normal),
     Font(R.font.pretendard_medium, FontWeight.Medium),
     Font(R.font.pretendard_semibold, FontWeight.SemiBold),
@@ -59,8 +59,7 @@ data class EverytimeTypography(
     ),
     val subHeader2: TextStyle = typographyStyle(
         fontSize = 12.sp,
-        fontWeight = FontWeight.SemiBold,
-        lineHeight = 1.2.em
+        fontWeight = FontWeight.SemiBold
     ),
 
     // Body
@@ -81,8 +80,7 @@ data class EverytimeTypography(
     val body4: TextStyle = typographyStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
-        letterSpacing = (-0.04).em,
-        lineHeight = 1.46.em
+        letterSpacing = (-0.04).em
     ),
     val body5: TextStyle = typographyStyle(
         fontSize = 12.sp,
@@ -114,4 +112,4 @@ data class EverytimeTypography(
     )
 )
 
-val everytimeTypography = EverytimeTypography()
+val defaultEverytimeTypography = EverytimeTypography()
