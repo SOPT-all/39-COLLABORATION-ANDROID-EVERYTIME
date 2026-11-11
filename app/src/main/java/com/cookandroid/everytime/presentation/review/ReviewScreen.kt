@@ -3,6 +3,7 @@ package com.cookandroid.everytime.presentation.review
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,15 +13,20 @@ import com.cookandroid.everytime.core.designsystem.theme.EVERYTIMETheme
 
 @Composable
 fun ReviewRoute(
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ReviewViewModel = hiltViewModel(),
 ) {
     // TODO: ViewModel의 상태와 이벤트를 Screen에 연결합니다.
-    ReviewScreen(modifier = modifier)
+    ReviewScreen(
+        onBackClick = onBackClick,
+        modifier = modifier
+    )
 }
 
 @Composable
 fun ReviewScreen(
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -28,6 +34,13 @@ fun ReviewScreen(
         contentAlignment = Alignment.Center,
     ) {
         Text(text = "강의평")
+
+        TextButton(
+            onClick = onBackClick,
+            modifier = Modifier.align(Alignment.TopStart)
+        ) {
+            Text(text = "뒤로가기")
+        }
     }
 }
 
@@ -35,6 +48,6 @@ fun ReviewScreen(
 @Composable
 private fun ReviewScreenPreview() {
     EVERYTIMETheme {
-        ReviewScreen()
+        ReviewScreen(onBackClick = {})
     }
 }

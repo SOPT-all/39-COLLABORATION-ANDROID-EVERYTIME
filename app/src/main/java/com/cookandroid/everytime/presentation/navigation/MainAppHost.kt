@@ -18,27 +18,34 @@ fun MainAppHost(
 ) {
     NavHost(
         navController = appState.navController,
-        startDestination = Timetable,
+        startDestination = LectureList,
         modifier = modifier
     ) {
-        composable<Timetable> {
-            TimetableRoute(
-                onNavigateToLectureList = {
-                    appState.navController.navigate(LectureList)
-                }
-            )
-        }
-
         composable<LectureList> {
             LecturelistRoute(
                 onLectureClick = {
                     appState.navController.navigate(Review)
                 },
+                onNavigateToTimetable = {
+                    appState.navController.navigate(Timetable)
+                }
+            )
+        }
+
+        composable<Timetable> {
+            TimetableRoute(
+                onBackClick = {
+                    appState.navController.popBackStack()
+                }
             )
         }
 
         composable<Review> {
-            ReviewRoute()
+            ReviewRoute(
+                onBackClick = {
+                    appState.navController.popBackStack()
+                }
+            )
         }
     }
 }

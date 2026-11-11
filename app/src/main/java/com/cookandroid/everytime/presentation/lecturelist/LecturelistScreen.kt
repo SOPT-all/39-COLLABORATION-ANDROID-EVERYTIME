@@ -1,7 +1,6 @@
 package com.cookandroid.everytime.presentation.lecturelist
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
@@ -17,11 +16,13 @@ import com.cookandroid.everytime.core.designsystem.theme.EVERYTIMETheme
 @Composable
 fun LecturelistRoute(
     onLectureClick: () -> Unit,
+    onNavigateToTimetable: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LecturelistViewModel = hiltViewModel(),
 ) {
     LecturelistScreen(
         onLectureClick = onLectureClick,
+        onNavigateToTimetable = onNavigateToTimetable,
         modifier = modifier
     )
 }
@@ -29,6 +30,7 @@ fun LecturelistRoute(
 @Composable
 fun LecturelistScreen(
     onLectureClick: () -> Unit,
+    onNavigateToTimetable: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -41,6 +43,10 @@ fun LecturelistScreen(
         Button(onClick = onLectureClick) {
             Text(text = "샘플 강의")
         }
+
+        Button(onClick = onNavigateToTimetable) {
+            Text(text = "시간표 열기")
+        }
     }
 }
 
@@ -48,6 +54,9 @@ fun LecturelistScreen(
 @Composable
 private fun LecturelistScreenPreview() {
     EVERYTIMETheme {
-        LecturelistScreen(onLectureClick = {})
+        LecturelistScreen(
+            onLectureClick = {},
+            onNavigateToTimetable = {}
+        )
     }
 }
