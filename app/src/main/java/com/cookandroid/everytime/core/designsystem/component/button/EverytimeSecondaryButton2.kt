@@ -2,6 +2,7 @@ package com.cookandroid.everytime.core.designsystem.component.button
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,12 +31,15 @@ fun EverytimeSecondaryButton2(
 ) {
     val colors = EverytimeTheme.colors
     val shape = RoundedCornerShape(4.dp)
+    val interactionSource = remember { MutableInteractionSource() }
 
     Box(
         modifier = modifier
             .clip(shape)
             .background(colors.neutral50)
             .clickable(
+                interactionSource = interactionSource,
+                indication = null,
                 role = Role.Button,
                 onClick = onClick
             )
