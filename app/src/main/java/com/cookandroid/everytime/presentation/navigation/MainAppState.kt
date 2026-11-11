@@ -5,12 +5,12 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
-internal class MainAppState(
+class MainAppState(
     val navController: NavHostController
 )
 
 @Composable
-internal fun rememberMainAppState(): MainAppState {
+fun rememberMainAppState(): MainAppState {
     val navController = rememberNavController()
 
     return remember(navController) {

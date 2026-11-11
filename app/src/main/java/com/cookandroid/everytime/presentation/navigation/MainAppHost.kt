@@ -4,48 +4,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import com.cookandroid.everytime.core.navigation.LectureList
+import com.cookandroid.everytime.core.navigation.Review
+import com.cookandroid.everytime.core.navigation.Timetable
 import com.cookandroid.everytime.presentation.lecturelist.LecturelistRoute
 import com.cookandroid.everytime.presentation.review.ReviewRoute
 import com.cookandroid.everytime.presentation.timetable.TimetableRoute
-import kotlinx.serialization.Serializable
-
-@Serializable
-private data object TimetableDestination
-
-@Serializable
-private data object LectureListDestination
-
-@Serializable
-private data object LectureDetailDestination
 
 @Composable
-internal fun MainAppHost(
+fun MainAppHost(
     appState: MainAppState,
     modifier: Modifier = Modifier
 ) {
     NavHost(
         navController = appState.navController,
-        startDestination = TimetableDestination,
+        startDestination = Timetable,
         modifier = modifier
     ) {
-        composable<TimetableDestination> {
+        composable<Timetable> {
             TimetableRoute(
                 onNavigateToLectureList = {
-                    appState.navController.navigate(LectureListDestination)
+                    appState.navController.navigate(LectureList)
                 }
             )
         }
 
-        composable<LectureListDestination> {
+        composable<LectureList> {
             LecturelistRoute(
                 onLectureClick = {
-                    appState.navController.navigate(LectureDetailDestination)
+                    appState.navController.navigate(Review)
                 },
             )
         }
 
-        composable<LectureDetailDestination> {
+        composable<Review> {
             ReviewRoute()
         }
     }
