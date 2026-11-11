@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.cookandroid.everytime.core.designsystem.theme.EVERYTIMETheme
+import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 
 @Composable
 fun ReviewRoute(
@@ -47,7 +47,7 @@ fun ReviewScreen(
 @Preview(showBackground = true)
 @Composable
 private fun ReviewScreenPreview() {
-    EVERYTIMETheme {
+    EverytimeTheme {
         ReviewScreen(onBackClick = {})
     }
 }
