@@ -20,7 +20,7 @@ private val LocalEverytimeTypographyProvider = staticCompositionLocalOf {
 }
 
 @Composable
-fun EVERYTIMETheme(
+fun EverytimeTheme(
     colors: EverytimeColors = defaultEverytimeColors,
     typography: EverytimeTypography = defaultEverytimeTypography,
     content: @Composable () -> Unit
