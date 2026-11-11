@@ -3,6 +3,7 @@ package com.cookandroid.everytime.core.designsystem.component.button
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,6 +41,7 @@ fun EverytimeSecondaryButton(
 ) {
     val colors = EverytimeTheme.colors
     val shape = RoundedCornerShape(100.dp)  // 버튼 모서리 반경
+    val interactionSource = remember { MutableInteractionSource() }
 
     val backgroundColor = when (type) {
         EverytimeSecondaryButtonType.MD_WHITE,
@@ -71,7 +73,11 @@ fun EverytimeSecondaryButton(
             .clip(shape)
             .background(backgroundColor)
             .then(borderModifier)
-            .clickable(onClick = onClick)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                onClick = onClick
+            )
             .padding(
                 horizontal = 12.dp,
                 vertical = type.verticalPadding
