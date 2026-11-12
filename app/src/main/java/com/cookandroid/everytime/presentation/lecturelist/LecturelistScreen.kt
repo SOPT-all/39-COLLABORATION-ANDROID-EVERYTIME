@@ -15,13 +15,13 @@ import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 
 @Composable
 fun LecturelistRoute(
-    onLectureClick: () -> Unit,
+    onNavigateToReview: () -> Unit,
     onNavigateToTimetable: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LecturelistViewModel = hiltViewModel(),
 ) {
     LecturelistScreen(
-        onLectureClick = onLectureClick,
+        onNavigateToReview = onNavigateToReview,
         onNavigateToTimetable = onNavigateToTimetable,
         modifier = modifier
     )
@@ -29,7 +29,7 @@ fun LecturelistRoute(
 
 @Composable
 fun LecturelistScreen(
-    onLectureClick: () -> Unit,
+    onNavigateToReview: () -> Unit,
     onNavigateToTimetable: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -40,7 +40,7 @@ fun LecturelistScreen(
     ) {
         Text(text = "강의 목록")
 
-        Button(onClick = onLectureClick) {
+        Button(onClick = onNavigateToReview) {
             Text(text = "샘플 강의")
         }
 
@@ -55,7 +55,7 @@ fun LecturelistScreen(
 private fun LecturelistScreenPreview() {
     EverytimeTheme {
         LecturelistScreen(
-            onLectureClick = {},
+            onNavigateToReview = {},
             onNavigateToTimetable = {}
         )
     }

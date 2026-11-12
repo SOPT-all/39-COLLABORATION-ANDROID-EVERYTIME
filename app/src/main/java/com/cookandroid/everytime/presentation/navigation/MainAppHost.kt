@@ -23,7 +23,7 @@ fun MainAppHost(
     ) {
         composable<LectureList> {
             LecturelistRoute(
-                onLectureClick = {
+                onNavigateToReview = {
                     appState.navController.navigate(Review)
                 },
                 onNavigateToTimetable = {
@@ -34,7 +34,7 @@ fun MainAppHost(
 
         composable<Timetable> {
             TimetableRoute(
-                onBackClick = {
+                onNavigateBack = {
                     appState.navController.popBackStack()
                 }
             )
@@ -42,7 +42,7 @@ fun MainAppHost(
 
         composable<Review> {
             ReviewRoute(
-                onBackClick = {
+                onNavigateBack = {
                     appState.navController.popBackStack()
                 }
             )

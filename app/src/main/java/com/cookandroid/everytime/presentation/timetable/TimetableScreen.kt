@@ -13,19 +13,19 @@ import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 
 @Composable
 fun TimetableRoute(
-    onBackClick: () -> Unit,
+    onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: TimetableViewModel = hiltViewModel(),
 ) {
     TimetableScreen(
-        onBackClick = onBackClick,
+        onNavigateBack = onNavigateBack,
         modifier = modifier
     )
 }
 
 @Composable
 fun TimetableScreen(
-    onBackClick: () -> Unit,
+    onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -35,7 +35,7 @@ fun TimetableScreen(
         Text(text = "시간표")
 
         TextButton(
-            onClick = onBackClick,
+            onClick = onNavigateBack,
             modifier = Modifier.align(Alignment.TopStart)
         ) {
             Text(text = "뒤로가기")
@@ -47,6 +47,6 @@ fun TimetableScreen(
 @Composable
 private fun TimetableScreenPreview() {
     EverytimeTheme {
-        TimetableScreen(onBackClick = {})
+        TimetableScreen(onNavigateBack = {})
     }
 }

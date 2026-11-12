@@ -13,20 +13,20 @@ import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 
 @Composable
 fun ReviewRoute(
-    onBackClick: () -> Unit,
+    onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ReviewViewModel = hiltViewModel(),
 ) {
     // TODO: ViewModel의 상태와 이벤트를 Screen에 연결합니다.
     ReviewScreen(
-        onBackClick = onBackClick,
+        onNavigateBack = onNavigateBack,
         modifier = modifier
     )
 }
 
 @Composable
 fun ReviewScreen(
-    onBackClick: () -> Unit,
+    onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -36,7 +36,7 @@ fun ReviewScreen(
         Text(text = "강의평")
 
         TextButton(
-            onClick = onBackClick,
+            onClick = onNavigateBack,
             modifier = Modifier.align(Alignment.TopStart)
         ) {
             Text(text = "뒤로가기")
@@ -48,6 +48,6 @@ fun ReviewScreen(
 @Composable
 private fun ReviewScreenPreview() {
     EverytimeTheme {
-        ReviewScreen(onBackClick = {})
+        ReviewScreen(onNavigateBack = {})
     }
 }
