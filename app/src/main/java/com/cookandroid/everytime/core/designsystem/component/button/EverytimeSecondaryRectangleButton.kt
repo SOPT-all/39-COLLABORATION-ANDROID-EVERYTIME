@@ -1,8 +1,6 @@
 package com.cookandroid.everytime.core.designsystem.component.button
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,30 +17,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
+import com.cookandroid.mjhackathon.core.util.noRippleClickable
 
 @Composable
-fun EverytimeSecondaryButton2(
+fun EverytimeSecondaryRectangleButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val colors = EverytimeTheme.colors
     val shape = RoundedCornerShape(4.dp)
-    val interactionSource = remember { MutableInteractionSource() }
 
     Box(
         modifier = modifier
             .clip(shape)
-            .background(colors.neutral50)
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                role = Role.Button,
-                onClick = onClick
-            )
+            .background(EverytimeTheme.colors.neutral50)
+            .noRippleClickable(onClick = onClick)
+            .semantics { role = Role.Button }
             .padding(
                 horizontal = 10.dp,
                 vertical = 5.dp
@@ -52,7 +47,7 @@ fun EverytimeSecondaryButton2(
         Text(
             text = text,
             style = EverytimeTheme.typography.caption4,
-            color = colors.neutral400,
+            color = EverytimeTheme.colors.neutral400,
             maxLines = 1
         )
     }
@@ -60,7 +55,7 @@ fun EverytimeSecondaryButton2(
 
 @Preview(showBackground = true, widthDp = 320)
 @Composable
-private fun EverytimeSecondaryButton2Preview() {
+private fun EverytimeSecondaryRectangleButtonPreview() {
     var shortClickCount by remember { mutableIntStateOf(0) }
     var longClickCount by remember { mutableIntStateOf(0) }
 
@@ -75,12 +70,12 @@ private fun EverytimeSecondaryButton2Preview() {
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                EverytimeSecondaryButton2(
+                EverytimeSecondaryRectangleButton(
                     text = "버튼",
                     onClick = { shortClickCount++ }
                 )
 
-                EverytimeSecondaryButton2(
+                EverytimeSecondaryRectangleButton(
                     text = "긴 문구 확인",
                     onClick = { longClickCount++ }
                 )
