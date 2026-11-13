@@ -1,4 +1,4 @@
-package com.cookandroid.mjhackathon.data.service.review
+package com.cookandroid.everytime.data.service.review
 
 interface ReviewService {
 }
