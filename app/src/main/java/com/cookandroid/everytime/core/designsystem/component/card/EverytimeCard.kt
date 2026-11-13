@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import com.cookandroid.mjhackathon.core.util.noRippleClickable
+import com.cookandroid.everytime.core.util.noRippleClickable
 
 data class LectureCardUiModel(
     val courseName: String,
@@ -74,7 +73,7 @@ private fun LectureCardContent(
         modifier = modifier
             .fillMaxWidth()
             .background(color = backgroundColor)
-            .noRippleClickable(onCardClick)
+            .noRippleClickable(onClick = onCardClick)
             .padding(vertical = 12.dp, horizontal = 16.dp),
         verticalAlignment = Alignment.Top
     ) {
@@ -144,13 +143,14 @@ private fun LectureCardContent(
 
         Column(
             modifier = Modifier.padding(top = 4.dp),
-            horizontalAlignment = Alignment.End
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+            horizontalAlignment = Alignment.End,
         ) {
-//                    EverytimeScore(
-//                        score = score,
-//                        type = EverytimeScoreType.Small,
-//                        modifier = Modifier.padding(end = scoreCountPadding)
-//                    )
+            EverytimeScore(
+                score = lecture.score,
+                type = EverytimeScoreType.Small,
+                modifier = Modifier.padding(end = scoreCountPadding)
+            )
 
             Column(
                 modifier = Modifier.padding(end = scoreCountPadding),
