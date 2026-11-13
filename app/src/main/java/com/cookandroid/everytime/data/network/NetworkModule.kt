@@ -1,9 +1,9 @@
 package com.cookandroid.everytime.data.network
 
 import com.cookandroid.everytime.BuildConfig
-import com.cookandroid.mjhackathon.data.service.lecturelist.LecturelistService
-import com.cookandroid.mjhackathon.data.service.review.ReviewService
-import com.cookandroid.mjhackathon.data.service.timetable.TimetableService
+import com.cookandroid.everytime.data.service.lecturelist.LecturelistService
+import com.cookandroid.everytime.data.service.review.ReviewService
+import com.cookandroid.everytime.data.service.timetable.TimetableService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +15,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import javax.inject.Singleton
+import kotlin.jvm.java
 
 @Module
 @InstallIn(SingletonComponent::class)

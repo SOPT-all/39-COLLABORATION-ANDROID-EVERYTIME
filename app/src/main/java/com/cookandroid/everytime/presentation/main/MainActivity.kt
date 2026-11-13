@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.presentaiton.main
+package com.cookandroid.everytime.presentation.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,16 +12,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
+import com.cookandroid.everytime.presentation.navigation.MainAppHost
+import com.cookandroid.everytime.presentation.navigation.rememberMainAppState
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             EverytimeTheme {
+                val appState = rememberMainAppState()
+
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    MainAppHost(
+                        appState = appState,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
