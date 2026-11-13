@@ -25,11 +25,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.R
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import com.cookandroid.mjhackathon.core.util.noRippleClickable
+import com.cookandroid.everytime.core.util.noRippleClickable
 
 enum class EverytimeSecondaryRectangleButtonType {
-    TEXT_ONLY,
-    LEFT_ICON
+    TEXT,
+    ICON
 }
 
 @Composable
@@ -38,7 +38,7 @@ fun EverytimeSecondaryRectangleButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     type: EverytimeSecondaryRectangleButtonType =
-        EverytimeSecondaryRectangleButtonType.TEXT_ONLY
+        EverytimeSecondaryRectangleButtonType.TEXT
 ) {
     val shape = RoundedCornerShape(4.dp)
 
@@ -58,7 +58,7 @@ fun EverytimeSecondaryRectangleButton(
         ),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (type == EverytimeSecondaryRectangleButtonType.LEFT_ICON) {
+        if (type == EverytimeSecondaryRectangleButtonType.ICON) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_like),
                 contentDescription = null,
