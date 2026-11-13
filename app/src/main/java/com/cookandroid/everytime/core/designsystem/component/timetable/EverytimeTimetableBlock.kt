@@ -9,17 +9,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 
 enum class EverytimeTimetableBlockColor {
-    SALMON,
-    LIME,
-    ORANGE,
-    GRAY,
-    OLIVE
+    CORAL,
+    GREEN,
+    ORANGE
 }
 
 @Composable
@@ -30,16 +27,14 @@ fun EverytimeTimetableBlock(
     classroom: String? = null
 ) {
     val backgroundColor = when (color) {
-        EverytimeTimetableBlockColor.SALMON -> EverytimeTheme.colors.timetableCoral
-        EverytimeTimetableBlockColor.LIME -> EverytimeTheme.colors.timetableGreen
+        EverytimeTimetableBlockColor.CORAL -> EverytimeTheme.colors.timetableCoral
+        EverytimeTimetableBlockColor.GREEN -> EverytimeTheme.colors.timetableGreen
         EverytimeTimetableBlockColor.ORANGE -> EverytimeTheme.colors.timetableOrange
-        EverytimeTimetableBlockColor.GRAY -> EverytimeTheme.colors.timetableGray
-        EverytimeTimetableBlockColor.OLIVE -> EverytimeTheme.colors.timetableOlive
     }
 
     Column(
         modifier = modifier
-            .clipToBounds()
+            .size(width = 68.dp, height = 88.dp)
             .background(backgroundColor)
             .padding(4.dp),
         verticalArrangement = Arrangement.spacedBy(1.dp)
@@ -73,7 +68,6 @@ private fun EverytimeTimetableBlockPreview() {
                 EverytimeTimetableBlock(
                     lectureName = "수업명",
                     color = color,
-                    modifier = Modifier.size(width = 68.dp, height = 88.dp),
                     classroom = "강의실"
                 )
             }
