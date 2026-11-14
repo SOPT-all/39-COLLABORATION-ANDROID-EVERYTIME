@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.data.service.lecturelist
+package com.cookandroid.mjhackathon.data.service.lecturelist
 
 interface LecturelistService {
 

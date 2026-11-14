@@ -1,6 +1,6 @@
-package com.cookandroid.everytime.data.repository.timetable
+package com.cookandroid.mjhackathon.data.repository.home
 
-import com.cookandroid.everytime.data.service.timetable.TimetableService
+import com.cookandroid.mjhackathon.data.service.timetable.TimetableService
 import jakarta.inject.Inject
 
 
