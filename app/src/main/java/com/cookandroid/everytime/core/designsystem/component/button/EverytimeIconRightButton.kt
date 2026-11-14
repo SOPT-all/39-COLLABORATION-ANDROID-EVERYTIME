@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.R
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import com.cookandroid.everytime.core.util.noRippleClickable
+import com.cookandroid.mjhackathon.core.util.noRippleClickable
 
 @Composable
 fun EverytimeIconRightButton(
