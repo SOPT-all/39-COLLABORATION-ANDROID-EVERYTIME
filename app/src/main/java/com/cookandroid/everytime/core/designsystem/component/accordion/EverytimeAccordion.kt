@@ -143,18 +143,39 @@ private fun AccordionAction(
 @Composable
 private fun EverytimeAccordionPreview() {
     EverytimeTheme {
-        EverytimeAccordion(
-            title = "AI와창의적문제해결",
-            sectionCount = 3
+        Column(
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Column(verticalArrangement = Arrangement.spacedBy(1.dp)) {
-                repeat(3) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(96.dp)
-                            .background(color = EverytimeTheme.colors.black)
-                    )
+            EverytimeAccordion(
+                title = "AI와창의적문제해결",
+                sectionCount = 3
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(1.dp)) {
+                    repeat(3) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(96.dp)
+                                .background(color = EverytimeTheme.colors.black)
+                        )
+                    }
+                }
+            }
+
+            EverytimeAccordion(
+                title = "AI와창의적문제해결",
+                sectionCount = 3,
+                initiallyExpanded = true
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(1.dp)) {
+                    repeat(3) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(96.dp)
+                                .background(color = EverytimeTheme.colors.neutral700)
+                        )
+                    }
                 }
             }
         }
