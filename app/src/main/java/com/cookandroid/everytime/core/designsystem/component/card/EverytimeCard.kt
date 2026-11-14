@@ -74,8 +74,7 @@ private fun LectureCardContent(
             .fillMaxWidth()
             .background(color = backgroundColor)
             .noRippleClickable(onClick = onCardClick)
-            .padding(vertical = 12.dp, horizontal = 16.dp),
-        verticalAlignment = Alignment.Top
+            .padding(vertical = 12.dp, horizontal = 16.dp)
     ) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
@@ -100,7 +99,7 @@ private fun LectureCardContent(
                 style = EverytimeTheme.typography.caption1,
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(2.dp))
 
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 listOf(
@@ -118,7 +117,7 @@ private fun LectureCardContent(
             }
 
             if (expanded) {
-                Spacer(modifier = Modifier.height(2.dp))
+                Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
                     text = lecture.target,
