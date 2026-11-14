@@ -144,7 +144,8 @@ private fun AccordionAction(
 private fun EverytimeAccordionPreview() {
     EverytimeTheme {
         Column(
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            modifier = Modifier.background(color = EverytimeTheme.colors.neutral900),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             EverytimeAccordion(
                 title = "AI와창의적문제해결",
