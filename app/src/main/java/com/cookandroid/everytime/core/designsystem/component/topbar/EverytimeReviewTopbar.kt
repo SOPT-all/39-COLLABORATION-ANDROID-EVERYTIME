@@ -1,5 +1,6 @@
 package com.cookandroid.everytime.core.designsystem.component.topbar
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,6 +26,7 @@ fun EverytimeReviewTopbar(
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .background(color = EverytimeTheme.colors.white)
             .padding(horizontal = 16.dp, vertical = 14.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -38,7 +40,7 @@ fun EverytimeReviewTopbar(
         Text(
             text = text,
             style = EverytimeTheme.typography.header1,
-            color = EverytimeTheme.colors.black
+            color = EverytimeTheme.colors.neutral900
         )
 
         Icon(
