@@ -1,0 +1,60 @@
+package com.cookandroid.everytime.core.designsystem.component.topbar
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.cookandroid.everytime.R
+import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
+import com.cookandroid.everytime.core.util.noRippleClickable
+
+@Composable
+fun EverytimeReviewTopbar(
+    text: String,
+    onBackClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 14.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_back),
+            contentDescription = null,
+            modifier = Modifier.noRippleClickable(onClick = onBackClick)
+        )
+
+        Text(
+            text = text,
+            style = EverytimeTheme.typography.header1,
+            color = EverytimeTheme.colors.black
+        )
+
+        Icon(
+            painter = painterResource(R.drawable.ic_close),
+            contentDescription = null
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun EverytimeReviewTopbarPreview() {
+    EverytimeTheme {
+        EverytimeReviewTopbar(
+            text = "텍스트",
+            onBackClick = {}
+        )
+    }
+}
