@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import com.cookandroid.mjhackathon.core.util.noRippleClickable
+import com.cookandroid.everytime.core.util.noRippleClickable
 
 @Composable
 fun EverytimePrimaryButton(
@@ -22,11 +22,8 @@ fun EverytimePrimaryButton(
         text = text,
         modifier = modifier
             .background(color = EverytimeTheme.colors.primary900, shape = CircleShape)
-            .padding(
-                vertical = 7.dp,
-                horizontal = 13.dp
-            )
-            .noRippleClickable(onClick),
+            .noRippleClickable(onClick = onClick)
+            .padding(vertical = 7.dp, horizontal = 13.dp),
         color = EverytimeTheme.colors.white,
         maxLines = 1,
         style = EverytimeTheme.typography.body3
