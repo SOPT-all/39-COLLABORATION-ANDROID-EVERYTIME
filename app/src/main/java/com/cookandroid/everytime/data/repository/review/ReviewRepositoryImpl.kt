@@ -1,6 +1,6 @@
-package com.cookandroid.everytime.data.repository.review
+package com.cookandroid.mjhackathon.data.repository.home
 
-import com.cookandroid.everytime.data.service.review.ReviewService
+import com.cookandroid.mjhackathon.data.service.review.ReviewService
 import jakarta.inject.Inject
 
 class ReviewRepositoryImpl @Inject constructor(

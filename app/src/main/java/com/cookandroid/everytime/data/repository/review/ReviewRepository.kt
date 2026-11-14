@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.data.repository.review
+package com.cookandroid.mjhackathon.data.repository.home
 
 interface ReviewRepository {
     // TODO: 구현예정
