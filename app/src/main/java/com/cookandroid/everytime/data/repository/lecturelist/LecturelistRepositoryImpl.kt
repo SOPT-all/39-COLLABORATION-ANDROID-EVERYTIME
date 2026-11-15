@@ -1,6 +1,7 @@
-package com.cookandroid.mjhackathon.data.repository.home
+package com.cookandroid.everytime.data.repository.lecturelist
 
-import com.cookandroid.mjhackathon.data.service.lecturelist.LecturelistService
+import com.cookandroid.everytime.data.repository.lecturelist.LecturelistRepository
+import com.cookandroid.everytime.data.service.lecturelist.LecturelistService
 import jakarta.inject.Inject
 
 class LecturelistRepositoryImpl @Inject constructor(
