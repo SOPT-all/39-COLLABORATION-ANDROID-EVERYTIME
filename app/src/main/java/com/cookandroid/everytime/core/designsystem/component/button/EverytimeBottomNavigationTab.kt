@@ -59,8 +59,7 @@ fun EverytimeBottomNavigationTab(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val colors = EverytimeTheme.colors
-    val backgroundColor = if (selected) colors.primary100 else Color.Transparent
+    val backgroundColor = if (selected) EverytimeTheme.colors.primary100 else Color.Transparent
 
     Column(
         modifier = modifier
@@ -80,12 +79,12 @@ fun EverytimeBottomNavigationTab(
             painter = painterResource(id = type.iconResId),
             contentDescription = null,
             modifier = Modifier.size(24.dp),
-            tint = colors.neutral900
+            tint = EverytimeTheme.colors.neutral900
         )
 
         Text(
             text = stringResource(id = type.labelResId),
-            color = colors.neutral900,
+            color = EverytimeTheme.colors.neutral900,
             style = EverytimeTheme.typography.caption4,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
