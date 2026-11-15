@@ -1,12 +1,14 @@
 package com.cookandroid.everytime.core.designsystem.component.button
 
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,14 +17,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.dropShadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.shadow.Shadow
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -31,35 +34,73 @@ import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 import com.cookandroid.everytime.core.util.noRippleClickable
 
 enum class EverytimeBottomNavigationTabType(
-    @get:StringRes val labelResId: Int,
-    @get:DrawableRes val iconResId: Int,
+    val label: String,
+    @DrawableRes val iconResId: Int,
     val iconLabelSpacing: Dp
 ) {
     OVERVIEW(
-        labelResId = R.string.bottom_navigation_tab_overview,
+        label = "개요",
         iconResId = R.drawable.ic_review,
         iconLabelSpacing = 2.dp
     ),
     REVIEW(
-        labelResId = R.string.bottom_navigation_tab_review,
+        label = "강의평",
         iconResId = R.drawable.ic_overview,
         iconLabelSpacing = 0.dp
     ),
     EXAM_INFO(
-        labelResId = R.string.bottom_navigation_tab_exam_info,
+        label = "시험정보",
         iconResId = R.drawable.ic_search,
         iconLabelSpacing = 0.dp
     )
 }
 
 @Composable
-fun EverytimeBottomNavigationTab(
+fun EverytimeBottomNavigation(
+    modifier: Modifier = Modifier
+) {
+    var selectedTab by rememberSaveable {
+        mutableStateOf(EverytimeBottomNavigationTabType.REVIEW)
+    }
+
+    Row(
+        modifier
+            .fillMaxWidth()
+            .height(74.dp)
+            .dropShadow(
+                shape = RectangleShape,
+                shadow = Shadow(
+                    radius = 10.5.dp,
+                    color = Color.Black.copy(alpha = 0.13f),
+                ),
+            )
+            .background(color = EverytimeTheme.colors.white)
+            .padding(vertical = 6.dp),
+        horizontalArrangement = Arrangement.spacedBy(
+            space = 70.dp,
+            alignment = Alignment.CenterHorizontally,
+        ),
+        verticalAlignment = Alignment.Top,
+    ) {
+        EverytimeBottomNavigationTabType.entries.forEach { type ->
+            EverytimeBottomNavigationTab(
+                type = type,
+                selected = type == selectedTab,
+                onClick = { },
+            )
+        }
+    }
+}
+
+@Composable
+private fun EverytimeBottomNavigationTab(
     type: EverytimeBottomNavigationTabType,
     selected: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val backgroundColor = if (selected) EverytimeTheme.colors.primary100 else Color.Transparent
+    val contentColor = EverytimeTheme.colors.neutral900
 
     Column(
         modifier = modifier
@@ -70,53 +111,30 @@ fun EverytimeBottomNavigationTab(
             )
             .padding(start = 10.dp, top = 4.dp, end = 10.dp, bottom = 3.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(
-            space = type.iconLabelSpacing,
-            alignment = Alignment.CenterVertically
-        )
+        verticalArrangement = Arrangement.spacedBy(space = type.iconLabelSpacing)
     ) {
         Icon(
             painter = painterResource(id = type.iconResId),
             contentDescription = null,
             modifier = Modifier.size(24.dp),
-            tint = EverytimeTheme.colors.neutral900
+            tint = contentColor
         )
 
         Text(
-            text = stringResource(id = type.labelResId),
-            color = EverytimeTheme.colors.neutral900,
+            text = type.label,
+            color = contentColor,
             style = EverytimeTheme.typography.caption4,
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis
         )
     }
 }
 
+@Preview(showBackground = true, widthDp = 375, heightDp = 700)
 @Composable
-@Preview(showBackground = true, widthDp = 375)
-private fun EverytimeBottomNavigationTabPreview() {
+private fun EverytimeBottomNavigationPreview() {
     EverytimeTheme {
-        var selectedTab by remember {
-            mutableStateOf(EverytimeBottomNavigationTabType.REVIEW)
-        }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 6.dp),
-            horizontalArrangement = Arrangement.spacedBy(
-                space = 70.dp,
-                alignment = Alignment.CenterHorizontally
-            ),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            EverytimeBottomNavigationTabType.entries.forEach { type ->
-                EverytimeBottomNavigationTab(
-                    type = type,
-                    selected = type == selectedTab,
-                    onClick = { selectedTab = type }
-                )
-            }
+        Box(modifier = Modifier.fillMaxSize()) {
+            EverytimeBottomNavigation(modifier = Modifier.align(Alignment.BottomCenter))
         }
     }
 }
