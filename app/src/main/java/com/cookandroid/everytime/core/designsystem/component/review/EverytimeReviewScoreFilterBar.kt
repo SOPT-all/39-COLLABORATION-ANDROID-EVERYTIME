@@ -14,19 +14,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.component.button.EverytimeIconRightButton
 import com.cookandroid.everytime.core.designsystem.component.card.EverytimeScore
 import com.cookandroid.everytime.core.designsystem.component.card.EverytimeScoreType
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import java.util.Locale
 
 @Composable
 fun EverytimeReviewScoreFilterBar(
     score: Float,
-    filterText: String,
-    sortText: String,
     onFilterClick: () -> Unit,
     onSortClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -34,16 +32,16 @@ fun EverytimeReviewScoreFilterBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(color = EverytimeTheme.colors.white),
+            .background(color = Color.Transparent)
+            .padding(start = 12.dp, end = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = String.format(Locale.ROOT, "%.2f", score),
+                text = String.format("%.2f", score),
                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
                 style = EverytimeTheme.typography.header1,
                 color = EverytimeTheme.colors.neutral900,
@@ -57,17 +55,16 @@ fun EverytimeReviewScoreFilterBar(
         }
 
         Row(
-            modifier = Modifier.padding(end = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(space = 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             EverytimeIconRightButton(
-                text = filterText,
+                text = "전체",
                 onClick = onFilterClick
             )
 
             EverytimeIconRightButton(
-                text = sortText,
+                text = "등록순",
                 onClick = onSortClick
             )
         }
@@ -89,8 +86,6 @@ private fun EverytimeReviewScoreFilterBarPreview() {
         ) {
             EverytimeReviewScoreFilterBar(
                 score = 3.67f,
-                filterText = "전체",
-                sortText = "등록순",
                 onFilterClick = { filterClickCount++ },
                 onSortClick = { sortClickCount++ }
             )
