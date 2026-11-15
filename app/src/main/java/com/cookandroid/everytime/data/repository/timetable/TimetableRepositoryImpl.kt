@@ -1,5 +1,6 @@
 package com.cookandroid.everytime.data.repository.timetable
 
+import com.cookandroid.everytime.data.repository.timetable.TimetableRepository
 import com.cookandroid.everytime.data.service.timetable.TimetableService
 import jakarta.inject.Inject
 

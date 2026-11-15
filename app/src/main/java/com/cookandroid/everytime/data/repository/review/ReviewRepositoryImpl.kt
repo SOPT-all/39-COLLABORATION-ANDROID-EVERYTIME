@@ -1,5 +1,6 @@
 package com.cookandroid.everytime.data.repository.review
 
+import com.cookandroid.everytime.data.repository.review.ReviewRepository
 import com.cookandroid.everytime.data.service.review.ReviewService
 import jakarta.inject.Inject
 
