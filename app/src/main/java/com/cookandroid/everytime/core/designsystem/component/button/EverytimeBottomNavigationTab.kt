@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -93,7 +94,7 @@ fun EverytimeBottomNavigationTab(
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 375)
 private fun EverytimeBottomNavigationTabPreview() {
     EverytimeTheme {
         var selectedTab by remember {
@@ -101,8 +102,13 @@ private fun EverytimeBottomNavigationTabPreview() {
         }
 
         Row(
-            modifier = Modifier.padding(12.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 6.dp),
+            horizontalArrangement = Arrangement.spacedBy(
+                space = 70.dp,
+                alignment = Alignment.CenterHorizontally
+            ),
             verticalAlignment = Alignment.CenterVertically
         ) {
             EverytimeBottomNavigationTabType.entries.forEach { type ->
