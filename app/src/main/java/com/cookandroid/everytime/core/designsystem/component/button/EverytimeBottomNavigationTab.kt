@@ -6,10 +6,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -34,25 +32,21 @@ import com.cookandroid.everytime.core.util.noRippleClickable
 enum class EverytimeBottomNavigationTabType(
     @get:StringRes val labelResId: Int,
     @get:DrawableRes val iconResId: Int,
-    val minHeight: Dp,
     val iconLabelSpacing: Dp
 ) {
     OVERVIEW(
         labelResId = R.string.bottom_navigation_tab_overview,
         iconResId = R.drawable.ic_review,
-        minHeight = 45.dp,
         iconLabelSpacing = 2.dp
     ),
     REVIEW(
         labelResId = R.string.bottom_navigation_tab_review,
         iconResId = R.drawable.ic_overview,
-        minHeight = 47.dp,
         iconLabelSpacing = 0.dp
     ),
     EXAM_INFO(
         labelResId = R.string.bottom_navigation_tab_exam_info,
         iconResId = R.drawable.ic_search,
-        minHeight = 43.dp,
         iconLabelSpacing = 0.dp
     )
 }
@@ -70,13 +64,11 @@ fun EverytimeBottomNavigationTab(
     Column(
         modifier = modifier
             .noRippleClickable(onClick = onClick)
-            .widthIn(min = 53.dp)
-            .heightIn(min = type.minHeight)
             .background(
                 color = backgroundColor,
                 shape = RoundedCornerShape(12.dp)
             )
-            .padding(start = 4.dp, top = 4.dp, end = 4.dp, bottom = 3.dp),
+            .padding(start = 10.dp, top = 4.dp, end = 10.dp, bottom = 3.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(
             space = type.iconLabelSpacing,
