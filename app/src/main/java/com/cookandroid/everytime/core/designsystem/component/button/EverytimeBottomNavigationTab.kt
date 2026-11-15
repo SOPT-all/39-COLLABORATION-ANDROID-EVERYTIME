@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.R
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import com.cookandroid.mjhackathon.core.util.noRippleClickable
+import com.cookandroid.everytime.core.util.noRippleClickable
 
 enum class EverytimeBottomNavigationTabType(
     @get:StringRes val labelResId: Int,
