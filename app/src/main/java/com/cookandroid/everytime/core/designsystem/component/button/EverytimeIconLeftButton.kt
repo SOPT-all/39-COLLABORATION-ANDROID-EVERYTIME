@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.dropShadow
 import androidx.compose.ui.graphics.shadow.Shadow
 import androidx.compose.ui.res.painterResource
@@ -40,8 +39,10 @@ fun EverytimeIconLeftButton(
                     alpha = 0.18f
                 )
             )
-            .clip(CircleShape)
-            .background(color = EverytimeTheme.colors.primary900)
+            .background(
+                color = EverytimeTheme.colors.primary900,
+                shape = CircleShape
+            )
             .noRippleClickable(onClick = onClick)
             .padding(horizontal = 16.dp, vertical = 10.dp),
         horizontalArrangement = Arrangement.spacedBy(space = 7.dp),
