@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.component.button.EverytimeSecondaryCircleButton
 import com.cookandroid.everytime.core.designsystem.component.button.EverytimeSecondaryCircleButtonType
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import com.cookandroid.mjhackathon.core.util.noRippleClickable
+import com.cookandroid.everytime.core.util.noRippleClickable
 
 data class LectureCardUiModel(
     val courseName: String,
@@ -132,8 +132,7 @@ private fun LectureCardContent(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    EverytimeSecondaryCircleButton(
-                        text = "시간표에 추가",
+                    EverytimeSecondaryCircleButton(text = "시간표에 추가",
                         type = EverytimeSecondaryCircleButtonType.SM_RED,
                         onClick = { }, // 구현없음
                     )
