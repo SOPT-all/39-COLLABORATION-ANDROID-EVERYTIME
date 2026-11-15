@@ -61,17 +61,12 @@ private fun AccordionHeader(
     onExpand: () -> Unit
 ) {
     val textStyle = EverytimeTheme.typography.body2
-    val headerClick = if (expanded) {
-        Modifier
-    } else {
-        Modifier.noRippleClickable(onClick = onExpand)
-    }
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .background(EverytimeTheme.colors.neutral50)
-            .then(headerClick)
+            .noRippleClickable(enabled = !expanded, onClick = onExpand)
             .padding(horizontal = 24.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -95,7 +90,7 @@ private fun AccordionHeader(
         }
 
         if (!expanded) {
-            AccordionAction(expanded = false)
+            AccordionAction(isCollapseAction = false)
         }
     }
 }
@@ -103,7 +98,7 @@ private fun AccordionHeader(
 @Composable
 private fun AccordionBottomSection(onClick: () -> Unit) {
     AccordionAction(
-        expanded = true,
+        isCollapseAction = true,
         modifier = Modifier
             .fillMaxWidth()
             .background(EverytimeTheme.colors.neutral200)
@@ -114,7 +109,7 @@ private fun AccordionBottomSection(onClick: () -> Unit) {
 
 @Composable
 private fun AccordionAction(
-    expanded: Boolean,
+    isCollapseAction: Boolean,
     modifier: Modifier = Modifier
 ) {
     val color = EverytimeTheme.colors.timetableCoral
@@ -127,12 +122,12 @@ private fun AccordionAction(
             painter = painterResource(R.drawable.ic_collapse),
             contentDescription = null,
             modifier = Modifier
-                .size(16.dp)
-                .rotate(if (expanded) 0f else 180f),
+                .size(17.dp)
+                .rotate(if (isCollapseAction) 0f else 180f),
             tint = color
         )
         Text(
-            text = if (expanded) "접기" else "펼치기",
+            text = if (isCollapseAction) "접기" else "펼치기",
             color = color,
             style = EverytimeTheme.typography.body2
         )
