@@ -17,21 +17,9 @@ import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 @Composable
 fun EverytimeLectureFilterBar(
     majorValue: String,
-    searchValue: String,
-    sortValue: String,
-    timeValue: String,
     isMajorActive: Boolean,
-    isSearchActive: Boolean,
-    isSortActive: Boolean,
-    isTimeActive: Boolean,
-    onMajorClick: () -> Unit,
-    onSearchClick: () -> Unit,
-    onSortClick: () -> Unit,
     onTimeClick: () -> Unit,
     onMajorClearClick: () -> Unit,
-    onSearchClearClick: () -> Unit,
-    onSortClearClick: () -> Unit,
-    onTimeClearClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -49,29 +37,32 @@ fun EverytimeLectureFilterBar(
             label = "전공/영역:",
             value = majorValue,
             isActive = isMajorActive,
-            onClick = onMajorClick,
+            onClick = {},
             onClearClick = onMajorClearClick
         )
+
         EverytimeFilterChip(
             label = "검색어:",
-            value = searchValue,
-            isActive = isSearchActive,
-            onClick = onSearchClick,
-            onClearClick = onSearchClearClick
+            value = "없음",
+            isActive = false,
+            onClick = {},
+            onClearClick = {}
         )
+
         EverytimeFilterChip(
             label = "정렬:",
-            value = sortValue,
-            isActive = isSortActive,
-            onClick = onSortClick,
-            onClearClick = onSortClearClick
+            value = "없음",
+            isActive = false,
+            onClick = {},
+            onClearClick = {}
         )
+
         EverytimeFilterChip(
             label = "시간:",
-            value = timeValue,
-            isActive = isTimeActive,
+            value = "전체",
+            isActive = false,
             onClick = onTimeClick,
-            onClearClick = onTimeClearClick
+            onClearClick = {}
         )
     }
 }
@@ -86,39 +77,15 @@ private fun EverytimeLectureFilterBarPreview() {
         ) {
             EverytimeLectureFilterBar(
                 majorValue = "교양필수",
-                searchValue = "없음",
-                sortValue = "기본순",
-                timeValue = "전체",
                 isMajorActive = true,
-                isSearchActive = false,
-                isSortActive = false,
-                isTimeActive = false,
-                onMajorClick = {},
-                onSearchClick = {},
-                onSortClick = {},
                 onTimeClick = {},
-                onMajorClearClick = {},
-                onSearchClearClick = {},
-                onSortClearClick = {},
-                onTimeClearClick = {}
+                onMajorClearClick = {}
             )
             EverytimeLectureFilterBar(
                 majorValue = "전체",
-                searchValue = "창의적 사고와 문제 해결",
-                sortValue = "강의평 많은 순",
-                timeValue = "월요일 오전 9시~12시",
                 isMajorActive = false,
-                isSearchActive = true,
-                isSortActive = true,
-                isTimeActive = true,
-                onMajorClick = {},
-                onSearchClick = {},
-                onSortClick = {},
                 onTimeClick = {},
-                onMajorClearClick = {},
-                onSearchClearClick = {},
-                onSortClearClick = {},
-                onTimeClearClick = {}
+                onMajorClearClick = {}
             )
         }
     }
