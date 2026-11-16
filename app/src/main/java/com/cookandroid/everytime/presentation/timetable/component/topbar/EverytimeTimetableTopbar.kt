@@ -22,6 +22,7 @@ import com.cookandroid.everytime.core.util.noRippleClickable
 fun EverytimeTimetableTopbar(
     text: String,
     onBackClick: () -> Unit,
+    onApplyClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -46,7 +47,7 @@ fun EverytimeTimetableTopbar(
 
         EverytimePrimaryButton(
             text = "적용",
-            onClick = { }
+            onClick = onApplyClick
         )
     }
 }
@@ -57,7 +58,8 @@ private fun EverytimeTimetableTopbarPreview() {
     EverytimeTheme {
         EverytimeTimetableTopbar(
             text = "텍스트",
-            onBackClick = {}
+            onBackClick = {},
+            onApplyClick = {}
         )
     }
 }

@@ -14,11 +14,13 @@ import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 @Composable
 fun TimetableRoute(
     onNavigateBack: () -> Unit,
+    onApply: (String?) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: TimetableViewModel = hiltViewModel(),
 ) {
     TimetableScreen(
         onNavigateBack = onNavigateBack,
+        onApply = onApply,
         modifier = modifier
     )
 }
@@ -26,6 +28,7 @@ fun TimetableRoute(
 @Composable
 fun TimetableScreen(
     onNavigateBack: () -> Unit,
+    onApply: (String?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -47,6 +50,9 @@ fun TimetableScreen(
 @Composable
 private fun TimetableScreenPreview() {
     EverytimeTheme {
-        TimetableScreen(onNavigateBack = {})
+        TimetableScreen(
+            onNavigateBack = {},
+            onApply = {},
+        )
     }
 }
