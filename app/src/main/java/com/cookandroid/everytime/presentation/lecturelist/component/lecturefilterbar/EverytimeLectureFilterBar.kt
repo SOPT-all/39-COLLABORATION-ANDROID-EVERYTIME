@@ -17,6 +17,7 @@ import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 
 @Composable
 fun EverytimeLectureFilterBar(
+    onMajorClick: () -> Unit,
     onTimeClick: () -> Unit,
     onMajorClearClick: () -> Unit,
     onTimeClearClick: () -> Unit,
