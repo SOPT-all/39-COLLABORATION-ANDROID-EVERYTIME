@@ -31,7 +31,6 @@ fun EverytimeCheckboxFilter(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Row(
-            modifier = modifier,
             horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -48,7 +47,6 @@ fun EverytimeCheckboxFilter(
         }
 
         Row(
-            modifier = modifier,
             horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
