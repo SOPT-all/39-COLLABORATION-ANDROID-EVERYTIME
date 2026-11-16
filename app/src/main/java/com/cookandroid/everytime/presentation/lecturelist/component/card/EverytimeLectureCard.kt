@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.core.designsystem.component.card
+package com.cookandroid.everytime.presentation.lecturelist.component.card
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.component.button.EverytimeSecondaryCircleButton
 import com.cookandroid.everytime.core.designsystem.component.button.EverytimeSecondaryCircleButtonType
+import com.cookandroid.everytime.core.designsystem.component.score.EverytimeScore
+import com.cookandroid.everytime.core.designsystem.component.score.EverytimeScoreType
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 import com.cookandroid.everytime.core.util.noRippleClickable
 

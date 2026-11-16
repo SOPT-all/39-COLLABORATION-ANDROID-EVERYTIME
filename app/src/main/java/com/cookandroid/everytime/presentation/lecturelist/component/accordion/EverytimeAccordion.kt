@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.core.designsystem.component.accordion
+package com.cookandroid.everytime.presentation.lecturelist.component.accordion
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

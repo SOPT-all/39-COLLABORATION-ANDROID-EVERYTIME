@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.core.designsystem.component.topbar
+package com.cookandroid.everytime.presentation.lecturelist.component.topbar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,16 +13,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.R
-import com.cookandroid.everytime.core.designsystem.component.button.EverytimePrimaryButton
+import com.cookandroid.everytime.core.designsystem.component.button.EverytimeSecondaryCircleButton
+import com.cookandroid.everytime.core.designsystem.component.button.EverytimeSecondaryCircleButtonType
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import com.cookandroid.everytime.core.util.noRippleClickable
 
 @Composable
-fun EverytimeTimetableTopbar(
-    text: String,
-    onBackClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
+fun EverytimeLecturelistTopbar(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -34,30 +29,31 @@ fun EverytimeTimetableTopbar(
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_close),
-            contentDescription = null,
-            modifier = Modifier.noRippleClickable(onClick = onBackClick)
+            contentDescription = null
         )
 
-        Text(
-            text = text,
-            style = EverytimeTheme.typography.header1,
-            color = EverytimeTheme.colors.neutral900
-        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            EverytimeSecondaryCircleButton(
+                text = "마법사",
+                type = EverytimeSecondaryCircleButtonType.SM_WHITE,
+                onClick = { }
+            )
 
-        EverytimePrimaryButton(
-            text = "적용",
-            onClick = { }
-        )
+            EverytimeSecondaryCircleButton(
+                text = "직접 추가",
+                type = EverytimeSecondaryCircleButtonType.SM_WHITE,
+                onClick = { }
+            )
+        }
     }
 }
 
 @Preview
 @Composable
-private fun EverytimeTimetableTopbarPreview() {
+private fun EverytimeLecturelistTopbarPreview() {
     EverytimeTheme {
-        EverytimeTimetableTopbar(
-            text = "텍스트",
-            onBackClick = {}
-        )
+        EverytimeLecturelistTopbar()
     }
 }

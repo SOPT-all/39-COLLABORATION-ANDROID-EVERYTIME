@@ -15,22 +15,28 @@ import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 
 @Composable
 fun LecturelistRoute(
+    timeValue: String?,
     onNavigateToReview: () -> Unit,
     onNavigateToTimetable: () -> Unit,
+    onTimeClearClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LecturelistViewModel = hiltViewModel(),
 ) {
     LecturelistScreen(
+        timeValue = timeValue,
         onNavigateToReview = onNavigateToReview,
         onNavigateToTimetable = onNavigateToTimetable,
+        onTimeClearClick = onTimeClearClick,
         modifier = modifier
     )
 }
 
 @Composable
 fun LecturelistScreen(
+    timeValue: String?,
     onNavigateToReview: () -> Unit,
     onNavigateToTimetable: () -> Unit,
+    onTimeClearClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -56,7 +62,9 @@ private fun LecturelistScreenPreview() {
     EverytimeTheme {
         LecturelistScreen(
             onNavigateToReview = {},
-            onNavigateToTimetable = {}
+            onNavigateToTimetable = {},
+            onTimeClearClick = {},
+            timeValue = "월 9~10시"
         )
     }
 }

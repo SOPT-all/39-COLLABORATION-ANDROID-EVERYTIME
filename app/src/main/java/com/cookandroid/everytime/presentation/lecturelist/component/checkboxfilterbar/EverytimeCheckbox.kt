@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.core.designsystem.component.checkbox
+package com.cookandroid.everytime.presentation.lecturelist.component.checkboxfilterbar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

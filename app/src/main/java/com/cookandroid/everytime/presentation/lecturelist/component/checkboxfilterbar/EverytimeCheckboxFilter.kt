@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.core.designsystem.component.checkboxfilter
+package com.cookandroid.everytime.presentation.lecturelist.component.checkboxfilterbar
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -12,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.cookandroid.everytime.core.designsystem.component.checkbox.EverytimeCheckbox
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 
 @Composable

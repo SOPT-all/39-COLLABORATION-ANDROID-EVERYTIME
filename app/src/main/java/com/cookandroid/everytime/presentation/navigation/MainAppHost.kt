@@ -1,6 +1,10 @@
 package com.cookandroid.everytime.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,6 +20,9 @@ fun MainAppHost(
     appState: MainAppState,
     modifier: Modifier = Modifier
 ) {
+    // MainAppHost.kt — NavHost 위에 추가
+    var selectedTimeLabel by rememberSaveable { mutableStateOf<String?>(null) }
+
     NavHost(
         navController = appState.navController,
         startDestination = LectureList,
@@ -23,28 +30,27 @@ fun MainAppHost(
     ) {
         composable<LectureList> {
             LecturelistRoute(
-                onNavigateToReview = {
-                    appState.navController.navigate(Review)
-                },
-                onNavigateToTimetable = {
-                    appState.navController.navigate(Timetable)
-                }
+                onNavigateToReview = { appState.navController.navigate(Review) },
+                onNavigateToTimetable = { appState.navController.navigate(Timetable) },
+                timeValue = selectedTimeLabel,
+                onTimeClearClick = { selectedTimeLabel = null }
             )
         }
 
         composable<Timetable> {
             TimetableRoute(
-                onNavigateBack = {
+                onNavigateBack = { appState.navController.popBackStack() },
+                onApply = { label ->
+                    selectedTimeLabel = label
                     appState.navController.popBackStack()
-                }
+                },
+
             )
         }
 
         composable<Review> {
             ReviewRoute(
-                onNavigateBack = {
-                    appState.navController.popBackStack()
-                }
+                onNavigateBack = { appState.navController.popBackStack() }
             )
         }
     }

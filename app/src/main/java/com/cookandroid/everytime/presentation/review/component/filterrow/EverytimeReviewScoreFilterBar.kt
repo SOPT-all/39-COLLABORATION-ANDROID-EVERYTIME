@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.core.designsystem.component.review
+package com.cookandroid.everytime.presentation.review.component.filterrow
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -8,25 +8,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.component.button.EverytimeIconRightButton
-import com.cookandroid.everytime.core.designsystem.component.card.EverytimeScore
-import com.cookandroid.everytime.core.designsystem.component.card.EverytimeScoreType
+import com.cookandroid.everytime.core.designsystem.component.score.EverytimeScore
+import com.cookandroid.everytime.core.designsystem.component.score.EverytimeScoreType
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 
 @Composable
 fun EverytimeReviewScoreFilterBar(
     score: Float,
-    onFilterClick: () -> Unit,
-    onSortClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -60,12 +54,12 @@ fun EverytimeReviewScoreFilterBar(
         ) {
             EverytimeIconRightButton(
                 text = "전체",
-                onClick = onFilterClick
+                onClick = {  } //여기 콜백도 기획상 작동안해서 지웠습니당
             )
 
             EverytimeIconRightButton(
                 text = "등록순",
-                onClick = onSortClick
+                onClick = {  } //여기 콜백도 기획상 작동안해서 지웠습니당
             )
         }
     }
@@ -75,9 +69,6 @@ fun EverytimeReviewScoreFilterBar(
 @Composable
 private fun EverytimeReviewScoreFilterBarPreview() {
     EverytimeTheme {
-        var filterClickCount by remember { mutableIntStateOf(0) }
-        var sortClickCount by remember { mutableIntStateOf(0) }
-
         Column(
             modifier = Modifier
                 .background(color = EverytimeTheme.colors.white)
@@ -85,16 +76,7 @@ private fun EverytimeReviewScoreFilterBarPreview() {
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             EverytimeReviewScoreFilterBar(
-                score = 3.67f,
-                onFilterClick = { filterClickCount++ },
-                onSortClick = { sortClickCount++ }
-            )
-
-            Text(
-                text = "필터 클릭: ${filterClickCount}회 / 정렬 클릭: ${sortClickCount}회",
-                modifier = Modifier.padding(horizontal = 16.dp),
-                style = EverytimeTheme.typography.caption2,
-                color = EverytimeTheme.colors.neutral800
+                score = 3.67f
             )
         }
     }

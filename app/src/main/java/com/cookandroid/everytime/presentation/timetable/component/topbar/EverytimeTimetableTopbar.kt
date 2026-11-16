@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.core.designsystem.component.topbar
+package com.cookandroid.everytime.presentation.timetable.component.topbar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,13 +14,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.R
+import com.cookandroid.everytime.core.designsystem.component.button.EverytimePrimaryButton
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 import com.cookandroid.everytime.core.util.noRippleClickable
 
 @Composable
-fun EverytimeReviewTopbar(
+fun EverytimeTimetableTopbar(
     text: String,
     onBackClick: () -> Unit,
+    onApplyClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -32,7 +34,7 @@ fun EverytimeReviewTopbar(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
-            painter = painterResource(R.drawable.ic_back),
+            painter = painterResource(R.drawable.ic_close),
             contentDescription = null,
             modifier = Modifier.noRippleClickable(onClick = onBackClick)
         )
@@ -43,20 +45,21 @@ fun EverytimeReviewTopbar(
             color = EverytimeTheme.colors.neutral900
         )
 
-        Icon(
-            painter = painterResource(R.drawable.ic_close),
-            contentDescription = null
+        EverytimePrimaryButton(
+            text = "적용",
+            onClick = onApplyClick
         )
     }
 }
 
 @Preview
 @Composable
-private fun EverytimeReviewTopbarPreview() {
+private fun EverytimeTimetableTopbarPreview() {
     EverytimeTheme {
-        EverytimeReviewTopbar(
+        EverytimeTimetableTopbar(
             text = "텍스트",
-            onBackClick = {}
+            onBackClick = {},
+            onApplyClick = {}
         )
     }
 }

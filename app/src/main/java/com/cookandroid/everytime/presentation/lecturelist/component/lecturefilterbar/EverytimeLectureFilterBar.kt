@@ -1,5 +1,7 @@
-package com.cookandroid.everytime.core.designsystem.component.chip
+package com.cookandroid.everytime.presentation.lecturelist.component.lecturefilterbar
 
+import android.R.attr.onClick
+import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,14 +15,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
+import kotlinx.coroutines.NonCancellable.isActive
 
 @Composable
 fun EverytimeLectureFilterBar(
-    majorValue: String,
-    isMajorActive: Boolean,
     onTimeClick: () -> Unit,
     onMajorClearClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onTimeClearClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    majorValue: String? = null,
+    timeValue: String? = null,
+    isMajorActive: Boolean = false,
+    isTimeActive: Boolean = false,
 ) {
     Row(
         modifier = modifier
@@ -35,7 +41,7 @@ fun EverytimeLectureFilterBar(
     ) {
         EverytimeFilterChip(
             label = "전공/영역:",
-            value = majorValue,
+            value = majorValue ?: "없음",
             isActive = isMajorActive,
             onClick = {},
             onClearClick = onMajorClearClick
@@ -59,10 +65,10 @@ fun EverytimeLectureFilterBar(
 
         EverytimeFilterChip(
             label = "시간:",
-            value = "전체",
-            isActive = false,
+            value = timeValue ?: "전체",
+            isActive = isTimeActive,
             onClick = onTimeClick,
-            onClearClick = {}
+            onClearClick = onTimeClearClick
         )
     }
 }
@@ -72,20 +78,23 @@ fun EverytimeLectureFilterBar(
 private fun EverytimeLectureFilterBarPreview() {
     EverytimeTheme {
         Column(
-            modifier = Modifier.padding(vertical = 16.dp),
+            modifier = Modifier
+                .background(color = EverytimeTheme.colors.white)
+                .padding(vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(space = 16.dp)
         ) {
             EverytimeLectureFilterBar(
-                majorValue = "교양필수",
-                isMajorActive = true,
                 onTimeClick = {},
-                onMajorClearClick = {}
+                onMajorClearClick = {},
+                onTimeClearClick = {},
+                isMajorActive = true
             )
             EverytimeLectureFilterBar(
-                majorValue = "전체",
-                isMajorActive = false,
                 onTimeClick = {},
-                onMajorClearClick = {}
+                onMajorClearClick = {},
+                onTimeClearClick = {},
+                isMajorActive = false,
+                isTimeActive = true
             )
         }
     }
