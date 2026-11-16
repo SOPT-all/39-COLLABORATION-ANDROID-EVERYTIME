@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.core.designsystem.component.chip
+package com.cookandroid.everytime.presentation.review.component.keywordfilterbar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

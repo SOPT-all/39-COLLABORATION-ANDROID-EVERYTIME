@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.core.designsystem.component.topbar
+package com.cookandroid.everytime.presentation.timetable.component.topbar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

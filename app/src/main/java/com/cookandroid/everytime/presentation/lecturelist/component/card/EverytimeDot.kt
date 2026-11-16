@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.core.designsystem.component.card
+package com.cookandroid.everytime.presentation.lecturelist.component.card
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

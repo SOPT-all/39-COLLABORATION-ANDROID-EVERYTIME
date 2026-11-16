@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.core.designsystem.component.button
+package com.cookandroid.everytime.presentation.review.component.bottomnavigation
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
