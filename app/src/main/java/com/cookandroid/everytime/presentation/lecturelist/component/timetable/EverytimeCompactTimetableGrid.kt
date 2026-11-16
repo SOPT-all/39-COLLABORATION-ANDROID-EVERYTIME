@@ -6,6 +6,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.cookandroid.everytime.core.designsystem.component.timetable.TimetableGrid
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 
 private val compactGridLayout =
@@ -23,7 +24,7 @@ private val compactGridLayout =
 fun EverytimeCompactTimetableGrid(
     modifier: Modifier = Modifier
 ) {
-    _root_ide_package_.com.cookandroid.everytime.core.designsystem.component.timetable.TimetableGrid(
+    TimetableGrid(
         layout = compactGridLayout,
         labelColor = EverytimeTheme.colors.timetableRose,
         labelStyle = EverytimeTheme.typography.caption5,

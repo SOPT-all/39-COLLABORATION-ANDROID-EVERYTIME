@@ -1,6 +1,5 @@
 package com.cookandroid.everytime.presentation.lecturelist.component.lecturefilterbar
 
-import android.R.attr.onClick
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -15,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import kotlinx.coroutines.NonCancellable.isActive
 
 @Composable
 fun EverytimeLectureFilterBar(

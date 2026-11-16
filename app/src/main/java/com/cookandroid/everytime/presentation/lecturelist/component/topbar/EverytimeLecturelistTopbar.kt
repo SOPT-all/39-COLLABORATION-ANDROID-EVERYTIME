@@ -32,9 +32,7 @@ fun EverytimeLecturelistTopbar(modifier: Modifier = Modifier) {
             contentDescription = null
         )
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             EverytimeSecondaryCircleButton(
                 text = "마법사",
                 type = EverytimeSecondaryCircleButtonType.SM_WHITE,
