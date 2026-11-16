@@ -10,6 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.component.button.EverytimeSecondaryRectangleButton
@@ -28,7 +30,27 @@ data class ReviewCardUiModel(
 fun EverytimeReviewCard(
     review: ReviewCardUiModel,
     modifier: Modifier = Modifier,
+    highlightedKeyword: String? = null,
 ) {
+    val highlightColor = EverytimeTheme.colors.pointYellow
+    val annotatedContent = buildAnnotatedString {
+        append(review.content)
+
+        if (!highlightedKeyword.isNullOrEmpty()) {
+            var start = review.content.indexOf(highlightedKeyword)
+            while (start >= 0) {
+                addStyle(
+                    style = SpanStyle(background = highlightColor),
+                    start = start,
+                    end = start + highlightedKeyword.length,
+                )
+                start = review.content.indexOf(
+                    string = highlightedKeyword,
+                    startIndex = start + highlightedKeyword.length,
+                )
+            }
+        }
+    }
 
     Column(
         modifier = modifier
@@ -73,7 +95,7 @@ fun EverytimeReviewCard(
         }
 
         Text(
-            text = review.content,
+            text = annotatedContent,
             color = EverytimeTheme.colors.neutral800,
             style = EverytimeTheme.typography.body4,
         )
