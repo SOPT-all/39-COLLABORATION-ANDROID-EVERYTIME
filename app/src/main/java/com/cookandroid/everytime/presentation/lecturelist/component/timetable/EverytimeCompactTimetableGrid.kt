@@ -12,7 +12,7 @@ import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 private val compactGridLayout =
     _root_ide_package_.com.cookandroid.everytime.core.designsystem.component.timetable.TimetableGridLayout(
         days = _root_ide_package_.com.cookandroid.everytime.core.designsystem.component.timetable.timetableWeekDays,
-        hours = listOf("9", "10", "11", "12", "1"),
+        hours = listOf("9", "10", "11", "12", "1", "2", "3", "4", "5"),
         timeColumnWidth = 19.dp,
         headerHeight = 18.dp,
         rowHeight = 43.dp,
