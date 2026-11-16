@@ -20,7 +20,6 @@ fun MainAppHost(
     appState: MainAppState,
     modifier: Modifier = Modifier
 ) {
-    // MainAppHost.kt — NavHost 위에 추가
     var selectedTimeLabel by rememberSaveable { mutableStateOf<String?>(null) }
 
     NavHost(
@@ -33,7 +32,8 @@ fun MainAppHost(
                 onNavigateToReview = { appState.navController.navigate(Review) },
                 onNavigateToTimetable = { appState.navController.navigate(Timetable) },
                 timeValue = selectedTimeLabel,
-                onTimeClearClick = { selectedTimeLabel = null }
+                onTimeClearClick = { selectedTimeLabel = null },
+                modifier = modifier
             )
         }
 
@@ -44,13 +44,14 @@ fun MainAppHost(
                     selectedTimeLabel = label
                     appState.navController.popBackStack()
                 },
-
+                modifier = modifier
             )
         }
 
         composable<Review> {
             ReviewRoute(
-                onNavigateBack = { appState.navController.popBackStack() }
+                onNavigateBack = { appState.navController.popBackStack() },
+                modifier = modifier
             )
         }
     }
