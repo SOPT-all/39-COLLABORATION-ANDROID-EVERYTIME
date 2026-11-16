@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -102,14 +104,16 @@ private fun TimetableScreenPreview() {
     }
 
     EverytimeTheme {
-        TimetableScreen(
-            uiState = uiState,
-            onSlotClick = { slot ->
-                val selectedSlot = if (uiState.selectedSlot == slot) null else slot
-                uiState = uiState.copy(selectedSlot = selectedSlot)
-            },
-            onBackClick = {},
-            onApplyClick = {}
-        )
+        Surface(color = MaterialTheme.colorScheme.background) {
+            TimetableScreen(
+                uiState = uiState,
+                onSlotClick = { slot ->
+                    val selectedSlot = if (uiState.selectedSlot == slot) null else slot
+                    uiState = uiState.copy(selectedSlot = selectedSlot)
+                },
+                onBackClick = {},
+                onApplyClick = {}
+            )
+        }
     }
 }
