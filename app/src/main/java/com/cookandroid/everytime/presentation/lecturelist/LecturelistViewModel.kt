@@ -1,42 +1,27 @@
 package com.cookandroid.everytime.presentation.lecturelist
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.cookandroid.everytime.presentation.lecturelist.component.model.LecturelistCourse
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 @HiltViewModel
 class LecturelistViewModel @Inject constructor() : ViewModel() {
     private val _uiState = MutableStateFlow(dummyLecturelistUiState)
     val uiState = _uiState.asStateFlow()
 
-    fun clearMajorFilter() {
-        _uiState.update { it.copy(majorValue = null) }
+    fun selectCategory(category: LectureCategory?) {
+        _uiState.update { applyFilters(it.copy(category = category)) }
     }
 
     fun setHideTaken(checked: Boolean) {
-        _uiState.update { state ->
-            state.copy(
-                hideTaken = checked,
-                courses = filterCourses(checked, state.hideRestricted),
-            )
-        }
+        _uiState.update { applyFilters(it.copy(hideTaken = checked)) }
     }
 
     fun setHideRestricted(checked: Boolean) {
-        _uiState.update { state ->
-            state.copy(
-                hideRestricted = checked,
-                courses = filterCourses(state.hideTaken, checked),
-            )
-        }
+        _uiState.update { applyFilters(it.copy(hideRestricted = checked)) }
     }
 
     fun setCourseExpanded(courseId: Long, expanded: Boolean) {
@@ -55,9 +40,13 @@ class LecturelistViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    private fun filterCourses(hideTaken: Boolean, hideRestricted: Boolean): List<LecturelistCourse> =
-        dummyLecturelistUiState.courses.filter { course ->
-            (!hideTaken || course.courseId !in dummyTakenCourseIds) &&
-                    (!hideRestricted || course.courseId !in dummyRestrictedCourseIds)
+    private fun applyFilters(state: LecturelistUiState): LecturelistUiState {
+        val categoryId = state.category?.categoryId
+        val courses = dummyLecturelistUiState.courses.filter { course ->
+            (categoryId == null || course.categoryId == categoryId) &&
+                    (!state.hideTaken || course.courseId !in dummyTakenCourseIds) &&
+                    (!state.hideRestricted || course.courseId !in dummyRestrictedCourseIds)
         }
+        return state.copy(courses = courses)
+    }
 }

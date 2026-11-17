@@ -38,13 +38,14 @@ val dummyLecturelistUiState = LecturelistUiState(
         LecturelistCourse(
             courseId = 1L,
             courseName = "사고와 표현",
+            categoryId = 3L,
             sections = listOf(
                 LectureCardUiModel(
                     courseId = 1,
                     courseName = "사고와 표현",
                     professor = "이승연",
                     courseTimeAndRoom = "월1~2 / 50주년 기념관-705",
-                    categoryName = "교필",
+                    categoryName = "공통교양",
                     creditLabel = "3학점",
                     courseCode = "UA030003-01",
                     savedCountLabel = "18",
@@ -59,13 +60,14 @@ val dummyLecturelistUiState = LecturelistUiState(
         LecturelistCourse(
             courseId = 2L,
             courseName = "기초수학",
+            categoryId = 1L,
             sections = listOf(
                 LectureCardUiModel(
                     courseId = 2,
                     courseName = "기초수학",
                     professor = "한상호",
                     courseTimeAndRoom = "월1~2 / 50주년 기념관-705",
-                    categoryName = "교필",
+                    categoryName = "전공필수",
                     creditLabel = "3학점",
                     courseCode = "UA050002-01",
                     savedCountLabel = "18",
@@ -80,13 +82,14 @@ val dummyLecturelistUiState = LecturelistUiState(
         LecturelistCourse(
             courseId = 3L,
             courseName = "기초수학",
+            categoryId = 1L,
             sections = listOf(
                 LectureCardUiModel(
                     courseId = 3,
                     courseName = "기초수학",
                     professor = "한상호",
                     courseTimeAndRoom = "월1~2 / 50주년 기념관-705",
-                    categoryName = "교필",
+                    categoryName = "전공필수",
                     creditLabel = "3학점",
                     courseCode = "UA050004-02",
                     savedCountLabel = "18",
@@ -101,13 +104,14 @@ val dummyLecturelistUiState = LecturelistUiState(
         LecturelistCourse(
             courseId = 4L,
             courseName = "AI와 창의적 문제해결",
+            categoryId = 4L,
             sections = listOf(
                 LectureCardUiModel(
                     courseId = 4,
                     courseName = "AI와 창의적 문제해결",
                     professor = "박지현",
                     courseTimeAndRoom = "월1~2 / 50주년 기념관-705",
-                    categoryName = "교필",
+                    categoryName = "핵심교양",
                     creditLabel = "3학점",
                     courseCode = "UA060001-01",
                     savedCountLabel = "18",
@@ -122,7 +126,7 @@ val dummyLecturelistUiState = LecturelistUiState(
                     courseName = "AI와 창의적 문제해결",
                     professor = "정하늘",
                     courseTimeAndRoom = "화1~2 / 50주년 기념관-705",
-                    categoryName = "교필",
+                    categoryName = "핵심교양",
                     creditLabel = "3학점",
                     courseCode = "UA060001-02",
                     savedCountLabel = "18",
@@ -137,7 +141,7 @@ val dummyLecturelistUiState = LecturelistUiState(
                     courseName = "AI와 창의적 문제해결",
                     professor = "김도윤",
                     courseTimeAndRoom = "수1~2 / 50주년 기념관-705",
-                    categoryName = "교필",
+                    categoryName = "핵심교양",
                     creditLabel = "3학점",
                     courseCode = "UA060001-03",
                     savedCountLabel = "18",
@@ -152,13 +156,14 @@ val dummyLecturelistUiState = LecturelistUiState(
         LecturelistCourse(
             courseId = 5L,
             courseName = "사랑과 인문학",
+            categoryId = 4L,
             sections = listOf(
                 LectureCardUiModel(
                     courseId = 5,
                     courseName = "사랑과 인문학",
                     professor = "김경아",
                     courseTimeAndRoom = "화1~2 / 인문사회관-314",
-                    categoryName = "교필",
+                    categoryName = "핵심교양",
                     creditLabel = "3학점",
                     courseCode = "UA050003-01",
                     savedCountLabel = "18",
@@ -173,7 +178,7 @@ val dummyLecturelistUiState = LecturelistUiState(
                     courseName = "사랑과 인문학",
                     professor = "김경아",
                     courseTimeAndRoom = "수1~2 / 인문사회관-314",
-                    categoryName = "교필",
+                    categoryName = "핵심교양",
                     creditLabel = "3학점",
                     courseCode = "UA050003-02",
                     savedCountLabel = "18",
@@ -188,7 +193,7 @@ val dummyLecturelistUiState = LecturelistUiState(
                     courseName = "사랑과 인문학",
                     professor = "김경아",
                     courseTimeAndRoom = "목1~2 / 인문사회관-314",
-                    categoryName = "교필",
+                    categoryName = "핵심교양",
                     creditLabel = "3학점",
                     courseCode = "UA050003-03",
                     savedCountLabel = "18",
@@ -203,13 +208,14 @@ val dummyLecturelistUiState = LecturelistUiState(
         LecturelistCourse(
             courseId = 6L,
             courseName = "AI와 함께 그리는 지속가능한 미래",
+            categoryId = 5L,
             sections = listOf(
                 LectureCardUiModel(
                     courseId = 6,
                     courseName = "AI와 함께 그리는 지속가능한 미래",
                     professor = "김경아",
                     courseTimeAndRoom = "월1~2 / 50주년 기념관-705",
-                    categoryName = "교필",
+                    categoryName = "일반교양",
                     creditLabel = "3학점",
                     courseCode = "UA060004-01",
                     savedCountLabel = "18",
@@ -224,13 +230,14 @@ val dummyLecturelistUiState = LecturelistUiState(
         LecturelistCourse(
             courseId = 7L,
             courseName = "미술치료",
+            categoryId = 2L,
             sections = listOf(
                 LectureCardUiModel(
                     courseId = 7,
                     courseName = "미술치료",
                     professor = "신성영",
                     courseTimeAndRoom = "월1~2 / 50주년 기념관-705",
-                    categoryName = "교필",
+                    categoryName = "전공선택",
                     creditLabel = "3학점",
                     courseCode = "UA070001-01",
                     savedCountLabel = "18",
