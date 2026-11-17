@@ -7,11 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.component.timetable.TimetableGrid
+import com.cookandroid.everytime.core.designsystem.component.timetable.TimetableGridLayout
+import com.cookandroid.everytime.core.designsystem.component.timetable.timetableWeekDays
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 
-private val compactGridLayout =
-    _root_ide_package_.com.cookandroid.everytime.core.designsystem.component.timetable.TimetableGridLayout(
-        days = _root_ide_package_.com.cookandroid.everytime.core.designsystem.component.timetable.timetableWeekDays,
+val compactGridLayout =
+    TimetableGridLayout(
+        days = timetableWeekDays,
         hours = listOf("9", "10", "11", "12", "1", "2", "3", "4", "5"),
         timeColumnWidth = 19.dp,
         headerHeight = 18.dp,
