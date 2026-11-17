@@ -1,13 +1,14 @@
 package com.cookandroid.everytime.presentation.lecturelist.component.lecturefilterbar
 
-import android.R.attr.onClick
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,10 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import kotlinx.coroutines.NonCancellable.isActive
 
 @Composable
 fun EverytimeLectureFilterBar(
+    onMajorClick: () -> Unit,
     onTimeClick: () -> Unit,
     onMajorClearClick: () -> Unit,
     onTimeClearClick: () -> Unit,
@@ -31,11 +32,7 @@ fun EverytimeLectureFilterBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .horizontalScroll(
-                state = rememberScrollState(),
-                overscrollEffect = null
-            )
-            .padding(horizontal = 16.dp),
+            .horizontalScroll(state = rememberScrollState()),
         horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -43,7 +40,7 @@ fun EverytimeLectureFilterBar(
             label = "전공/영역:",
             value = majorValue ?: "없음",
             isActive = isMajorActive,
-            onClick = {},
+            onClick = onMajorClick,
             onClearClick = onMajorClearClick
         )
 
@@ -79,18 +76,22 @@ private fun EverytimeLectureFilterBarPreview() {
     EverytimeTheme {
         Column(
             modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding()
                 .background(color = EverytimeTheme.colors.white)
-                .padding(vertical = 16.dp),
+                .padding(vertical = 40.dp),
             verticalArrangement = Arrangement.spacedBy(space = 16.dp)
         ) {
             EverytimeLectureFilterBar(
                 onTimeClick = {},
+                onMajorClick = {},
                 onMajorClearClick = {},
                 onTimeClearClick = {},
                 isMajorActive = true
             )
             EverytimeLectureFilterBar(
                 onTimeClick = {},
+                onMajorClick = {},
                 onMajorClearClick = {},
                 onTimeClearClick = {},
                 isMajorActive = false,

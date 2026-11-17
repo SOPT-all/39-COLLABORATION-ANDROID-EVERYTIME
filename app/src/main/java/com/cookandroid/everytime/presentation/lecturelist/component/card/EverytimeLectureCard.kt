@@ -10,10 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,41 +20,10 @@ import com.cookandroid.everytime.core.designsystem.component.score.EverytimeScor
 import com.cookandroid.everytime.core.designsystem.component.score.EverytimeScoreType
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 import com.cookandroid.everytime.core.util.noRippleClickable
-
-data class LectureCardUiModel(
-    val courseName: String,
-    val professor: String,
-    val courseTimeAndRoom: String,
-    val categoryName: String,
-    val creditLabel: String,
-    val courseCode: String,
-    val savedCountLabel: String,
-    val capacityLabel: String,
-    val recommendedGradeLabel: String,
-    val target: String,
-    val score: Float,
-    val dotState: EverytimeDotState
-)
+import com.cookandroid.everytime.presentation.lecturelist.component.model.LectureCardUiModel
 
 @Composable
 fun EverytimeLectureCard(
-    lecture: LectureCardUiModel,
-    onReviewClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-
-    LectureCardContent(
-        lecture = lecture,
-        expanded = expanded,
-        onCardClick = { expanded = !expanded },
-        onReviewClick = onReviewClick,
-        modifier = modifier,
-    )
-}
-
-@Composable
-private fun LectureCardContent(
     lecture: LectureCardUiModel,
     expanded: Boolean,
     onCardClick: () -> Unit,
@@ -209,8 +174,9 @@ private fun LectureCardExpandedPreview() {
 @Composable
 private fun LectureCardPreview(expanded: Boolean, dotState: EverytimeDotState) {
     EverytimeTheme {
-        LectureCardContent(
+        EverytimeLectureCard(
             lecture = LectureCardUiModel(
+                courseId = 0,
                 courseName = "강의명",
                 professor = "교수님 성함",
                 courseTimeAndRoom = "요일분반 / 강의실",

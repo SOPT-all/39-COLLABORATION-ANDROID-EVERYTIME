@@ -12,10 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -30,12 +26,11 @@ import com.cookandroid.everytime.core.util.noRippleClickable
 fun EverytimeAccordion(
     title: String,
     sectionCount: Int,
+    expanded: Boolean,
+    onExpandedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    initiallyExpanded: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    var expanded by rememberSaveable { mutableStateOf(initiallyExpanded) }
-
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -43,12 +38,12 @@ fun EverytimeAccordion(
             title = title,
             sectionCount = sectionCount,
             expanded = expanded,
-            onExpand = { expanded = true }
+            onExpand = { onExpandedChange(true) }
         )
 
         if (expanded) {
             content()
-            AccordionBottomSection(onClick = { expanded = false })
+            AccordionBottomSection(onClick = { onExpandedChange(false) })
         }
     }
 }
@@ -144,7 +139,9 @@ private fun EverytimeAccordionPreview() {
         ) {
             EverytimeAccordion(
                 title = "AI와창의적문제해결",
-                sectionCount = 3
+                sectionCount = 3,
+                expanded = false,
+                onExpandedChange = {},
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(1.dp)) {
                     repeat(3) {
@@ -161,7 +158,8 @@ private fun EverytimeAccordionPreview() {
             EverytimeAccordion(
                 title = "AI와창의적문제해결",
                 sectionCount = 3,
-                initiallyExpanded = true
+                expanded = true,
+                onExpandedChange = {},
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(1.dp)) {
                     repeat(3) {
