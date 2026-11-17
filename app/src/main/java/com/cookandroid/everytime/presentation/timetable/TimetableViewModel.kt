@@ -24,10 +24,6 @@ class TimetableViewModel @Inject constructor() : ViewModel() {
 
     private var exitRequested = false
 
-    fun onSlotClick(slot: TimetableSlot) {
-        toggleSelection(setOf(slot))
-    }
-
     fun onDayClick(dayIndex: Int) {
         val slots = expandedGridHours.map { hour ->
             TimetableSlot(dayIndex = dayIndex, hour = hour)

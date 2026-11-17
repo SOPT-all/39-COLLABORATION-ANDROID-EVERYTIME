@@ -21,6 +21,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 import com.cookandroid.everytime.presentation.timetable.component.timetable.EverytimeTimetableSelectionGrid
 import com.cookandroid.everytime.presentation.timetable.component.timetable.TimetableSlot
+import com.cookandroid.everytime.presentation.timetable.component.timetable.expandedGridDays
 import com.cookandroid.everytime.presentation.timetable.component.topbar.EverytimeTimetableTopbar
 
 @Composable
@@ -43,7 +44,6 @@ fun TimetableRoute(
 
     TimetableScreen(
         uiState = uiState,
-        onSlotClick = viewModel::onSlotClick,
         onDayClick = viewModel::onDayClick,
         onHourClick = viewModel::onHourClick,
         onNavigateBack = viewModel::onBackClick,
@@ -55,7 +55,6 @@ fun TimetableRoute(
 @Composable
 fun TimetableScreen(
     uiState: TimetableUiState,
-    onSlotClick: (TimetableSlot) -> Unit,
     onDayClick: (Int) -> Unit,
     onHourClick: (Int) -> Unit,
     onNavigateBack: () -> Unit,
@@ -87,7 +86,6 @@ fun TimetableScreen(
             EverytimeTimetableSelectionGrid(
                 highlightedSlots = uiState.highlightedSlots,
                 selectedSlots = uiState.selectedSlots,
-                onSlotClick = onSlotClick,
                 onDayClick = onDayClick,
                 onHourClick = onHourClick,
                 modifier = Modifier.padding(horizontal = 12.dp)
@@ -103,9 +101,10 @@ private fun TimetableScreenPreview() {
         Surface(color = MaterialTheme.colorScheme.background) {
             TimetableScreen(
                 uiState = TimetableUiState(
-                    selectedSlots = setOf(TimetableSlot(dayIndex = 0, hour = 8)),
+                    selectedSlots = expandedGridDays.indices.map { dayIndex ->
+                        TimetableSlot(dayIndex = dayIndex, hour = 9)
+                    }.toSet(),
                 ),
-                onSlotClick = {},
                 onDayClick = {},
                 onHourClick = {},
                 onNavigateBack = {},

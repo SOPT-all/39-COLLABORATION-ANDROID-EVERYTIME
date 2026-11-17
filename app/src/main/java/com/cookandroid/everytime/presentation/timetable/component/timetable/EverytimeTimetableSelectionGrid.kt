@@ -33,7 +33,6 @@ enum class TimetableSlotColor {
 fun EverytimeTimetableSelectionGrid(
     highlightedSlots: Map<TimetableSlot, TimetableSlotColor>,
     selectedSlots: Set<TimetableSlot>,
-    onSlotClick: (TimetableSlot) -> Unit,
     onDayClick: (Int) -> Unit,
     onHourClick: (Int) -> Unit,
     modifier: Modifier = Modifier
@@ -95,7 +94,6 @@ fun EverytimeTimetableSelectionGrid(
                                 .weight(1f)
                                 .fillMaxHeight()
                                 .then(cellModifier)
-                                .noRippleClickable(onClick = { onSlotClick(slot) })
                         )
                     }
                 }
@@ -115,7 +113,6 @@ private fun EverytimeTimetableSelectionGridPreview() {
                 TimetableSlot(dayIndex = 4, hour = 12) to TimetableSlotColor.ORANGE
             ),
             selectedSlots = emptySet(),
-            onSlotClick = {},
             onDayClick = {},
             onHourClick = {}
         )
