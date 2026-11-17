@@ -40,7 +40,7 @@ fun EverytimeLectureFilterBar(
             label = "전공/영역:",
             value = majorValue ?: "없음",
             isActive = isMajorActive,
-            onClick = {},
+            onClick = onMajorClick,
             onClearClick = onMajorClearClick
         )
 
