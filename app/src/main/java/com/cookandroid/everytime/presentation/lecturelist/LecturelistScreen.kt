@@ -141,28 +141,35 @@ fun LecturelistScreen(
 
         LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
             items(uiState.courses, key = { it.courseId }) { course ->
-                val sectionCards: @Composable () -> Unit = {
-                    course.sections.forEach { card ->
-                        key(card.courseCode) {
-                            EverytimeLectureCard(
-                                lecture = card,
-                                expanded = card.courseCode in uiState.expandedSectionCodes,
-                                onCardClick = { onSectionClick(card.courseCode) },
-                                onReviewClick = onNavigateToReview,
-                            )
-                        }
-                    }
-                }
-                if (course.sections.size > 1) {
+                val sections = course.sections
+
+                if (sections.size > 1) {
                     EverytimeAccordion(
                         title = course.courseName,
-                        sectionCount = course.sections.size,
+                        sectionCount = sections.size,
                         expanded = course.courseId in uiState.expandedCourseIds,
                         onExpandedChange = { onCourseExpandedChange(course.courseId, it) },
-                        content = sectionCards,
-                    )
+                    ) {
+                        sections.forEach { card ->
+                            key(card.courseCode) {
+                                EverytimeLectureCard(
+                                    lecture = card,
+                                    expanded = card.courseCode in uiState.expandedSectionCodes,
+                                    onCardClick = { onSectionClick(card.courseCode) },
+                                    onReviewClick = onNavigateToReview,
+                                )
+                            }
+                        }
+                    }
                 } else {
-                    sectionCards()
+                    sections.singleOrNull()?.let { card ->
+                        EverytimeLectureCard(
+                            lecture = card,
+                            expanded = card.courseCode in uiState.expandedSectionCodes,
+                            onCardClick = { onSectionClick(card.courseCode) },
+                            onReviewClick = onNavigateToReview,
+                        )
+                    }
                 }
             }
         }
