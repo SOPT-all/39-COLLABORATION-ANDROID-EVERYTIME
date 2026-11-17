@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,10 +21,7 @@ import com.cookandroid.everytime.core.util.noRippleClickable
 data class TimetableSlot(
     val dayIndex: Int,
     val hour: Int
-) {
-    val timeLabel: String
-        get() = "${expandedGridDays[dayIndex]}, $hour~${hour + 1}시"
-}
+)
 
 enum class TimetableSlotColor {
     CORAL,
@@ -36,8 +32,10 @@ enum class TimetableSlotColor {
 @Composable
 fun EverytimeTimetableSelectionGrid(
     highlightedSlots: Map<TimetableSlot, TimetableSlotColor>,
-    selectedSlot: TimetableSlot?,
+    selectedSlots: Set<TimetableSlot>,
     onSlotClick: (TimetableSlot) -> Unit,
+    onDayClick: (Int) -> Unit,
+    onHourClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val layout = expandedGridLayout
@@ -50,21 +48,31 @@ fun EverytimeTimetableSelectionGrid(
                 .matchParentSize()
                 .clip(RoundedCornerShape(layout.cornerRadius))
         ) {
-            Spacer(modifier = Modifier.height(layout.headerHeight))
+            Row(modifier = Modifier.height(layout.headerHeight)) {
+                Spacer(modifier = Modifier.width(layout.timeColumnWidth))
 
-            layout.hours.forEach { hourLabel ->
-                val hour = hourLabel.toInt()
+                repeat(layout.days.size) { dayIndex ->
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
+                            .noRippleClickable(onClick = { onDayClick(dayIndex) })
+                    )
+                }
+            }
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(layout.rowHeight)
-                ) {
-                    Spacer(modifier = Modifier.width(layout.timeColumnWidth))
+            expandedGridHours.forEach { hour ->
+                Row(modifier = Modifier.height(layout.rowHeight)) {
+                    Box(
+                        modifier = Modifier
+                            .width(layout.timeColumnWidth)
+                            .fillMaxHeight()
+                            .noRippleClickable(onClick = { onHourClick(hour) })
+                    )
 
                     repeat(layout.days.size) { dayIndex ->
                         val slot = TimetableSlot(dayIndex = dayIndex, hour = hour)
-                        val isSelected = slot == selectedSlot
+                        val isSelected = slot in selectedSlots
                         val cellModifier = if (isSelected) {
                             Modifier
                                 .background(color = EverytimeTheme.colors.neutral400)
@@ -106,8 +114,10 @@ private fun EverytimeTimetableSelectionGridPreview() {
                 TimetableSlot(dayIndex = 2, hour = 12) to TimetableSlotColor.GREEN,
                 TimetableSlot(dayIndex = 4, hour = 12) to TimetableSlotColor.ORANGE
             ),
-            selectedSlot = null,
-            onSlotClick = {}
+            selectedSlots = emptySet(),
+            onSlotClick = {},
+            onDayClick = {},
+            onHourClick = {}
         )
     }
 }

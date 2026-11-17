@@ -14,10 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,14 +31,12 @@ fun TimetableRoute(
     viewModel: TimetableViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val currentOnNavigateBack by rememberUpdatedState(onNavigateBack)
-    val currentOnApply by rememberUpdatedState(onApply)
 
     LaunchedEffect(viewModel) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                TimetableSideEffect.NavigateBack -> currentOnNavigateBack()
-                is TimetableSideEffect.Apply -> currentOnApply(sideEffect.label)
+                TimetableSideEffect.NavigateBack -> onNavigateBack()
+                TimetableSideEffect.Apply -> onApply(viewModel.uiState.value.timeLabel)
             }
         }
     }
@@ -50,7 +44,9 @@ fun TimetableRoute(
     TimetableScreen(
         uiState = uiState,
         onSlotClick = viewModel::onSlotClick,
-        onBackClick = viewModel::onBackClick,
+        onDayClick = viewModel::onDayClick,
+        onHourClick = viewModel::onHourClick,
+        onNavigateBack = viewModel::onBackClick,
         onApplyClick = viewModel::onApplyClick,
         modifier = modifier
     )
@@ -60,14 +56,16 @@ fun TimetableRoute(
 fun TimetableScreen(
     uiState: TimetableUiState,
     onSlotClick: (TimetableSlot) -> Unit,
-    onBackClick: () -> Unit,
+    onDayClick: (Int) -> Unit,
+    onHourClick: (Int) -> Unit,
+    onNavigateBack: () -> Unit,
     onApplyClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         EverytimeTimetableTopbar(
             text = "시간",
-            onBackClick = onBackClick,
+            onBackClick = onNavigateBack,
             onApplyClick = onApplyClick
         )
 
@@ -78,7 +76,7 @@ fun TimetableScreen(
                 .padding(bottom = 16.dp)
         ) {
             Text(
-                text = "선택한 시간 내에 개설된 과목만 검색합니다.",
+                text = "선택한 시간 내에 개설된 과목만 검색합니다.\n요일 혹은 시간을 누르면 일괄 선택할 수 있습니다.",
                 color = EverytimeTheme.colors.neutral400,
                 style = EverytimeTheme.typography.caption1,
                 modifier = Modifier.padding(start = 24.dp, top = 2.dp, end = 24.dp)
@@ -88,8 +86,10 @@ fun TimetableScreen(
 
             EverytimeTimetableSelectionGrid(
                 highlightedSlots = uiState.highlightedSlots,
-                selectedSlot = uiState.selectedSlot,
+                selectedSlots = uiState.selectedSlots,
                 onSlotClick = onSlotClick,
+                onDayClick = onDayClick,
+                onHourClick = onHourClick,
                 modifier = Modifier.padding(horizontal = 12.dp)
             )
         }
@@ -99,19 +99,16 @@ fun TimetableScreen(
 @Preview(showBackground = true)
 @Composable
 private fun TimetableScreenPreview() {
-    var uiState by remember {
-        mutableStateOf(TimetableUiState(selectedSlot = TimetableSlot(dayIndex = 0, hour = 8)))
-    }
-
     EverytimeTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
             TimetableScreen(
-                uiState = uiState,
-                onSlotClick = { slot ->
-                    val selectedSlot = if (uiState.selectedSlot == slot) null else slot
-                    uiState = uiState.copy(selectedSlot = selectedSlot)
-                },
-                onBackClick = {},
+                uiState = TimetableUiState(
+                    selectedSlots = setOf(TimetableSlot(dayIndex = 0, hour = 8)),
+                ),
+                onSlotClick = {},
+                onDayClick = {},
+                onHourClick = {},
+                onNavigateBack = {},
                 onApplyClick = {}
             )
         }

@@ -12,10 +12,11 @@ import com.cookandroid.everytime.core.designsystem.component.timetable.timetable
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 
 val expandedGridDays = timetableWeekDays + listOf("토", "일")
+val expandedGridHours = 8..23
 
 val expandedGridLayout = TimetableGridLayout(
     days = expandedGridDays,
-    hours = (8..23).map { hour -> hour.toString() },
+    hours = expandedGridHours.map { hour -> hour.toString() },
     timeColumnWidth = 44.dp,
     headerHeight = 36.dp,
     rowHeight = 36.dp,
