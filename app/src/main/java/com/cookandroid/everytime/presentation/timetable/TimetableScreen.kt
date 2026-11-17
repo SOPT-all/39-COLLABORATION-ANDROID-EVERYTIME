@@ -47,7 +47,7 @@ fun TimetableRoute(
         onDayClick = viewModel::onDayClick,
         onHourClick = viewModel::onHourClick,
         onNavigateBack = viewModel::onBackClick,
-        onApplyClick = viewModel::onApplyClick,
+        onApply = viewModel::onApplyClick,
         modifier = modifier
     )
 }
@@ -58,14 +58,14 @@ fun TimetableScreen(
     onDayClick: (Int) -> Unit,
     onHourClick: (Int) -> Unit,
     onNavigateBack: () -> Unit,
-    onApplyClick: () -> Unit,
+    onApply: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         EverytimeTimetableTopbar(
             text = "시간",
             onBackClick = onNavigateBack,
-            onApplyClick = onApplyClick
+            onApplyClick = onApply
         )
 
         Column(
@@ -110,7 +110,7 @@ private fun TimetableScreenPreview() {
                 onDayClick = {},
                 onHourClick = {},
                 onNavigateBack = {},
-                onApplyClick = {}
+                onApply = {}
             )
         }
     }
