@@ -1,6 +1,5 @@
 package com.cookandroid.everytime.presentation.lecturelist
 
-import android.R.attr.rowHeight
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.BoxWithConstraints
