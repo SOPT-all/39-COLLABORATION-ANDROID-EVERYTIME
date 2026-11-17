@@ -1,5 +1,6 @@
 package com.cookandroid.everytime.presentation.lecturelist
 
+import android.R.attr.rowHeight
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -32,6 +33,7 @@ import com.cookandroid.everytime.presentation.lecturelist.component.checkboxfilt
 import com.cookandroid.everytime.presentation.lecturelist.component.lecturefilterbar.EverytimeLectureFilterBar
 import com.cookandroid.everytime.presentation.lecturelist.component.timetable.EverytimeCompactTimetableGrid
 import com.cookandroid.everytime.presentation.lecturelist.component.timetable.EverytimeTimetableBlock
+import com.cookandroid.everytime.presentation.lecturelist.component.timetable.compactGridLayout
 import com.cookandroid.everytime.presentation.lecturelist.component.topbar.EverytimeLecturelistTopbar
 
 @Composable
@@ -74,9 +76,7 @@ fun LecturelistScreen(
     onSectionClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val timeColumnWidth = 19.dp
-    val headerHeight = 18.dp
-    val rowHeight = 43.dp
+    val gridLayout = compactGridLayout
 
     Column(
         modifier = modifier
@@ -91,12 +91,12 @@ fun LecturelistScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 8.dp)
-                .height(218.dp)
-                .border(1.dp, color = EverytimeTheme.colors.neutral200, shape = RoundedCornerShape(12.dp))
-                .clip(RoundedCornerShape(12.dp))
+                .height(height = 218.dp)
+                .border(width = 1.dp, color = EverytimeTheme.colors.neutral200, shape = RoundedCornerShape(12.dp))
+                .clip(RoundedCornerShape(size = 12.dp))
                 .verticalScroll(rememberScrollState()),
         ) {
-            val dayWidth = (maxWidth - timeColumnWidth) / 5f
+            val dayWidth = (maxWidth - gridLayout.timeColumnWidth) / 5f
             EverytimeCompactTimetableGrid()
 
             uiState.timetableBlocks.forEach { block ->
@@ -106,10 +106,10 @@ fun LecturelistScreen(
                     color = block.color,
                     modifier = Modifier
                         .offset(
-                            x = timeColumnWidth + dayWidth * block.dayIndex.toFloat(),
-                            y = headerHeight + rowHeight * block.startRow,
+                            x = gridLayout.timeColumnWidth + dayWidth * block.dayIndex.toFloat(),
+                            y = gridLayout.headerHeight + gridLayout.rowHeight * block.startRow,
                         )
-                        .size(width = dayWidth, height = rowHeight * block.rowSpan),
+                        .size(width = dayWidth, height = gridLayout.rowHeight * block.rowSpan),
                 )
             }
         }
@@ -125,6 +125,7 @@ fun LecturelistScreen(
             timeValue = timeValue,
             isMajorActive = uiState.majorValue != null,
             isTimeActive = timeValue != null,
+            modifier = Modifier.padding(start = 16.dp)
         )
 
         Spacer(modifier = Modifier.height(12.dp))
