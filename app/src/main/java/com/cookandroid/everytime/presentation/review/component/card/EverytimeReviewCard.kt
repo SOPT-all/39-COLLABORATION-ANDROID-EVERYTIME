@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
@@ -33,21 +34,23 @@ fun EverytimeReviewCard(
     highlightedKeyword: String? = null,
 ) {
     val highlightColor = EverytimeTheme.colors.pointYellow
-    val annotatedContent = buildAnnotatedString {
-        append(review.content)
+    val annotatedContent = remember(review.content, highlightedKeyword, highlightColor) {
+        buildAnnotatedString {
+            append(review.content)
 
-        if (!highlightedKeyword.isNullOrEmpty()) {
-            var start = review.content.indexOf(highlightedKeyword)
-            while (start >= 0) {
-                addStyle(
-                    style = SpanStyle(background = highlightColor),
-                    start = start,
-                    end = start + highlightedKeyword.length,
-                )
-                start = review.content.indexOf(
-                    string = highlightedKeyword,
-                    startIndex = start + highlightedKeyword.length,
-                )
+            if (!highlightedKeyword.isNullOrEmpty()) {
+                var start = review.content.indexOf(highlightedKeyword)
+                while (start >= 0) {
+                    addStyle(
+                        style = SpanStyle(background = highlightColor),
+                        start = start,
+                        end = start + highlightedKeyword.length,
+                    )
+                    start = review.content.indexOf(
+                        string = highlightedKeyword,
+                        startIndex = start + highlightedKeyword.length,
+                    )
+                }
             }
         }
     }

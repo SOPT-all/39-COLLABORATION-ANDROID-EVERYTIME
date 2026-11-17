@@ -15,10 +15,11 @@ fun ReviewList(
     reviews: List<ReviewItemUiModel>,
     selectedKeyword: String?,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(horizontal = 8.dp),
 ) {
     LazyColumn(
         modifier = modifier,
-        contentPadding = PaddingValues(horizontal = 8.dp),
+        contentPadding = contentPadding,
         overscrollEffect = null,
     ) {
         items(items = reviews, key = { it.id }) { review ->
