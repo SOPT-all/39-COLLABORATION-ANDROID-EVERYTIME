@@ -32,8 +32,7 @@ fun MainAppHost(
                 onNavigateToReview = { appState.navController.navigate(Review) },
                 onNavigateToTimetable = { appState.navController.navigate(Timetable) },
                 timeValue = selectedTimeLabel,
-                onTimeClearClick = { selectedTimeLabel = null },
-                modifier = modifier
+                onTimeClearClick = { selectedTimeLabel = null }
             )
         }
 
@@ -43,15 +42,13 @@ fun MainAppHost(
                 onApply = { label ->
                     selectedTimeLabel = label
                     appState.navController.popBackStack()
-                },
-                modifier = modifier
+                }
             )
         }
 
         composable<Review> {
             ReviewRoute(
-                onNavigateBack = { appState.navController.popBackStack() },
-                modifier = modifier
+                onNavigateBack = { appState.navController.popBackStack() }
             )
         }
     }
