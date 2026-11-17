@@ -17,19 +17,13 @@ import com.cookandroid.everytime.core.designsystem.component.button.EverytimeSec
 import com.cookandroid.everytime.core.designsystem.component.score.EverytimeScore
 import com.cookandroid.everytime.core.designsystem.component.score.EverytimeScoreType
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-
-data class ReviewCardUiModel(
-    val score: Float,
-    val semesterLabel: String,
-    val content: String,
-)
+import com.cookandroid.everytime.presentation.review.component.model.ReviewItemUiModel
 
 @Composable
 fun EverytimeReviewCard(
-    review: ReviewCardUiModel,
+    review: ReviewItemUiModel,
     modifier: Modifier = Modifier,
 ) {
-
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -47,7 +41,7 @@ fun EverytimeReviewCard(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 EverytimeScore(
-                    score = review.score,
+                    score = review.score.toFloat(),
                     type = EverytimeScoreType.Small,
                 )
 
@@ -85,8 +79,9 @@ fun EverytimeReviewCard(
 private fun EverytimeReviewCardPreview() {
     EverytimeTheme {
         EverytimeReviewCard(
-            review = ReviewCardUiModel(
-                score = 5f,
+            review = ReviewItemUiModel(
+                id = 1L,
+                score = 5,
                 semesterLabel = "26년 2학기 수강자",
                 content = "교수님께서 좋으셔서 듣기 좋았어요!\n" +
                     "물론 풀강을.. 하시지만 안하실때도 있기도 하고 너무 친절하게 알려주셔서 만족했습니다!",
