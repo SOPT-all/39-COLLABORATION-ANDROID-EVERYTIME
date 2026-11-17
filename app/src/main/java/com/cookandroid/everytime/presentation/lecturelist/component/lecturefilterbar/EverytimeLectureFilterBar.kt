@@ -32,11 +32,7 @@ fun EverytimeLectureFilterBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .horizontalScroll(
-                state = rememberScrollState(),
-                overscrollEffect = null
-            )
-            .padding(horizontal = 16.dp),
+            .horizontalScroll(state = rememberScrollState()),
         horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
