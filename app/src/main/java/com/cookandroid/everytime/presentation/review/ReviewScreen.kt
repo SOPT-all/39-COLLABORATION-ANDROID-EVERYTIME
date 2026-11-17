@@ -10,13 +10,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,19 +38,10 @@ fun ReviewRoute(
     viewModel: ReviewViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val currentOnNavigateBack by rememberUpdatedState(onNavigateBack)
-
-    LaunchedEffect(viewModel) {
-        viewModel.sideEffect.collect { sideEffect ->
-            when (sideEffect) {
-                ReviewSideEffect.NavigateBack -> currentOnNavigateBack()
-            }
-        }
-    }
 
     ReviewScreen(
         uiState = uiState,
-        onBackClick = viewModel::onBackClick,
+        onNavigateBack = onNavigateBack,
         onKeywordClick = viewModel::onKeywordClick,
         modifier = modifier
     )
@@ -61,7 +50,7 @@ fun ReviewRoute(
 @Composable
 fun ReviewScreen(
     uiState: ReviewUiState,
-    onBackClick: () -> Unit,
+    onNavigateBack: () -> Unit,
     onKeywordClick: (String?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -75,7 +64,7 @@ fun ReviewScreen(
     ) {
         EverytimeReviewTopbar(
             text = uiState.lectureName,
-            onBackClick = onBackClick,
+            onBackClick = onNavigateBack,
         )
 
         Spacer(modifier = Modifier.height(2.dp))
@@ -89,6 +78,7 @@ fun ReviewScreen(
             totalCount = uiState.reviews.size,
             selectedKeyword = uiState.selectedKeyword,
             onKeywordClick = onKeywordClick,
+            modifier = Modifier.padding(horizontal = 16.dp),
         )
 
         Spacer(modifier = Modifier.height(4.dp))
@@ -96,13 +86,10 @@ fun ReviewScreen(
         Box(modifier = Modifier.weight(1f)) {
             ReviewList(
                 reviews = uiState.visibleReviews,
-                selectedKeyword = uiState.selectedKeyword,
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(
-                    start = 8.dp,
-                    end = 8.dp,
-                    bottom = reviewListBottomPadding,
-                ),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 8.dp),
+                contentPadding = PaddingValues(bottom = reviewListBottomPadding),
             )
 
             EverytimeIconLeftButton(
@@ -127,21 +114,8 @@ private fun ReviewScreenPreview() {
     EverytimeTheme {
         ReviewScreen(
             uiState = ReviewUiState(selectedKeyword = selectedKeyword),
-            onBackClick = {},
+            onNavigateBack = {},
             onKeywordClick = { selectedKeyword = it },
-            modifier = Modifier.safeDrawingPadding(),
-        )
-    }
-}
-
-@Preview(showBackground = true, widthDp = 375, heightDp = 730)
-@Composable
-private fun ReviewScreenEmptyPreview() {
-    EverytimeTheme {
-        ReviewScreen(
-            uiState = ReviewUiState(averageScore = 0f, reviews = emptyList()),
-            onBackClick = {},
-            onKeywordClick = {},
             modifier = Modifier.safeDrawingPadding(),
         )
     }
@@ -153,7 +127,7 @@ private fun ReviewScreenNarrowPreview() {
     EverytimeTheme {
         ReviewScreen(
             uiState = ReviewUiState(),
-            onBackClick = {},
+            onNavigateBack = {},
             onKeywordClick = {},
             modifier = Modifier.safeDrawingPadding(),
         )
@@ -166,7 +140,7 @@ private fun ReviewScreenKeywordSelectedPreview() {
     EverytimeTheme {
         ReviewScreen(
             uiState = ReviewUiState(selectedKeyword = "교수님"),
-            onBackClick = {},
+            onNavigateBack = {},
             onKeywordClick = {},
             modifier = Modifier.safeDrawingPadding(),
         )

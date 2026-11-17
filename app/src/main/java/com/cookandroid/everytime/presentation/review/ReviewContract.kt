@@ -1,5 +1,8 @@
 package com.cookandroid.everytime.presentation.review
 
+import com.cookandroid.everytime.presentation.review.component.model.ReviewItemUiModel
+import com.cookandroid.everytime.presentation.review.component.model.ReviewKeywordUiModel
+
 data class ReviewUiState(
     val lectureName: String = "AI와창의적문제해결 강의실",
     val averageScore: Float = 3.67f,
@@ -53,20 +56,4 @@ data class ReviewUiState(
         get() = selectedKeyword?.let { keyword ->
             reviews.filter { keyword in it.content }
         } ?: reviews
-}
-
-data class ReviewItemUiModel(
-    val id: Long,
-    val score: Int,
-    val semesterLabel: String,
-    val content: String,
-)
-
-data class ReviewKeywordUiModel(
-    val keyword: String,
-    val count: Int,
-)
-
-sealed interface ReviewSideEffect {
-    data object NavigateBack : ReviewSideEffect
 }

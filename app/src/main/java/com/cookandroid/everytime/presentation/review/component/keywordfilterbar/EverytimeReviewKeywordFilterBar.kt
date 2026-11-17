@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import com.cookandroid.everytime.presentation.review.ReviewKeywordUiModel
 import com.cookandroid.everytime.presentation.review.ReviewUiState
+import com.cookandroid.everytime.presentation.review.component.model.ReviewKeywordUiModel
 
 @Composable
 fun EverytimeReviewKeywordFilterBar(
@@ -27,8 +27,7 @@ fun EverytimeReviewKeywordFilterBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .horizontalScroll(state = rememberScrollState(), overscrollEffect = null)
-            .padding(horizontal = 16.dp),
+            .horizontalScroll(state = rememberScrollState()),
         horizontalArrangement = Arrangement.spacedBy(space = 5.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
