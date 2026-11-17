@@ -53,7 +53,7 @@ import com.cookandroid.everytime.presentation.lecturelist.component.topbar.Every
 @Composable
 fun LecturelistRoute(
     timeValue: String?,
-    onNavigateToReview: () -> Unit,
+    onNavigateToReview: (Long) -> Unit,
     onNavigateToTimetable: () -> Unit,
     onTimeClearClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -80,7 +80,7 @@ fun LecturelistRoute(
 fun LecturelistScreen(
     uiState: LecturelistUiState,
     timeValue: String?,
-    onNavigateToReview: () -> Unit,
+    onNavigateToReview: (Long) -> Unit,
     onNavigateToTimetable: () -> Unit,
     onCategorySelected: (LectureCategory?) -> Unit,
     onTimeClearClick: () -> Unit,
@@ -172,8 +172,7 @@ fun LecturelistScreen(
                                     lecture = card,
                                     expanded = card.courseCode in uiState.expandedSectionCodes,
                                     onCardClick = { onSectionClick(card.courseCode) },
-                                    onReviewClick = onNavigateToReview,
-                                )
+                                    { onNavigateToReview(course.courseId) }                                )
                             }
                         }
                     }
@@ -183,8 +182,7 @@ fun LecturelistScreen(
                             lecture = card,
                             expanded = card.courseCode in uiState.expandedSectionCodes,
                             onCardClick = { onSectionClick(card.courseCode) },
-                            onReviewClick = onNavigateToReview,
-                        )
+                            { onNavigateToReview(course.courseId) }                        )
                     }
                 }
             }

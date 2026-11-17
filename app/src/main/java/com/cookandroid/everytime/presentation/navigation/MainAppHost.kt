@@ -8,12 +8,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.cookandroid.everytime.core.navigation.LectureList
 import com.cookandroid.everytime.core.navigation.Review
 import com.cookandroid.everytime.core.navigation.Timetable
 import com.cookandroid.everytime.presentation.lecturelist.LecturelistRoute
 import com.cookandroid.everytime.presentation.review.ReviewRoute
 import com.cookandroid.everytime.presentation.timetable.TimetableRoute
+import java.util.Map.entry
 
 @Composable
 fun MainAppHost(
@@ -29,7 +31,7 @@ fun MainAppHost(
     ) {
         composable<LectureList> {
             LecturelistRoute(
-                onNavigateToReview = { appState.navController.navigate(Review) },
+                onNavigateToReview = { appState.navController.navigate(Review(courseId = it)) },
                 onNavigateToTimetable = { appState.navController.navigate(Timetable) },
                 timeValue = selectedTimeLabel,
                 onTimeClearClick = { selectedTimeLabel = null }
@@ -46,8 +48,9 @@ fun MainAppHost(
             )
         }
 
-        composable<Review> {
+        composable<Review> { entry ->
             ReviewRoute(
+                courseId = entry.toRoute<Review>().courseId,
                 onNavigateBack = { appState.navController.popBackStack() }
             )
         }
