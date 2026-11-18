@@ -46,13 +46,18 @@ data class TimetableUiState(
                 .map { (dayIndex, slots) ->
                     val startHour = slots.minOf { it.hour }
                     val endHour = slots.maxOf { it.hour } + 1
+                    val endTime = if (endHour == 24) {
+                        "23:59"
+                    } else {
+                        String.format(Locale.ROOT, "%02d:00", endHour)
+                    }
 
                     String.format(
                         Locale.ROOT,
-                        "%s-%02d:00-%02d:00",
+                        "%s-%02d:00-%s",
                         dayCodes[dayIndex],
                         startHour,
-                        endHour,
+                        endTime,
                     )
                 }
         }
