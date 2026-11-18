@@ -1,5 +1,13 @@
 package com.cookandroid.everytime.data.repository.review
 
+import com.cookandroid.everytime.data.dto.review.ReviewListResponse
+
 interface ReviewRepository {
-    // TODO: 구현예정
+    suspend fun getReviewsByKeyword(
+        sectionId: Long,
+        keywordId: Long,
+        sort: String = "LATEST",
+        page: Int = 1,
+        size: Int = 10,
+    ): ReviewListResponse
 }
