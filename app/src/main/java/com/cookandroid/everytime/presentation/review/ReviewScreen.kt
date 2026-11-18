@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -16,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
@@ -30,6 +32,7 @@ import com.cookandroid.everytime.presentation.review.component.card.ReviewList
 import com.cookandroid.everytime.presentation.review.component.filterrow.EverytimeReviewScoreFilterBar
 import com.cookandroid.everytime.presentation.review.component.keywordfilterbar.EverytimeReviewKeywordFilterBar
 import com.cookandroid.everytime.presentation.review.component.topbar.EverytimeReviewTopbar
+import kotlinx.coroutines.flow.first
 
 @Composable
 fun ReviewRoute(
@@ -48,6 +51,7 @@ fun ReviewRoute(
         uiState = uiState,
         onNavigateBack = onNavigateBack,
         onKeywordClick = {}, // 칩별 API 연결 전까지 전체 조회만 표시
+        onLoadNextPage = viewModel::loadNextPage,
         modifier = modifier
     )
 }
@@ -57,10 +61,27 @@ fun ReviewScreen(
     uiState: ReviewUiState,
     onNavigateBack: () -> Unit,
     onKeywordClick: (Long?) -> Unit,
+    onLoadNextPage: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var reviewButtonHeightPx by remember { mutableIntStateOf(0) }
     val reviewListBottomPadding = with(LocalDensity.current) { reviewButtonHeightPx.toDp() }
+    val listState = rememberLazyListState()
+    val canLoadNextPage = uiState.page > 0 && uiState.hasNext &&
+        !uiState.isLoading && !uiState.isLoadingMore && uiState.loadMoreErrorMessage == null
+
+    LaunchedEffect(listState, uiState.sectionId, uiState.page, canLoadNextPage) {
+        if (!canLoadNextPage) return@LaunchedEffect
+
+        snapshotFlow {
+            val layout = listState.layoutInfo
+            val lastVisibleIndex = layout.visibleItemsInfo.lastOrNull()?.index ?: -1
+            layout.totalItemsCount > 0 &&
+                layout.totalItemsCount == uiState.reviews.size &&
+                lastVisibleIndex >= layout.totalItemsCount - 1
+        }.first { it }
+        onLoadNextPage()
+    }
 
     Column(
         modifier = modifier
@@ -95,6 +116,7 @@ fun ReviewScreen(
                     .fillMaxSize()
                     .padding(horizontal = 8.dp),
                 contentPadding = PaddingValues(bottom = reviewListBottomPadding),
+                state = listState,
             )
 
             EverytimeIconLeftButton(
@@ -119,6 +141,7 @@ private fun ReviewScreenPreview() {
             uiState = reviewPreviewUiState,
             onNavigateBack = {},
             onKeywordClick = {},
+            onLoadNextPage = {},
             modifier = Modifier.safeDrawingPadding(),
         )
     }
@@ -132,6 +155,7 @@ private fun ReviewScreenNarrowPreview() {
             uiState = reviewPreviewUiState,
             onNavigateBack = {},
             onKeywordClick = {},
+            onLoadNextPage = {},
             modifier = Modifier.safeDrawingPadding(),
         )
     }
@@ -145,6 +169,7 @@ private fun ReviewScreenKeywordSelectedPreview() {
             uiState = reviewPreviewUiState.copy(selectedKeywordId = 1L),
             onNavigateBack = {},
             onKeywordClick = {},
+            onLoadNextPage = {},
             modifier = Modifier.safeDrawingPadding(),
         )
     }

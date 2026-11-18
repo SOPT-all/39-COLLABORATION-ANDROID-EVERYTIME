@@ -2,7 +2,9 @@ package com.cookandroid.everytime.presentation.review.component.card
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,10 +17,12 @@ fun ReviewList(
     reviews: List<ReviewItemUiModel>,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
+    state: LazyListState = rememberLazyListState(),
 ) {
     LazyColumn(
         modifier = modifier,
         contentPadding = contentPadding,
+        state = state,
     ) {
         items(items = reviews, key = { it.id }) { review ->
             EverytimeReviewCard(review = review)

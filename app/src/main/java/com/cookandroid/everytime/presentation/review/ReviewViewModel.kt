@@ -35,20 +35,63 @@ class ReviewViewModel @Inject constructor(
             return
         }
         _uiState.value = ReviewUiState(sectionId = sectionId, isLoading = true)
+        requestReviews(sectionId = sectionId, page = 1)
+    }
+
+    fun loadNextPage() {
+        val state = _uiState.value
+        val sectionId = state.sectionId ?: return
+        if (state.isLoading || state.isLoadingMore || state.page == 0 ||
+            !state.hasNext || state.loadMoreErrorMessage != null
+        ) return
+
+        _uiState.update { it.copy(isLoadingMore = true) }
+        requestReviews(sectionId = sectionId, page = state.page + 1)
+    }
+
+    fun retryNextPage() {
+        val state = _uiState.value
+        if (state.isLoading || state.isLoadingMore || state.loadMoreErrorMessage == null) return
+
+        _uiState.update { it.copy(loadMoreErrorMessage = null) }
+        loadNextPage()
+    }
+
+    private fun requestReviews(sectionId: Long, page: Int) {
         reviewJob = viewModelScope.launch {
             try {
-                val response = reviewRepository.getReviews(sectionId = sectionId)
+                val response = reviewRepository.getReviews(sectionId = sectionId, page = page)
                 ensureActive()
-                _uiState.value = response.toUiState()
+                if (_uiState.value.sectionId != sectionId) return@launch
+
+                val nextState = response.toUiState()
+                _uiState.update { current ->
+                    nextState.copy(
+                        reviews = if (page == 1) {
+                            nextState.reviews
+                        } else {
+                            (current.reviews + nextState.reviews).distinctBy { it.id }
+                        },
+                    )
+                }
             } catch (exception: CancellationException) {
                 throw exception
             } catch (exception: Exception) {
                 ensureActive()
+                if (_uiState.value.sectionId != sectionId) return@launch
+
                 _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        errorMessage = exception.message ?: "강의평을 불러오지 못했습니다.",
-                    )
+                    if (page == 1) {
+                        it.copy(
+                            isLoading = false,
+                            errorMessage = exception.message ?: "강의평을 불러오지 못했습니다.",
+                        )
+                    } else {
+                        it.copy(
+                            isLoadingMore = false,
+                            loadMoreErrorMessage = exception.message ?: "다음 강의평을 불러오지 못했습니다.",
+                        )
+                    }
                 }
             }
         }
@@ -67,7 +110,7 @@ private fun ReviewListResponse.toUiState(): ReviewUiState = ReviewUiState(
         )
     },
     totalReviewCount = totalReviewCount,
-    reviews = reviews.content.map { review ->
+    reviews = reviews.content.distinctBy { it.reviewId }.map { review ->
         ReviewItemUiModel(
             id = review.reviewId,
             score = review.gradePoint,
