@@ -10,7 +10,7 @@ data class LecturelistCourse(
     val sections: List<LectureCardUiModel>,
 )
 
-private fun CourseResponse.toModel(): LecturelistCourse =
+fun CourseResponse.toModel(): LecturelistCourse =
     LecturelistCourse(
         courseId = courseId,
         courseName = courseName,
