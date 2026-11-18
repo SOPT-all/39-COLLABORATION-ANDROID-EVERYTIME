@@ -36,7 +36,7 @@ data class CourseSectionResponse(
     val professor: String,
     val capacity: Int,
     val savedCount: Int,
-    val averageGradePoint: Double,
+    val averageGradePoint: Int,
     val times: List<CourseTimeResponse>,
     val timeText: String,
 )
