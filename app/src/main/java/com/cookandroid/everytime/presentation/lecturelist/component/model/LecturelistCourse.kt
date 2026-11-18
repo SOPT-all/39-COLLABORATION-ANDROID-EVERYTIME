@@ -20,6 +20,7 @@ fun CourseResponse.toModel(): LecturelistCourse =
         sections = sections.map { section ->
             LectureCardUiModel(
                 courseId = courseId,
+                sectionId = section.sectionId,
                 departmentId = departmentId,
                 courseName = courseName,
                 professor = section.professor,

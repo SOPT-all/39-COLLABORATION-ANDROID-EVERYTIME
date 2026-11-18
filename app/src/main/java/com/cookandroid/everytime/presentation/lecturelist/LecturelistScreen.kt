@@ -177,7 +177,8 @@ fun LecturelistScreen(
                                     lecture = card,
                                     expanded = card.courseCode in uiState.expandedSectionCodes,
                                     onCardClick = { onSectionClick(card.courseCode) },
-                                    { onNavigateToReview(course.courseId) }                                )
+                                    onReviewClick = { onNavigateToReview(card.sectionId) },
+                                )
                             }
                         }
                     }
@@ -187,7 +188,8 @@ fun LecturelistScreen(
                             lecture = card,
                             expanded = card.courseCode in uiState.expandedSectionCodes,
                             onCardClick = { onSectionClick(card.courseCode) },
-                            { onNavigateToReview(course.courseId) }                        )
+                            onReviewClick = { onNavigateToReview(card.sectionId) },
+                        )
                     }
                 }
             }
