@@ -23,6 +23,7 @@ fun MainAppHost(
     modifier: Modifier = Modifier
 ) {
     var selectedTimeLabel by rememberSaveable { mutableStateOf<String?>(null) }
+    var selectedTimes by rememberSaveable { mutableStateOf(arrayListOf<String>()) }
 
     NavHost(
         navController = appState.navController,
@@ -31,18 +32,23 @@ fun MainAppHost(
     ) {
         composable<LectureList> {
             LecturelistRoute(
+                timeValue = selectedTimeLabel,
+                timeQueries = selectedTimes,
                 onNavigateToReview = { appState.navController.navigate(Review(courseId = it)) },
                 onNavigateToTimetable = { appState.navController.navigate(Timetable) },
-                timeValue = selectedTimeLabel,
-                onTimeClearClick = { selectedTimeLabel = null }
+                onTimeClearClick = {
+                    selectedTimeLabel = null
+                    selectedTimes = arrayListOf()
+                },
             )
         }
 
         composable<Timetable> {
             TimetableRoute(
                 onNavigateBack = { appState.navController.popBackStack() },
-                onApply = { label ->
+                onApply = { label, times ->
                     selectedTimeLabel = label
+                    selectedTimes = ArrayList(times)
                     appState.navController.popBackStack()
                 }
             )
