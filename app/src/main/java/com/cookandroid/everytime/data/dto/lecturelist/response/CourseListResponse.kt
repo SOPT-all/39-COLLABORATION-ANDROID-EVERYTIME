@@ -34,7 +34,7 @@ data class CourseSectionResponse(
     val sectionId: Long,
     val sectionNo: String,
     val professor: String,
-    val capacity: Int,
+    val capacity: Int? = null,
     val savedCount: Int,
     val averageGradePoint: Int,
     val times: List<CourseTimeResponse>,
