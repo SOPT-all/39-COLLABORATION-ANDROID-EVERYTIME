@@ -5,6 +5,7 @@ import com.cookandroid.everytime.data.dto.lecturelist.response.CourseListRespons
 interface LecturelistRepository {
     suspend fun getCourses(
         categoryId: Long? = null,
+        departmentId: Long? = null,
         hideTaken: Boolean? = null,
         hideRestricted: Boolean? = null,
         times: List<String>? = null,

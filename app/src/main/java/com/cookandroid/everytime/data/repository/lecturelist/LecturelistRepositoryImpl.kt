@@ -9,6 +9,7 @@ class LecturelistRepositoryImpl @Inject constructor(
 ) : LecturelistRepository {
     override suspend fun getCourses(
         categoryId: Long?,
+        departmentId: Long?,
         hideTaken: Boolean?,
         hideRestricted: Boolean?,
         times: List<String>?,
@@ -17,6 +18,7 @@ class LecturelistRepositoryImpl @Inject constructor(
     ): CourseListResponse =
         lecturelistService.getCourses(
             categoryId = categoryId,
+            departmentId = departmentId,
             hideTaken = hideTaken,
             hideRestricted = hideRestricted,
             times = times,

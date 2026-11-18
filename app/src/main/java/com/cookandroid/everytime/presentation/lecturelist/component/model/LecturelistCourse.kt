@@ -5,6 +5,7 @@ import com.cookandroid.everytime.presentation.lecturelist.component.card.Everyti
 
 data class LecturelistCourse(
     val courseId: Long,
+    val departmentId: Long,
     val courseName: String,
     val categoryId: Long,
     val sections: List<LectureCardUiModel>,
@@ -13,11 +14,13 @@ data class LecturelistCourse(
 fun CourseResponse.toModel(): LecturelistCourse =
     LecturelistCourse(
         courseId = courseId,
+        departmentId = departmentId,
         courseName = courseName,
         categoryId = categoryId,
         sections = sections.map { section ->
             LectureCardUiModel(
                 courseId = courseId,
+                departmentId = departmentId,
                 courseName = courseName,
                 professor = section.professor,
                 courseTimeAndRoom = section.timeText,

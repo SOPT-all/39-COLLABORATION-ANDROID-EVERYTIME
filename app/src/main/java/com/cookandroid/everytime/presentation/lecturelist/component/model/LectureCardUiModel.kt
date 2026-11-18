@@ -4,6 +4,7 @@ import com.cookandroid.everytime.presentation.lecturelist.component.card.Everyti
 
 data class LectureCardUiModel(
     val courseId: Long,
+    val departmentId: Long,
     val courseName: String,
     val professor: String,
     val courseTimeAndRoom: String,
