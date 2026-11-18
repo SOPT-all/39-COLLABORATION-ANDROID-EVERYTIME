@@ -46,6 +46,8 @@ class LecturelistViewModel @Inject constructor(
     }
 
     fun setTimes(times: List<String>) {
+        if (loadJob != null && _uiState.value.times == times) return
+
         _uiState.update { it.copy(times = times) }
         loadCourses()
     }
