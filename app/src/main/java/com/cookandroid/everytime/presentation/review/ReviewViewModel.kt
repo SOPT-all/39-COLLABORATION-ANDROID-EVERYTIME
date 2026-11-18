@@ -25,7 +25,8 @@ class ReviewViewModel @Inject constructor(
     private var reviewJob: Job? = null
 
     fun loadReviews(sectionId: Long?) {
-        if (_uiState.value.sectionId == sectionId) return
+        val currentState = _uiState.value
+        if (currentState.sectionId == sectionId && currentState.errorMessage == null) return
 
         reviewJob?.cancel()
         // 목록 API 통합 전에는 실제 분반 ID가 없으므로 요청하지 않는다.

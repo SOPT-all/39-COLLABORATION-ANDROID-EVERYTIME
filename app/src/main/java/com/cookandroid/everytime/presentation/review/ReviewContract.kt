@@ -7,7 +7,7 @@ data class ReviewUiState(
     val sectionId: Long? = null,
     val lectureName: String = "",
     val averageScore: Int = 0,
-    val selectedKeyword: String? = null,
+    val selectedKeywordId: Long? = null,
     val keywords: List<ReviewKeywordUiModel> = emptyList(),
     val totalReviewCount: Long = 0L,
     val reviews: List<ReviewItemUiModel> = emptyList(),

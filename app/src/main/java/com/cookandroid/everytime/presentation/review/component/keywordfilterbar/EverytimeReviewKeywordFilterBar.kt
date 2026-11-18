@@ -20,8 +20,8 @@ import com.cookandroid.everytime.presentation.review.reviewPreviewUiState
 fun EverytimeReviewKeywordFilterBar(
     keywords: List<ReviewKeywordUiModel>,
     totalCount: Long,
-    selectedKeyword: String?,
-    onKeywordClick: (String?) -> Unit,
+    selectedKeywordId: Long?,
+    onKeywordClick: (Long?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -34,7 +34,7 @@ fun EverytimeReviewKeywordFilterBar(
         EverytimeChip(
             keyword = "전체",
             count = totalCount.toString(),
-            isSelected = selectedKeyword == null,
+            isSelected = selectedKeywordId == null,
             onClick = { onKeywordClick(null) },
         )
 
@@ -42,8 +42,8 @@ fun EverytimeReviewKeywordFilterBar(
             EverytimeChip(
                 keyword = item.keyword,
                 count = item.count.toString(),
-                isSelected = selectedKeyword == item.keyword,
-                onClick = { onKeywordClick(item.keyword) },
+                isSelected = selectedKeywordId == item.id,
+                onClick = { onKeywordClick(item.id) },
             )
         }
     }
@@ -62,14 +62,14 @@ private fun EverytimeReviewKeywordFilterBarPreview() {
             EverytimeReviewKeywordFilterBar(
                 keywords = uiState.keywords,
                 totalCount = uiState.totalReviewCount,
-                selectedKeyword = null,
+                selectedKeywordId = null,
                 onKeywordClick = {},
             )
 
             EverytimeReviewKeywordFilterBar(
                 keywords = uiState.keywords,
                 totalCount = uiState.totalReviewCount,
-                selectedKeyword = "교수님",
+                selectedKeywordId = 1L,
                 onKeywordClick = {},
             )
         }

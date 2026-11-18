@@ -14,7 +14,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -57,7 +56,7 @@ fun ReviewRoute(
 fun ReviewScreen(
     uiState: ReviewUiState,
     onNavigateBack: () -> Unit,
-    onKeywordClick: (String?) -> Unit,
+    onKeywordClick: (Long?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var reviewButtonHeightPx by remember { mutableIntStateOf(0) }
@@ -75,14 +74,14 @@ fun ReviewScreen(
 
         Spacer(modifier = Modifier.height(2.dp))
 
-        EverytimeReviewScoreFilterBar(score = uiState.averageScore.toFloat())
+        EverytimeReviewScoreFilterBar(score = uiState.averageScore)
 
         Spacer(modifier = Modifier.height(20.dp))
 
         EverytimeReviewKeywordFilterBar(
             keywords = uiState.keywords,
             totalCount = uiState.totalReviewCount,
-            selectedKeyword = uiState.selectedKeyword,
+            selectedKeywordId = uiState.selectedKeywordId,
             onKeywordClick = onKeywordClick,
             modifier = Modifier.padding(horizontal = 16.dp),
         )
@@ -115,13 +114,11 @@ fun ReviewScreen(
 @Preview(showBackground = true, widthDp = 375, heightDp = 730)
 @Composable
 private fun ReviewScreenPreview() {
-    var selectedKeyword by remember { mutableStateOf<String?>(null) }
-
     EverytimeTheme {
         ReviewScreen(
-            uiState = reviewPreviewUiState.copy(selectedKeyword = selectedKeyword),
+            uiState = reviewPreviewUiState,
             onNavigateBack = {},
-            onKeywordClick = { selectedKeyword = it },
+            onKeywordClick = {},
             modifier = Modifier.safeDrawingPadding(),
         )
     }
@@ -145,7 +142,7 @@ private fun ReviewScreenNarrowPreview() {
 private fun ReviewScreenKeywordSelectedPreview() {
     EverytimeTheme {
         ReviewScreen(
-            uiState = reviewPreviewUiState.copy(selectedKeyword = "교수님"),
+            uiState = reviewPreviewUiState.copy(selectedKeywordId = 1L),
             onNavigateBack = {},
             onKeywordClick = {},
             modifier = Modifier.safeDrawingPadding(),
