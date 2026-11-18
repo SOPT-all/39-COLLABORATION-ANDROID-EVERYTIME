@@ -50,7 +50,7 @@ fun MainAppHost(
 
         composable<Review> { entry ->
             ReviewRoute(
-                courseId = entry.toRoute<Review>().courseId,
+                sectionId = entry.toRoute<Review>().sectionId,
                 onNavigateBack = { appState.navController.popBackStack() }
             )
         }

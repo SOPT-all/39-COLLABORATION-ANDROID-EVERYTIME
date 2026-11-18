@@ -13,13 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import com.cookandroid.everytime.presentation.review.ReviewUiState
 import com.cookandroid.everytime.presentation.review.component.model.ReviewKeywordUiModel
+import com.cookandroid.everytime.presentation.review.reviewPreviewUiState
 
 @Composable
 fun EverytimeReviewKeywordFilterBar(
     keywords: List<ReviewKeywordUiModel>,
-    totalCount: Int,
+    totalCount: Long,
     selectedKeyword: String?,
     onKeywordClick: (String?) -> Unit,
     modifier: Modifier = Modifier,
@@ -52,7 +52,7 @@ fun EverytimeReviewKeywordFilterBar(
 @Preview(showBackground = true, widthDp = 375)
 @Composable
 private fun EverytimeReviewKeywordFilterBarPreview() {
-    val uiState = ReviewUiState()
+    val uiState = reviewPreviewUiState
 
     EverytimeTheme {
         Column(
@@ -61,14 +61,14 @@ private fun EverytimeReviewKeywordFilterBarPreview() {
         ) {
             EverytimeReviewKeywordFilterBar(
                 keywords = uiState.keywords,
-                totalCount = uiState.reviews.size,
+                totalCount = uiState.totalReviewCount,
                 selectedKeyword = null,
                 onKeywordClick = {},
             )
 
             EverytimeReviewKeywordFilterBar(
                 keywords = uiState.keywords,
-                totalCount = uiState.reviews.size,
+                totalCount = uiState.totalReviewCount,
                 selectedKeyword = "교수님",
                 onKeywordClick = {},
             )
