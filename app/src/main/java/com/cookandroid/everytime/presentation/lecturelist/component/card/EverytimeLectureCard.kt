@@ -176,7 +176,8 @@ private fun LectureCardPreview(expanded: Boolean, dotState: EverytimeDotState) {
     EverytimeTheme {
         EverytimeLectureCard(
             lecture = LectureCardUiModel(
-                courseId = 0,
+                courseId = 1,
+                departmentId = 1,
                 courseName = "강의명",
                 professor = "교수님 성함",
                 courseTimeAndRoom = "요일분반 / 강의실",
