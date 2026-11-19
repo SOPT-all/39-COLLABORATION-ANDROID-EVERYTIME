@@ -7,6 +7,18 @@ import jakarta.inject.Inject
 class ReviewRepositoryImpl @Inject constructor(
     private val reviewService: ReviewService,
 ) : ReviewRepository {
+    override suspend fun getReviews(
+        sectionId: Long,
+        sort: String?,
+        page: Int?,
+        size: Int?,
+    ): ReviewListResponse = reviewService.getReviews(
+        sectionId = sectionId,
+        sort = sort,
+        page = page,
+        size = size,
+    ).data
+
     override suspend fun getKeywordReviews(
         sectionId: Long,
         keywordId: Long,

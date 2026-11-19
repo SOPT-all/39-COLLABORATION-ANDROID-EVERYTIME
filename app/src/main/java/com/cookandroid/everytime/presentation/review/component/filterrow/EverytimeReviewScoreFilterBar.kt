@@ -20,7 +20,7 @@ import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 
 @Composable
 fun EverytimeReviewScoreFilterBar(
-    score: Float,
+    score: Int,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -35,7 +35,7 @@ fun EverytimeReviewScoreFilterBar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = String.format("%.2f", score),
+                text = "$score.00",
                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
                 style = EverytimeTheme.typography.header1,
                 color = EverytimeTheme.colors.neutral900,
@@ -43,7 +43,7 @@ fun EverytimeReviewScoreFilterBar(
             )
 
             EverytimeScore(
-                score = score,
+                score = score.toFloat(),
                 type = EverytimeScoreType.Large
             )
         }
@@ -76,7 +76,7 @@ private fun EverytimeReviewScoreFilterBarPreview() {
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             EverytimeReviewScoreFilterBar(
-                score = 3.67f
+                score = 4
             )
         }
     }

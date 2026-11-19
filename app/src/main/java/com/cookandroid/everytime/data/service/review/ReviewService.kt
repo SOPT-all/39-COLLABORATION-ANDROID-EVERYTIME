@@ -7,6 +7,14 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ReviewService {
+    @GET("api/v1/sections/{sectionId}/reviews")
+    suspend fun getReviews(
+        @Path("sectionId") sectionId: Long,
+        @Query("sort") sort: String? = null,
+        @Query("page") page: Int? = null,
+        @Query("size") size: Int? = null,
+    ): BaseResponse<ReviewListResponse>
+
     @GET("api/v1/sections/{sectionId}/reviews/keywords/{keywordId}")
     suspend fun getKeywordReviews(
         @Path("sectionId") sectionId: Long,
