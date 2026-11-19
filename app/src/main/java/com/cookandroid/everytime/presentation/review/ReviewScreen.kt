@@ -10,10 +10,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -40,6 +40,10 @@ fun ReviewRoute(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
+    LaunchedEffect(courseId) {
+        viewModel.loadReviews(sectionId = courseId)
+    }
+
     ReviewScreen(
         uiState = uiState,
         onNavigateBack = onNavigateBack,
@@ -52,7 +56,7 @@ fun ReviewRoute(
 fun ReviewScreen(
     uiState: ReviewUiState,
     onNavigateBack: () -> Unit,
-    onKeywordClick: (String?) -> Unit,
+    onKeywordClick: (Long?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var reviewButtonHeightPx by remember { mutableIntStateOf(0) }
@@ -64,20 +68,20 @@ fun ReviewScreen(
             .background(color = EverytimeTheme.colors.white),
     ) {
         EverytimeReviewTopbar(
-            text = uiState.lectureName,
+            text = uiState.review.lectureName,
             onBackClick = onNavigateBack,
         )
 
         Spacer(modifier = Modifier.height(2.dp))
 
-        EverytimeReviewScoreFilterBar(score = uiState.averageScore)
+        EverytimeReviewScoreFilterBar(score = uiState.review.averageScore)
 
         Spacer(modifier = Modifier.height(20.dp))
 
         EverytimeReviewKeywordFilterBar(
-            keywords = uiState.keywords,
-            totalCount = uiState.reviews.size,
-            selectedKeyword = uiState.selectedKeyword,
+            keywords = uiState.review.keywords,
+            totalCount = uiState.review.totalReviewCount,
+            selectedKeywordId = uiState.selectedKeywordId,
             onKeywordClick = onKeywordClick,
             modifier = Modifier.padding(horizontal = 16.dp),
         )
@@ -86,7 +90,7 @@ fun ReviewScreen(
 
         Box(modifier = Modifier.weight(1f)) {
             ReviewList(
-                reviews = uiState.visibleReviews,
+                reviews = uiState.review.reviews,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 8.dp),
@@ -110,13 +114,11 @@ fun ReviewScreen(
 @Preview(showBackground = true, widthDp = 375, heightDp = 730)
 @Composable
 private fun ReviewScreenPreview() {
-    var selectedKeyword by remember { mutableStateOf<String?>(null) }
-
     EverytimeTheme {
         ReviewScreen(
-            uiState = ReviewUiState(selectedKeyword = selectedKeyword),
+            uiState = reviewPreviewUiState,
             onNavigateBack = {},
-            onKeywordClick = { selectedKeyword = it },
+            onKeywordClick = {},
             modifier = Modifier.safeDrawingPadding(),
         )
     }
@@ -127,7 +129,7 @@ private fun ReviewScreenPreview() {
 private fun ReviewScreenNarrowPreview() {
     EverytimeTheme {
         ReviewScreen(
-            uiState = ReviewUiState(),
+            uiState = reviewPreviewUiState,
             onNavigateBack = {},
             onKeywordClick = {},
             modifier = Modifier.safeDrawingPadding(),
@@ -140,7 +142,7 @@ private fun ReviewScreenNarrowPreview() {
 private fun ReviewScreenKeywordSelectedPreview() {
     EverytimeTheme {
         ReviewScreen(
-            uiState = ReviewUiState(selectedKeyword = "교수님"),
+            uiState = reviewPreviewUiState.copy(selectedKeywordId = 1L),
             onNavigateBack = {},
             onKeywordClick = {},
             modifier = Modifier.safeDrawingPadding(),

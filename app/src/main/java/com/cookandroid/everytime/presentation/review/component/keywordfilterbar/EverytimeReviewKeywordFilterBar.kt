@@ -13,15 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import com.cookandroid.everytime.presentation.review.ReviewUiState
 import com.cookandroid.everytime.presentation.review.component.model.ReviewKeywordUiModel
+import com.cookandroid.everytime.presentation.review.reviewPreviewUiState
 
 @Composable
 fun EverytimeReviewKeywordFilterBar(
     keywords: List<ReviewKeywordUiModel>,
-    totalCount: Int,
-    selectedKeyword: String?,
-    onKeywordClick: (String?) -> Unit,
+    totalCount: Long,
+    selectedKeywordId: Long?,
+    onKeywordClick: (Long?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -34,7 +34,7 @@ fun EverytimeReviewKeywordFilterBar(
         EverytimeChip(
             keyword = "전체",
             count = totalCount.toString(),
-            isSelected = selectedKeyword == null,
+            isSelected = selectedKeywordId == null,
             onClick = { onKeywordClick(null) },
         )
 
@@ -42,8 +42,8 @@ fun EverytimeReviewKeywordFilterBar(
             EverytimeChip(
                 keyword = item.keyword,
                 count = item.count.toString(),
-                isSelected = selectedKeyword == item.keyword,
-                onClick = { onKeywordClick(item.keyword) },
+                isSelected = selectedKeywordId == item.id,
+                onClick = { onKeywordClick(item.id) },
             )
         }
     }
@@ -52,7 +52,7 @@ fun EverytimeReviewKeywordFilterBar(
 @Preview(showBackground = true, widthDp = 375)
 @Composable
 private fun EverytimeReviewKeywordFilterBarPreview() {
-    val uiState = ReviewUiState()
+    val uiState = reviewPreviewUiState
 
     EverytimeTheme {
         Column(
@@ -60,16 +60,16 @@ private fun EverytimeReviewKeywordFilterBarPreview() {
             verticalArrangement = Arrangement.spacedBy(space = 16.dp),
         ) {
             EverytimeReviewKeywordFilterBar(
-                keywords = uiState.keywords,
-                totalCount = uiState.reviews.size,
-                selectedKeyword = null,
+                keywords = uiState.review.keywords,
+                totalCount = uiState.review.totalReviewCount,
+                selectedKeywordId = null,
                 onKeywordClick = {},
             )
 
             EverytimeReviewKeywordFilterBar(
-                keywords = uiState.keywords,
-                totalCount = uiState.reviews.size,
-                selectedKeyword = "교수님",
+                keywords = uiState.review.keywords,
+                totalCount = uiState.review.totalReviewCount,
+                selectedKeywordId = 1L,
                 onKeywordClick = {},
             )
         }
