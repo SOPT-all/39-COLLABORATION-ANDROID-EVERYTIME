@@ -78,5 +78,5 @@ data class CourseTimeResponse(
     @SerialName("endTime")
     val endTime: String,
     @SerialName("classroom")
-    val classroom: String,
+    val classroom: String? = null,
 )
