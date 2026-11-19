@@ -24,6 +24,7 @@ class LecturelistViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     private var loadJob: Job? = null
+    private var lastLoadSucceeded = false
 
     fun selectCategory(category: LectureCategory?) {
         _uiState.update { it.copy(category = category) }
@@ -46,9 +47,12 @@ class LecturelistViewModel @Inject constructor(
     }
 
     fun setTimes(times: List<String>) {
-        if (loadJob != null && _uiState.value.times == times) return
+        val sameTimes = _uiState.value.times == times
+        val isLoading = loadJob?.isActive == true
 
-        _uiState.update { it.copy(times = times) }
+        if (sameTimes && (isLoading || lastLoadSucceeded)) return
+
+        _uiState.update { it.copy(times = times.toList()) }
         loadCourses()
     }
 
@@ -73,8 +77,9 @@ class LecturelistViewModel @Inject constructor(
 
     private fun loadCourses() {
         loadJob?.cancel()
-        val filters = _uiState.value
+        lastLoadSucceeded = false
 
+        val filters = _uiState.value
         _uiState.update { it.copy(courses = emptyList()) }
 
         loadJob = viewModelScope.launch {
@@ -90,6 +95,7 @@ class LecturelistViewModel @Inject constructor(
 
                 ensureActive()
                 _uiState.update { it.copy(courses = courses) }
+                lastLoadSucceeded = true
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
