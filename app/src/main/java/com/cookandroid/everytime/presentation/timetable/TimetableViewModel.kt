@@ -43,7 +43,14 @@ class TimetableViewModel @Inject constructor() : ViewModel() {
     }
 
     fun onApplyClick() {
-        sendExitSideEffect(TimetableSideEffect.Apply)
+        val state = _uiState.value
+
+        sendExitSideEffect(
+            TimetableSideEffect.Apply(
+                label = state.timeLabel,
+                times = state.timeQueries,
+            ),
+        )
     }
 
     private fun toggleSelection(slots: Set<TimetableSlot>) {
