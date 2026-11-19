@@ -31,11 +31,6 @@ class LecturelistViewModel @Inject constructor(
         loadCourses()
     }
 
-    fun selectDepartment(departmentId: Long?) {
-        _uiState.update { it.copy(departmentId = departmentId) }
-        loadCourses()
-    }
-
     fun setHideTaken(checked: Boolean) {
         _uiState.update { it.copy(hideTaken = checked) }
         loadCourses()
