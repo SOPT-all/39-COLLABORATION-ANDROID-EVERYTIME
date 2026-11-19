@@ -85,6 +85,7 @@ class LecturelistViewModel @Inject constructor(
                     hideTaken = filters.hideTaken.takeIf { it },
                     hideRestricted = filters.hideRestricted.takeIf { it },
                     times = filters.times.takeIf { it.isNotEmpty() },
+                    size = 50
                 )
                 val courses = response.courses.map { it.toModel() }
 
