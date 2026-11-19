@@ -60,15 +60,15 @@ private fun EverytimeReviewKeywordFilterBarPreview() {
             verticalArrangement = Arrangement.spacedBy(space = 16.dp),
         ) {
             EverytimeReviewKeywordFilterBar(
-                keywords = uiState.keywords,
-                totalCount = uiState.totalReviewCount,
+                keywords = uiState.review.keywords,
+                totalCount = uiState.review.totalReviewCount,
                 selectedKeywordId = null,
                 onKeywordClick = {},
             )
 
             EverytimeReviewKeywordFilterBar(
-                keywords = uiState.keywords,
-                totalCount = uiState.totalReviewCount,
+                keywords = uiState.review.keywords,
+                totalCount = uiState.review.totalReviewCount,
                 selectedKeywordId = 1L,
                 onKeywordClick = {},
             )

@@ -68,19 +68,19 @@ fun ReviewScreen(
             .background(color = EverytimeTheme.colors.white),
     ) {
         EverytimeReviewTopbar(
-            text = uiState.lectureName,
+            text = uiState.review.lectureName,
             onBackClick = onNavigateBack,
         )
 
         Spacer(modifier = Modifier.height(2.dp))
 
-        EverytimeReviewScoreFilterBar(score = uiState.averageScore)
+        EverytimeReviewScoreFilterBar(score = uiState.review.averageScore)
 
         Spacer(modifier = Modifier.height(20.dp))
 
         EverytimeReviewKeywordFilterBar(
-            keywords = uiState.keywords,
-            totalCount = uiState.totalReviewCount,
+            keywords = uiState.review.keywords,
+            totalCount = uiState.review.totalReviewCount,
             selectedKeywordId = uiState.selectedKeywordId,
             onKeywordClick = onKeywordClick,
             modifier = Modifier.padding(horizontal = 16.dp),
@@ -90,7 +90,7 @@ fun ReviewScreen(
 
         Box(modifier = Modifier.weight(1f)) {
             ReviewList(
-                reviews = uiState.reviews,
+                reviews = uiState.review.reviews,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 8.dp),

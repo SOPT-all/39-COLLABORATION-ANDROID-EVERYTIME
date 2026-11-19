@@ -2,10 +2,8 @@ package com.cookandroid.everytime.presentation.review
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cookandroid.everytime.data.dto.review.ReviewListResponse
 import com.cookandroid.everytime.data.repository.review.ReviewRepository
-import com.cookandroid.everytime.presentation.review.component.model.ReviewItemUiModel
-import com.cookandroid.everytime.presentation.review.component.model.ReviewKeywordUiModel
+import com.cookandroid.everytime.presentation.review.component.model.ReviewUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CancellationException
@@ -46,7 +44,10 @@ class ReviewViewModel @Inject constructor(
                 ensureActive()
                 if (_uiState.value.sectionId != sectionId) return@launch
 
-                _uiState.value = response.toUiState()
+                _uiState.value = ReviewUiState(
+                    sectionId = response.lecture.sectionId,
+                    review = ReviewUiModel.from(response),
+                )
             } catch (exception: CancellationException) {
                 throw exception
             } catch (exception: Exception) {
@@ -63,25 +64,3 @@ class ReviewViewModel @Inject constructor(
         }
     }
 }
-
-private fun ReviewListResponse.toUiState(): ReviewUiState = ReviewUiState(
-    sectionId = lecture.sectionId,
-    lectureName = lecture.courseName,
-    averageScore = lecture.averageGradePoint,
-    keywords = keywords.sortedBy { it.keywordId }.map { keyword ->
-        ReviewKeywordUiModel(
-            id = keyword.keywordId,
-            keyword = keyword.name,
-            count = keyword.count,
-        )
-    },
-    totalReviewCount = totalReviewCount,
-    reviews = reviews.content.distinctBy { it.reviewId }.map { review ->
-        ReviewItemUiModel(
-            id = review.reviewId,
-            score = review.gradePoint,
-            semesterLabel = "${review.year.toString().takeLast(2)}년 ${review.semester} 수강자",
-            content = review.content,
-        )
-    },
-)

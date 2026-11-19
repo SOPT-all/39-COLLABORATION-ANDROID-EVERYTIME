@@ -1,16 +1,11 @@
 package com.cookandroid.everytime.presentation.review
 
-import com.cookandroid.everytime.presentation.review.component.model.ReviewItemUiModel
-import com.cookandroid.everytime.presentation.review.component.model.ReviewKeywordUiModel
+import com.cookandroid.everytime.presentation.review.component.model.ReviewUiModel
 
 data class ReviewUiState(
     val sectionId: Long? = null,
-    val lectureName: String = "",
-    val averageScore: Int = 0,
+    val review: ReviewUiModel = ReviewUiModel(),
     val selectedKeywordId: Long? = null,
-    val keywords: List<ReviewKeywordUiModel> = emptyList(),
-    val totalReviewCount: Long = 0L,
-    val reviews: List<ReviewItemUiModel> = emptyList(),
     val isLoading: Boolean = false,
     val errorMessage: String? = null,
 )
