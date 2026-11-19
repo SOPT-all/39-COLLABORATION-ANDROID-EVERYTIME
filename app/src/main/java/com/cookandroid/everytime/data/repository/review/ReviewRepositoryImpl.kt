@@ -7,13 +7,13 @@ import jakarta.inject.Inject
 class ReviewRepositoryImpl @Inject constructor(
     private val reviewService: ReviewService,
 ) : ReviewRepository {
-    override suspend fun getReviewsByKeyword(
+    override suspend fun getKeywordReviews(
         sectionId: Long,
         keywordId: Long,
-        sort: String,
-        page: Int,
-        size: Int,
-    ): ReviewListResponse = reviewService.getReviewsByKeyword(
+        sort: String?,
+        page: Int?,
+        size: Int?,
+    ): ReviewListResponse = reviewService.getKeywordReviews(
         sectionId = sectionId,
         keywordId = keywordId,
         sort = sort,

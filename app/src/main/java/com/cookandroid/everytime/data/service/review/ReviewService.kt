@@ -8,11 +8,11 @@ import retrofit2.http.Query
 
 interface ReviewService {
     @GET("api/v1/sections/{sectionId}/reviews/keywords/{keywordId}")
-    suspend fun getReviewsByKeyword(
+    suspend fun getKeywordReviews(
         @Path("sectionId") sectionId: Long,
         @Path("keywordId") keywordId: Long,
-        @Query("sort") sort: String = "LATEST",
-        @Query("page") page: Int = 1,
-        @Query("size") size: Int = 10,
+        @Query("sort") sort: String? = null,
+        @Query("page") page: Int? = null,
+        @Query("size") size: Int? = null,
     ): BaseResponse<ReviewListResponse>
 }
