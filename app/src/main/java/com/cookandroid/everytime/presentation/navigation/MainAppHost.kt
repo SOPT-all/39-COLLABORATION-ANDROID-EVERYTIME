@@ -15,6 +15,7 @@ import com.cookandroid.everytime.core.navigation.Timetable
 import com.cookandroid.everytime.presentation.lecturelist.LecturelistRoute
 import com.cookandroid.everytime.presentation.review.ReviewRoute
 import com.cookandroid.everytime.presentation.timetable.TimetableRoute
+import java.util.Map.entry
 
 @Composable
 fun MainAppHost(
@@ -49,7 +50,7 @@ fun MainAppHost(
 
         composable<Review> { entry ->
             ReviewRoute(
-                sectionId = entry.toRoute<Review>().sectionId,
+                courseId = entry.toRoute<Review>().courseId,
                 onNavigateBack = { appState.navController.popBackStack() }
             )
         }

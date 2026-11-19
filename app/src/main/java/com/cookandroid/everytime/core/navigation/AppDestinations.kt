@@ -9,7 +9,4 @@ data object Timetable
 data object LectureList
 
 @Serializable
-data class Review(
-    val courseId: Long,
-    val sectionId: Long? = null,
-)
+data class Review(val courseId: Long)

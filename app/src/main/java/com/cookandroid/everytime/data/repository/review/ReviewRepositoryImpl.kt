@@ -9,9 +9,9 @@ class ReviewRepositoryImpl @Inject constructor(
 ) : ReviewRepository {
     override suspend fun getReviews(
         sectionId: Long,
-        sort: String,
-        page: Int,
-        size: Int,
+        sort: String?,
+        page: Int?,
+        size: Int?,
     ): ReviewListResponse = reviewService.getReviews(
         sectionId = sectionId,
         sort = sort,

@@ -36,15 +36,15 @@ import kotlinx.coroutines.flow.first
 
 @Composable
 fun ReviewRoute(
-    sectionId: Long?,
+    courseId: Long,
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ReviewViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    LaunchedEffect(sectionId) {
-        viewModel.loadReviews(sectionId = sectionId)
+    LaunchedEffect(courseId) {
+        viewModel.loadReviews(sectionId = courseId)
     }
 
     ReviewScreen(
