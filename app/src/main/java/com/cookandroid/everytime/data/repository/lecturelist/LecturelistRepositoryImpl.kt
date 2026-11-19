@@ -10,18 +10,22 @@ class LecturelistRepositoryImpl @Inject constructor(
     override suspend fun getCourses(
         categoryId: Long?,
         departmentId: Long?,
+        semester: String?,
         hideTaken: Boolean?,
         hideRestricted: Boolean?,
         times: List<String>?,
+        sort: String?,
         page: Int?,
         size: Int?
     ): CourseListResponse =
         lecturelistService.getCourses(
             categoryId = categoryId,
             departmentId = departmentId,
+            semester = semester,
             hideTaken = hideTaken,
             hideRestricted = hideRestricted,
             times = times,
+            sort = sort,
             page = page,
             size = size,
         ).data
