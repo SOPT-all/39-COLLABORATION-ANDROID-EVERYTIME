@@ -33,15 +33,15 @@ import com.cookandroid.everytime.presentation.review.component.topbar.EverytimeR
 
 @Composable
 fun ReviewRoute(
-    courseId: Long,
+    sectionId: Long,
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ReviewViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    LaunchedEffect(courseId) {
-        viewModel.loadReviews(sectionId = courseId)
+    LaunchedEffect(sectionId) {
+        viewModel.loadReviews(sectionId = sectionId)
     }
 
     ReviewScreen(
