@@ -4,39 +4,31 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -49,6 +41,7 @@ import com.cookandroid.everytime.presentation.lecturelist.component.timetable.Ev
 import com.cookandroid.everytime.presentation.lecturelist.component.timetable.EverytimeTimetableBlock
 import com.cookandroid.everytime.presentation.lecturelist.component.timetable.compactGridLayout
 import com.cookandroid.everytime.presentation.lecturelist.component.topbar.EverytimeLecturelistTopbar
+import android.app.AlertDialog as PlatformAlertDialog
 
 @Composable
 fun LecturelistRoute(
@@ -112,7 +105,11 @@ fun LecturelistScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 8.dp)
                 .height(height = 218.dp)
-                .border(width = 1.dp, color = EverytimeTheme.colors.neutral200, shape = RoundedCornerShape(12.dp))
+                .border(
+                    width = 1.dp,
+                    color = EverytimeTheme.colors.neutral200,
+                    shape = RoundedCornerShape(12.dp)
+                )
                 .clip(RoundedCornerShape(size = 12.dp))
                 .verticalScroll(rememberScrollState()),
         ) {
@@ -160,7 +157,9 @@ fun LecturelistScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
+        LazyColumn(modifier = Modifier
+            .fillMaxWidth()
+            .weight(1f)) {
             items(uiState.courses, key = { it.courseId }) { course ->
                 val sections = course.sections
 
@@ -214,40 +213,39 @@ private fun LectureCategoryDialog(
     onCategorySelected: (LectureCategory?) -> Unit,
     onDismiss: () -> Unit,
 ) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text("전공/영역") },
-        text = {
-            Column(
-                modifier = Modifier
-                    .verticalScroll(rememberScrollState())
-                    .selectableGroup(),
-            ) {
-                val categories = listOf<LectureCategory?>(null) + LectureCategory.entries
-                categories.forEach { category ->
-                    val selected = category == selectedCategory
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = 48.dp)
-                            .selectable(
-                                selected = selected,
-                                role = Role.RadioButton,
-                                onClick = { onCategorySelected(category) },
-                            ),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        RadioButton(selected = selected, onClick = null)
-                        Spacer(modifier = Modifier.width(12.dp))
-                        Text(category?.label ?: "없음")
-                    }
-                }
+    val context = LocalContext.current
+    val onSelect by rememberUpdatedState(onCategorySelected)
+    val onClose by rememberUpdatedState(onDismiss)
+
+    DisposableEffect(context, selectedCategory) {
+        val categories = listOf<LectureCategory?>(null) + LectureCategory.entries
+        val labels = categories
+            .map { it?.label ?: "없음" }
+            .toTypedArray()
+
+        val dialog = PlatformAlertDialog.Builder(context)
+            .setTitle("전공/영역")
+            .setSingleChoiceItems(
+                labels,
+                categories.indexOf(selectedCategory),
+            ) { dialog, index ->
+                dialog.dismiss()
+                onSelect(categories[index])
             }
-        },
-        confirmButton = {
-            TextButton(onClick = onDismiss) { Text("취소") }
-        },
-    )
+            .setNegativeButton("취소") { _, _ ->
+                onClose()
+            }
+            .setOnCancelListener {
+                onClose()
+            }
+            .create()
+
+        dialog.show()
+
+        onDispose {
+            dialog.dismiss()
+        }
+    }
 }
 
 @Preview(showBackground = true)
