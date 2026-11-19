@@ -99,7 +99,8 @@ fun EverytimeLectureCard(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    EverytimeSecondaryCircleButton(text = "시간표에 추가",
+                    EverytimeSecondaryCircleButton(
+                        text = "시간표에 추가",
                         type = EverytimeSecondaryCircleButtonType.SM_RED,
                         onClick = { }, // 구현없음
                     )
