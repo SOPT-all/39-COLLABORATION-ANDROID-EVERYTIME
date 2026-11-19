@@ -32,22 +32,44 @@ class ReviewViewModel @Inject constructor(
         requestReviews(sectionId = sectionId)
     }
 
-    private fun requestReviews(sectionId: Long) {
+    fun onKeywordClick(keywordId: Long?) {
+        val currentState = _uiState.value
+        val sectionId = currentState.sectionId ?: return
+        val selectedKeywordId = if (
+            currentState.selectedKeywordId == keywordId && currentState.errorMessage == null
+        ) null else keywordId
+        if (currentState.selectedKeywordId == selectedKeywordId && currentState.errorMessage == null) return
+
+        reviewJob?.cancel()
+        _uiState.value = currentState.copy(
+            selectedKeywordId = selectedKeywordId,
+            review = currentState.review.copy(reviews = emptyList()),
+            errorMessage = null,
+        )
+        requestReviews(sectionId = sectionId, keywordId = selectedKeywordId)
+    }
+
+    private fun requestReviews(sectionId: Long, keywordId: Long? = null) {
         reviewJob = viewModelScope.launch {
             try {
-                val response = reviewRepository.getReviews(sectionId = sectionId)
+                val response = if (keywordId == null) {
+                    reviewRepository.getReviews(sectionId = sectionId)
+                } else {
+                    reviewRepository.getKeywordReviews(sectionId = sectionId, keywordId = keywordId)
+                }
                 ensureActive()
-                if (_uiState.value.sectionId != sectionId) return@launch
+                if (_uiState.value.sectionId != sectionId || _uiState.value.selectedKeywordId != keywordId) return@launch
 
                 _uiState.value = ReviewUiState(
                     sectionId = response.lecture.sectionId,
                     review = ReviewUiModel.from(response),
+                    selectedKeywordId = keywordId,
                 )
             } catch (exception: CancellationException) {
                 throw exception
             } catch (exception: Exception) {
                 ensureActive()
-                if (_uiState.value.sectionId != sectionId) return@launch
+                if (_uiState.value.sectionId != sectionId || _uiState.value.selectedKeywordId != keywordId) return@launch
 
                 _uiState.update {
                     it.copy(

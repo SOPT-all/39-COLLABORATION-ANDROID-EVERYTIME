@@ -47,7 +47,7 @@ fun ReviewRoute(
     ReviewScreen(
         uiState = uiState,
         onNavigateBack = onNavigateBack,
-        onKeywordClick = {}, // 칩별 API 연결 전까지 전체 조회만 표시
+        onKeywordClick = viewModel::onKeywordClick,
         modifier = modifier
     )
 }

@@ -9,4 +9,12 @@ interface ReviewRepository {
         page: Int? = null,
         size: Int? = null,
     ): ReviewListResponse
+
+    suspend fun getKeywordReviews(
+        sectionId: Long,
+        keywordId: Long,
+        sort: String? = null,
+        page: Int? = null,
+        size: Int? = null,
+    ): ReviewListResponse
 }
