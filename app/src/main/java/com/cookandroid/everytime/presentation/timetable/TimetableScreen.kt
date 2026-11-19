@@ -27,7 +27,7 @@ import com.cookandroid.everytime.presentation.timetable.component.topbar.Everyti
 @Composable
 fun TimetableRoute(
     onNavigateBack: () -> Unit,
-    onApply: (String?) -> Unit,
+    onApply: (String?, List<String>) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: TimetableViewModel = hiltViewModel(),
 ) {
@@ -37,7 +37,7 @@ fun TimetableRoute(
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 TimetableSideEffect.NavigateBack -> onNavigateBack()
-                TimetableSideEffect.Apply -> onApply(viewModel.uiState.value.timeLabel)
+                is TimetableSideEffect.Apply -> onApply(sideEffect.label, sideEffect.times)
             }
         }
     }

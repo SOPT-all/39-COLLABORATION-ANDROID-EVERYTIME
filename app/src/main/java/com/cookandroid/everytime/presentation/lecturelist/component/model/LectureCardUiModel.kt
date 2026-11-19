@@ -3,7 +3,9 @@ package com.cookandroid.everytime.presentation.lecturelist.component.model
 import com.cookandroid.everytime.presentation.lecturelist.component.card.EverytimeDotState
 
 data class LectureCardUiModel(
-    val courseId: Int,
+    val courseId: Long,
+    val sectionId: Long,
+    val departmentId: Long,
     val courseName: String,
     val professor: String,
     val courseTimeAndRoom: String,

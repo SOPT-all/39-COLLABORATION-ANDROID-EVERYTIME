@@ -1,6 +1,5 @@
 package com.cookandroid.everytime.presentation.lecturelist
 
-import android.R.attr.rowHeight
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -27,6 +26,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -53,6 +53,7 @@ import com.cookandroid.everytime.presentation.lecturelist.component.topbar.Every
 @Composable
 fun LecturelistRoute(
     timeValue: String?,
+    timeQueries: List<String>,
     onNavigateToReview: (Long) -> Unit,
     onNavigateToTimetable: () -> Unit,
     onTimeClearClick: () -> Unit,
@@ -60,6 +61,10 @@ fun LecturelistRoute(
     viewModel: LecturelistViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(timeQueries) {
+        viewModel.setTimes(timeQueries)
+    }
 
     LecturelistScreen(
         uiState = uiState,
@@ -172,7 +177,8 @@ fun LecturelistScreen(
                                     lecture = card,
                                     expanded = card.courseCode in uiState.expandedSectionCodes,
                                     onCardClick = { onSectionClick(card.courseCode) },
-                                    { onNavigateToReview(course.courseId) }                                )
+                                    onReviewClick = { onNavigateToReview(card.sectionId) },
+                                )
                             }
                         }
                     }
@@ -182,7 +188,8 @@ fun LecturelistScreen(
                             lecture = card,
                             expanded = card.courseCode in uiState.expandedSectionCodes,
                             onCardClick = { onSectionClick(card.courseCode) },
-                            { onNavigateToReview(course.courseId) }                        )
+                            onReviewClick = { onNavigateToReview(card.sectionId) },
+                        )
                     }
                 }
             }
@@ -248,7 +255,7 @@ private fun LectureCategoryDialog(
 private fun LecturelistScreenPreview() {
     EverytimeTheme {
         LecturelistScreen(
-            uiState = dummyLecturelistUiState,
+            uiState = LecturelistUiState(),
             timeValue = "월 9~10시",
             onNavigateToReview = {},
             onNavigateToTimetable = {},

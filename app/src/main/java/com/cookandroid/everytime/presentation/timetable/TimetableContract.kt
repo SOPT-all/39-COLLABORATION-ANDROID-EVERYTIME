@@ -3,6 +3,7 @@ package com.cookandroid.everytime.presentation.timetable
 import com.cookandroid.everytime.presentation.timetable.component.timetable.TimetableSlot
 import com.cookandroid.everytime.presentation.timetable.component.timetable.TimetableSlotColor
 import com.cookandroid.everytime.presentation.timetable.component.timetable.expandedGridDays
+import java.util.Locale
 
 data class TimetableUiState(
     val selectedSlots: Set<TimetableSlot> = emptySet(),
@@ -34,9 +35,34 @@ data class TimetableUiState(
 
             return "$dayLabel, $startHour~${endHour}시"
         }
+
+    val timeQueries: List<String>
+        get() {
+            val dayCodes = listOf("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN")
+
+            return selectedSlots
+                .groupBy { it.dayIndex }
+                .toSortedMap()
+                .map { (dayIndex, slots) ->
+                    val startHour = slots.minOf { it.hour }
+                    val endHour = slots.maxOf { it.hour } + 1
+
+                    String.format(
+                        Locale.ROOT,
+                        "%s-%02d:00-%02d:00",
+                        dayCodes[dayIndex],
+                        startHour,
+                        endHour,
+                    )
+                }
+        }
 }
 
 sealed interface TimetableSideEffect {
     data object NavigateBack : TimetableSideEffect
-    data object Apply : TimetableSideEffect
+
+    data class Apply(
+        val label: String?,
+        val times: List<String>,
+    ) : TimetableSideEffect
 }
