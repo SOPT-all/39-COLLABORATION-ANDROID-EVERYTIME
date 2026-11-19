@@ -23,17 +23,12 @@ class ReviewViewModel @Inject constructor(
 
     private var reviewJob: Job? = null
 
-    fun loadReviews(sectionId: Long?) {
+    fun loadReviews(sectionId: Long) {
         val currentState = _uiState.value
         if (currentState.sectionId == sectionId && currentState.errorMessage == null) return
 
         reviewJob?.cancel()
-        // 목록 API 통합 전에는 실제 분반 ID가 없으므로 요청하지 않는다.
-        if (sectionId == null) {
-            _uiState.value = ReviewUiState()
-            return
-        }
-        _uiState.value = ReviewUiState(sectionId = sectionId, isLoading = true)
+        _uiState.value = ReviewUiState(sectionId = sectionId)
         requestReviews(sectionId = sectionId)
     }
 
@@ -56,7 +51,6 @@ class ReviewViewModel @Inject constructor(
 
                 _uiState.update {
                     it.copy(
-                        isLoading = false,
                         errorMessage = exception.message ?: "강의평을 불러오지 못했습니다.",
                     )
                 }
