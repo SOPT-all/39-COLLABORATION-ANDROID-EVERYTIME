@@ -3,7 +3,7 @@ package com.cookandroid.everytime.presentation.review
 import com.cookandroid.everytime.presentation.review.component.model.ReviewItemUiModel
 import com.cookandroid.everytime.presentation.review.component.model.ReviewKeywordUiModel
 
-internal val reviewPreviewUiState = ReviewUiState(
+val reviewPreviewUiState = ReviewUiState(
     lectureName = "AI와창의적문제해결 강의실",
     averageScore = 4,
     totalReviewCount = 5L,

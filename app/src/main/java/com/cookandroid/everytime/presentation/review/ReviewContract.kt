@@ -11,10 +11,6 @@ data class ReviewUiState(
     val keywords: List<ReviewKeywordUiModel> = emptyList(),
     val totalReviewCount: Long = 0L,
     val reviews: List<ReviewItemUiModel> = emptyList(),
-    val page: Int = 0,
-    val hasNext: Boolean = false,
     val isLoading: Boolean = false,
-    val isLoadingMore: Boolean = false,
     val errorMessage: String? = null,
-    val loadMoreErrorMessage: String? = null,
 )
