@@ -6,5 +6,4 @@ data class ReviewUiState(
     val sectionId: Long? = null,
     val review: ReviewUiModel = ReviewUiModel(),
     val selectedKeywordId: Long? = null,
-    val errorMessage: String? = null,
 )
