@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.data.dto.review
+package com.cookandroid.everytime.data.dto.review.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -12,7 +12,7 @@ data class ReviewListResponse(
     @SerialName("totalReviewCount")
     val totalReviewCount: Long,
     @SerialName("reviews")
-    val reviews: ReviewPageResponse,
+    val reviews: ReviewPageResponse
 )
 
 @Serializable
@@ -22,7 +22,7 @@ data class LectureInfoResponse(
     @SerialName("courseName")
     val courseName: String,
     @SerialName("averageGradePoint")
-    val averageGradePoint: Int,
+    val averageGradePoint: Int
 )
 
 @Serializable
@@ -32,7 +32,7 @@ data class KeywordCountResponse(
     @SerialName("name")
     val name: String,
     @SerialName("count")
-    val count: Long,
+    val count: Long
 )
 
 @Serializable
@@ -48,7 +48,7 @@ data class ReviewPageResponse(
     @SerialName("totalPages")
     val totalPages: Int,
     @SerialName("hasNext")
-    val hasNext: Boolean,
+    val hasNext: Boolean
 )
 
 @Serializable
@@ -64,7 +64,7 @@ data class ReviewResponse(
     @SerialName("content")
     val content: String,
     @SerialName("highlight")
-    val highlight: HighlightResponse? = null,
+    val highlight: HighlightResponse? = null
 )
 
 @Serializable
@@ -72,5 +72,5 @@ data class HighlightResponse(
     @SerialName("start")
     val start: Int,
     @SerialName("end")
-    val end: Int,
+    val end: Int
 )

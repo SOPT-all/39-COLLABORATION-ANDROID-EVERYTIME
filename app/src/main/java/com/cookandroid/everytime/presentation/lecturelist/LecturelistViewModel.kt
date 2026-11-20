@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cookandroid.everytime.data.repository.lecturelist.LecturelistRepository
-import com.cookandroid.everytime.presentation.lecturelist.component.model.toModel
+import com.cookandroid.everytime.presentation.lecturelist.model.toModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CancellationException

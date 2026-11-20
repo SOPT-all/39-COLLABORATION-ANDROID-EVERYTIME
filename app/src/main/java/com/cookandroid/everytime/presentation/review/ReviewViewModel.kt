@@ -3,7 +3,7 @@ package com.cookandroid.everytime.presentation.review
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cookandroid.everytime.data.repository.review.ReviewRepository
-import com.cookandroid.everytime.presentation.review.component.model.toModel
+import com.cookandroid.everytime.presentation.review.model.toModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CancellationException

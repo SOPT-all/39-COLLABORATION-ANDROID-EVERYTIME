@@ -17,38 +17,38 @@ import com.cookandroid.everytime.core.designsystem.component.button.EverytimeSec
 import com.cookandroid.everytime.core.designsystem.component.score.EverytimeScore
 import com.cookandroid.everytime.core.designsystem.component.score.EverytimeScoreType
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import com.cookandroid.everytime.presentation.review.component.model.ReviewItemUiModel
+import com.cookandroid.everytime.presentation.review.model.ReviewItemUiModel
 
 @Composable
 fun EverytimeReviewCard(
     review: ReviewItemUiModel,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .background(color = EverytimeTheme.colors.white)
             .padding(all = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(6.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Top,
+            verticalAlignment = Alignment.Top
         ) {
             Column(
                 modifier = Modifier,
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 EverytimeScore(
                     score = review.score.toFloat(),
-                    type = EverytimeScoreType.Small,
+                    type = EverytimeScoreType.Small
                 )
 
                 Text(
                     text = review.semesterLabel,
                     color = EverytimeTheme.colors.neutral400,
-                    style = EverytimeTheme.typography.caption4,
+                    style = EverytimeTheme.typography.caption4
                 )
             }
 
@@ -56,12 +56,12 @@ fun EverytimeReviewCard(
                 EverytimeSecondaryRectangleButton(
                     text = "추천",
                     onClick = {}, //기능없음
-                    type = EverytimeSecondaryRectangleButtonType.ICON,
+                    type = EverytimeSecondaryRectangleButtonType.ICON
                 )
 
                 EverytimeSecondaryRectangleButton(
                     text = "신고",
-                    onClick = {}, //기능없음
+                    onClick = {} //기능없음
                 )
             }
         }
@@ -69,7 +69,7 @@ fun EverytimeReviewCard(
         Text(
             text = review.content,
             color = EverytimeTheme.colors.neutral800,
-            style = EverytimeTheme.typography.body4,
+            style = EverytimeTheme.typography.body4
         )
     }
 }

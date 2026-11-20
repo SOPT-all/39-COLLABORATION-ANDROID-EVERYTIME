@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.presentation.lecturelist.component.model
+package com.cookandroid.everytime.presentation.lecturelist.model
 
 import com.cookandroid.everytime.data.dto.lecturelist.response.CourseResponse
 import com.cookandroid.everytime.presentation.lecturelist.component.card.EverytimeDotState
@@ -8,7 +8,7 @@ data class LecturelistCourse(
     val departmentId: Long,
     val courseName: String,
     val categoryId: Long,
-    val sections: List<LectureCardUiModel>,
+    val sections: List<LectureCardUiModel>
 )
 
 fun CourseResponse.toModel(): LecturelistCourse =
@@ -33,7 +33,7 @@ fun CourseResponse.toModel(): LecturelistCourse =
                 recommendedGradeLabel = recommendedGrade?.let { "${it}학년" }.orEmpty(),
                 target = targetText.orEmpty(),
                 score = section.averageGradePoint.toFloat(),
-                dotState = EverytimeDotState.GREEN,
+                dotState = EverytimeDotState.GREEN
             )
         },
     )

@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import com.cookandroid.everytime.presentation.review.component.model.ReviewKeywordUiModel
+import com.cookandroid.everytime.presentation.review.model.ReviewKeywordUiModel
 import com.cookandroid.everytime.presentation.review.reviewPreviewUiState
 
 @Composable
@@ -22,20 +22,20 @@ fun EverytimeReviewKeywordFilterBar(
     totalCount: Long,
     selectedKeywordId: Long?,
     onKeywordClick: (Long?) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .horizontalScroll(state = rememberScrollState()),
         horizontalArrangement = Arrangement.spacedBy(space = 5.dp),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         EverytimeChip(
             keyword = "전체",
             count = totalCount.toString(),
             isSelected = selectedKeywordId == null,
-            onClick = { onKeywordClick(null) },
+            onClick = { onKeywordClick(null) }
         )
 
         keywords.forEach { item ->
@@ -43,7 +43,7 @@ fun EverytimeReviewKeywordFilterBar(
                 keyword = item.keyword,
                 count = item.count.toString(),
                 isSelected = selectedKeywordId == item.id,
-                onClick = { onKeywordClick(item.id) },
+                onClick = { onKeywordClick(item.id) }
             )
         }
     }
@@ -63,14 +63,14 @@ private fun EverytimeReviewKeywordFilterBarPreview() {
                 keywords = uiState.review.keywords,
                 totalCount = uiState.review.totalReviewCount,
                 selectedKeywordId = null,
-                onKeywordClick = {},
+                onKeywordClick = {}
             )
 
             EverytimeReviewKeywordFilterBar(
                 keywords = uiState.review.keywords,
                 totalCount = uiState.review.totalReviewCount,
                 selectedKeywordId = 1L,
-                onKeywordClick = {},
+                onKeywordClick = {}
             )
         }
     }

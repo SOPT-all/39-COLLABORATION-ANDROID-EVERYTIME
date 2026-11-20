@@ -33,7 +33,7 @@ fun EverytimeCompactTimetableGrid(
         hourAlignment = Alignment.TopEnd,
         modifier = modifier,
         hourLabelTopPadding = 1.dp,
-        hourLabelEndPadding = 1.dp,
+        hourLabelEndPadding = 1.dp
     )
 }
 

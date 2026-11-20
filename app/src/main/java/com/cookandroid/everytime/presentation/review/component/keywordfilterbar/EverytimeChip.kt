@@ -21,7 +21,7 @@ fun EverytimeChip(
     count: String,
     modifier: Modifier = Modifier,
     isSelected: Boolean = false,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     val shape = CircleShape
     val backgroundColor =

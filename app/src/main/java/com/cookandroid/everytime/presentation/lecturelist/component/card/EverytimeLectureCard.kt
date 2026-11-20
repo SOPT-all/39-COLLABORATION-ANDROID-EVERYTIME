@@ -20,7 +20,7 @@ import com.cookandroid.everytime.core.designsystem.component.score.EverytimeScor
 import com.cookandroid.everytime.core.designsystem.component.score.EverytimeScoreType
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 import com.cookandroid.everytime.core.util.noRippleClickable
-import com.cookandroid.everytime.presentation.lecturelist.component.model.LectureCardUiModel
+import com.cookandroid.everytime.presentation.lecturelist.model.LectureCardUiModel
 
 @Composable
 fun EverytimeLectureCard(
@@ -28,7 +28,7 @@ fun EverytimeLectureCard(
     expanded: Boolean,
     onCardClick: () -> Unit,
     onReviewClick: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val backgroundColor =
         if (expanded) EverytimeTheme.colors.primary100 else EverytimeTheme.colors.white
@@ -47,7 +47,7 @@ fun EverytimeLectureCard(
             Text(
                 text = lecture.courseName,
                 color = EverytimeTheme.colors.neutral900,
-                style = EverytimeTheme.typography.body2,
+                style = EverytimeTheme.typography.body2
             )
 
             Spacer(modifier = Modifier.height(2.dp))
@@ -55,7 +55,7 @@ fun EverytimeLectureCard(
             Text(
                 text = lecture.professor,
                 color = EverytimeTheme.colors.neutral900,
-                style = EverytimeTheme.typography.body4,
+                style = EverytimeTheme.typography.body4
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -63,7 +63,7 @@ fun EverytimeLectureCard(
             Text(
                 text = lecture.courseTimeAndRoom,
                 color = detailColor,
-                style = EverytimeTheme.typography.caption1,
+                style = EverytimeTheme.typography.caption1
             )
 
             Spacer(modifier = Modifier.height(2.dp))
@@ -97,17 +97,18 @@ fun EverytimeLectureCard(
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    EverytimeSecondaryCircleButton(text = "시간표에 추가",
+                    EverytimeSecondaryCircleButton(
+                        text = "시간표에 추가",
                         type = EverytimeSecondaryCircleButtonType.SM_RED,
-                        onClick = { }, // 구현없음
+                        onClick = { } // 구현없음
                     )
 
                     EverytimeSecondaryCircleButton(
                         text = "강의평",
                         type = EverytimeSecondaryCircleButtonType.SM_WHITE,
-                        onClick = onReviewClick,
+                        onClick = onReviewClick
                     )
                 }
             }
@@ -116,7 +117,7 @@ fun EverytimeLectureCard(
         Column(
             modifier = Modifier.padding(top = 4.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp),
-            horizontalAlignment = Alignment.End,
+            horizontalAlignment = Alignment.End
         ) {
             EverytimeScore(
                 score = lecture.score,
@@ -127,25 +128,25 @@ fun EverytimeLectureCard(
             Column(
                 modifier = Modifier.padding(end = scoreCountPadding),
                 horizontalAlignment = Alignment.End,
-                verticalArrangement = Arrangement.spacedBy(2.dp),
+                verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
                 listOf(
                     "담은" to lecture.savedCountLabel,
-                    "정원" to lecture.capacityLabel,
+                    "정원" to lecture.capacityLabel
                 ).forEach { (label, value) ->
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
-                        verticalAlignment = Alignment.CenterVertically,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
                             text = label,
                             color = EverytimeTheme.colors.neutral400,
-                            style = EverytimeTheme.typography.caption5,
+                            style = EverytimeTheme.typography.caption5
                         )
                         Text(
                             text = value,
                             color = EverytimeTheme.colors.neutral400,
-                            style = EverytimeTheme.typography.caption5,
+                            style = EverytimeTheme.typography.caption5
                         )
                     }
                 }

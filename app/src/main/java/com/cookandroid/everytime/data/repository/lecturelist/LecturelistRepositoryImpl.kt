@@ -27,6 +27,6 @@ class LecturelistRepositoryImpl @Inject constructor(
             times = times,
             sort = sort,
             page = page,
-            size = size,
+            size = size
         ).data
 }

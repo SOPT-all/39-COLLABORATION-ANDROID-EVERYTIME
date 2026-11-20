@@ -30,7 +30,7 @@ fun EverytimeDot(
     Box(
         modifier = modifier
             .size(5.dp)
-            .background(color = dotColor, shape = CircleShape),
+            .background(color = dotColor, shape = CircleShape)
     )
 }
 

@@ -16,7 +16,7 @@ data class CourseListResponse(
     @SerialName("totalPages")
     val totalPages: Int,
     @SerialName("hasNext")
-    val hasNext: Boolean,
+    val hasNext: Boolean
 )
 
 @Serializable
@@ -46,7 +46,7 @@ data class CourseResponse(
     @SerialName("targetText")
     val targetText: String? = null,
     @SerialName("sections")
-    val sections: List<CourseSectionResponse>,
+    val sections: List<CourseSectionResponse>
 )
 
 @Serializable
@@ -78,5 +78,5 @@ data class CourseTimeResponse(
     @SerialName("endTime")
     val endTime: String,
     @SerialName("classroom")
-    val classroom: String? = null,
+    val classroom: String? = null
 )

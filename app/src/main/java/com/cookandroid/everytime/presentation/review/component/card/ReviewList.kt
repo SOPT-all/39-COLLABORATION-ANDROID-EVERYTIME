@@ -8,24 +8,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
-import com.cookandroid.everytime.presentation.review.component.model.ReviewItemUiModel
+import com.cookandroid.everytime.presentation.review.model.ReviewItemUiModel
 
 @Composable
 fun ReviewList(
     reviews: List<ReviewItemUiModel>,
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(0.dp),
+    contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
     LazyColumn(
         modifier = modifier,
-        contentPadding = contentPadding,
+        contentPadding = contentPadding
     ) {
         items(items = reviews, key = { it.id }) { review ->
             EverytimeReviewCard(review = review)
 
             HorizontalDivider(
                 thickness = 1.dp,
-                color = EverytimeTheme.colors.neutral200,
+                color = EverytimeTheme.colors.neutral200
             )
         }
     }
