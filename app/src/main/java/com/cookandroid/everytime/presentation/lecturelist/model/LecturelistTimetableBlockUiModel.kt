@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.presentation.lecturelist.component.model
+package com.cookandroid.everytime.presentation.lecturelist.model
 
 import com.cookandroid.everytime.presentation.lecturelist.component.timetable.EverytimeTimetableBlockColor
 
@@ -8,5 +8,5 @@ data class LecturelistTimetableBlockUiModel(
     val dayIndex: Int,
     val startRow: Float,
     val rowSpan: Float,
-    val classroom: String? = null,
+    val classroom: String? = null
 )

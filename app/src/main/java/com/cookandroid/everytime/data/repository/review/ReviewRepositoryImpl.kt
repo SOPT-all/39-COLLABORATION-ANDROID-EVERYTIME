@@ -1,6 +1,6 @@
 package com.cookandroid.everytime.data.repository.review
 
-import com.cookandroid.everytime.data.dto.review.ReviewListResponse
+import com.cookandroid.everytime.data.dto.review.response.ReviewListResponse
 import com.cookandroid.everytime.data.service.review.ReviewService
 import jakarta.inject.Inject
 
@@ -11,12 +11,12 @@ class ReviewRepositoryImpl @Inject constructor(
         sectionId: Long,
         sort: String?,
         page: Int?,
-        size: Int?,
+        size: Int?
     ): ReviewListResponse = reviewService.getReviews(
         sectionId = sectionId,
         sort = sort,
         page = page,
-        size = size,
+        size = size
     ).data
 
     override suspend fun getKeywordReviews(
@@ -24,12 +24,12 @@ class ReviewRepositoryImpl @Inject constructor(
         keywordId: Long,
         sort: String?,
         page: Int?,
-        size: Int?,
+        size: Int?
     ): ReviewListResponse = reviewService.getKeywordReviews(
         sectionId = sectionId,
         keywordId = keywordId,
         sort = sort,
         page = page,
-        size = size,
+        size = size
     ).data
 }

@@ -27,7 +27,7 @@ fun EverytimeLectureFilterBar(
     majorValue: String? = null,
     timeValue: String? = null,
     isMajorActive: Boolean = false,
-    isTimeActive: Boolean = false,
+    isTimeActive: Boolean = false
 ) {
     Row(
         modifier = modifier

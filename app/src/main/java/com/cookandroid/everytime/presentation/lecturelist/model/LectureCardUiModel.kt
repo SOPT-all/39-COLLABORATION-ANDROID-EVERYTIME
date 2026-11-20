@@ -1,4 +1,4 @@
-package com.cookandroid.everytime.presentation.lecturelist.component.model
+package com.cookandroid.everytime.presentation.lecturelist.model
 
 import com.cookandroid.everytime.presentation.lecturelist.component.card.EverytimeDotState
 

@@ -12,6 +12,6 @@ interface LecturelistRepository {
         times: List<String>? = null,
         sort: String? = null,
         page: Int? = null,
-        size: Int? = null,
+        size: Int? = null
     ): CourseListResponse
 }

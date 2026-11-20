@@ -51,7 +51,7 @@ fun LecturelistRoute(
     onNavigateToTimetable: () -> Unit,
     onTimeClearClick: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: LecturelistViewModel = hiltViewModel(),
+    viewModel: LecturelistViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -111,7 +111,7 @@ fun LecturelistScreen(
                     shape = RoundedCornerShape(12.dp)
                 )
                 .clip(RoundedCornerShape(size = 12.dp))
-                .verticalScroll(rememberScrollState()),
+                .verticalScroll(rememberScrollState())
         ) {
             val dayWidth = (maxWidth - gridLayout.timeColumnWidth) / 5f
             EverytimeCompactTimetableGrid()
@@ -126,7 +126,7 @@ fun LecturelistScreen(
                             x = gridLayout.timeColumnWidth + dayWidth * block.dayIndex.toFloat(),
                             y = gridLayout.headerHeight + gridLayout.rowHeight * block.startRow,
                         )
-                        .size(width = dayWidth, height = gridLayout.rowHeight * block.rowSpan),
+                        .size(width = dayWidth, height = gridLayout.rowHeight * block.rowSpan)
                 )
             }
         }
@@ -187,7 +187,7 @@ fun LecturelistScreen(
                             lecture = card,
                             expanded = card.courseCode in uiState.expandedSectionCodes,
                             onCardClick = { onSectionClick(card.courseCode) },
-                            onReviewClick = { onNavigateToReview(card.sectionId) },
+                            onReviewClick = { onNavigateToReview(card.sectionId) }
                         )
                     }
                 }
@@ -202,7 +202,7 @@ fun LecturelistScreen(
                 onCategorySelected(category)
                 showCategoryDialog = false
             },
-            onDismiss = { showCategoryDialog = false },
+            onDismiss = { showCategoryDialog = false }
         )
     }
 }
@@ -211,7 +211,7 @@ fun LecturelistScreen(
 private fun LectureCategoryDialog(
     selectedCategory: LectureCategory?,
     onCategorySelected: (LectureCategory?) -> Unit,
-    onDismiss: () -> Unit,
+    onDismiss: () -> Unit
 ) {
     val context = LocalContext.current
     val onSelect by rememberUpdatedState(onCategorySelected)
@@ -262,7 +262,7 @@ private fun LecturelistScreenPreview() {
             onHideTakenChange = {},
             onHideRestrictedChange = {},
             onCourseExpandedChange = { _, _ -> },
-            onSectionClick = {},
+            onSectionClick = {}
         )
     }
 }

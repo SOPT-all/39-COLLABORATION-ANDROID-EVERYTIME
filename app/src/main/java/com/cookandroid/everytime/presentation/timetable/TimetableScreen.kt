@@ -29,7 +29,7 @@ fun TimetableRoute(
     onNavigateBack: () -> Unit,
     onApply: (String?, List<String>) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: TimetableViewModel = hiltViewModel(),
+    viewModel: TimetableViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -59,7 +59,7 @@ fun TimetableScreen(
     onHourClick: (Int) -> Unit,
     onNavigateBack: () -> Unit,
     onApply: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         EverytimeTimetableTopbar(

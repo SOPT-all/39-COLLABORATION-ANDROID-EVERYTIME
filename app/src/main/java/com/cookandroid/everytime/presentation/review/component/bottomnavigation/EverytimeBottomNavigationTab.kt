@@ -71,22 +71,22 @@ fun EverytimeBottomNavigation(
                 shape = RectangleShape,
                 shadow = Shadow(
                     radius = 10.5.dp,
-                    color = Color.Black.copy(alpha = 0.13f),
+                    color = Color.Black.copy(alpha = 0.13f)
                 ),
             )
             .background(color = EverytimeTheme.colors.white)
             .padding(vertical = 6.dp),
         horizontalArrangement = Arrangement.spacedBy(
             space = 70.dp,
-            alignment = Alignment.CenterHorizontally,
+            alignment = Alignment.CenterHorizontally
         ),
-        verticalAlignment = Alignment.Top,
+        verticalAlignment = Alignment.Top
     ) {
         EverytimeBottomNavigationTabType.entries.forEach { type ->
             EverytimeBottomNavigationTab(
                 type = type,
                 selected = type == selectedTab,
-                onClick = { },
+                onClick = { }
             )
         }
     }
@@ -124,7 +124,7 @@ private fun EverytimeBottomNavigationTab(
             text = type.label,
             color = contentColor,
             style = EverytimeTheme.typography.caption4,
-            maxLines = 1,
+            maxLines = 1
         )
     }
 }

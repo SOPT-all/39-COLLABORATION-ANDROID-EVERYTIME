@@ -1,13 +1,13 @@
-package com.cookandroid.everytime.presentation.review.component.model
+package com.cookandroid.everytime.presentation.review.model
 
-import com.cookandroid.everytime.data.dto.review.ReviewListResponse
+import com.cookandroid.everytime.data.dto.review.response.ReviewListResponse
 
 data class ReviewUiModel(
     val lectureName: String = "",
     val averageScore: Int = 0,
     val keywords: List<ReviewKeywordUiModel> = emptyList(),
     val totalReviewCount: Long = 0L,
-    val reviews: List<ReviewItemUiModel> = emptyList(),
+    val reviews: List<ReviewItemUiModel> = emptyList()
 )
 
 fun ReviewListResponse.toModel(): ReviewUiModel =
@@ -18,7 +18,7 @@ fun ReviewListResponse.toModel(): ReviewUiModel =
             ReviewKeywordUiModel(
                 id = keyword.keywordId,
                 keyword = keyword.name,
-                count = keyword.count,
+                count = keyword.count
             )
         },
         totalReviewCount = totalReviewCount,
@@ -27,7 +27,7 @@ fun ReviewListResponse.toModel(): ReviewUiModel =
                 id = review.reviewId,
                 score = review.gradePoint,
                 semesterLabel = "${review.year.toString().takeLast(2)}년 ${review.semester} 수강자",
-                content = review.content,
+                content = review.content
             )
-        },
+        }
     )

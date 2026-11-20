@@ -1,8 +1,8 @@
 package com.cookandroid.everytime.presentation.review
 
-import com.cookandroid.everytime.presentation.review.component.model.ReviewItemUiModel
-import com.cookandroid.everytime.presentation.review.component.model.ReviewKeywordUiModel
-import com.cookandroid.everytime.presentation.review.component.model.ReviewUiModel
+import com.cookandroid.everytime.presentation.review.model.ReviewItemUiModel
+import com.cookandroid.everytime.presentation.review.model.ReviewKeywordUiModel
+import com.cookandroid.everytime.presentation.review.model.ReviewUiModel
 
 val reviewPreviewUiState = ReviewUiState(
     review = ReviewUiModel(

@@ -1,7 +1,7 @@
 package com.cookandroid.everytime.presentation.lecturelist
 
-import com.cookandroid.everytime.presentation.lecturelist.component.model.LecturelistCourse
-import com.cookandroid.everytime.presentation.lecturelist.component.model.LecturelistTimetableBlockUiModel
+import com.cookandroid.everytime.presentation.lecturelist.model.LecturelistCourse
+import com.cookandroid.everytime.presentation.lecturelist.model.LecturelistTimetableBlockUiModel
 import com.cookandroid.everytime.presentation.lecturelist.component.timetable.EverytimeTimetableBlockColor
 
 data class LecturelistUiState(
@@ -16,7 +16,7 @@ data class LecturelistUiState(
             color = EverytimeTimetableBlockColor.CORAL,
             dayIndex = 0,
             startRow = 1f,
-            rowSpan = 5f,
+            rowSpan = 5f
         ),
         LecturelistTimetableBlockUiModel(
             lectureName = "사진디자인",
@@ -24,15 +24,15 @@ data class LecturelistUiState(
             dayIndex = 2,
             startRow = 3f,
             rowSpan = 2f + 40f / 60f,
-            classroom = "조형예술관-306",
+            classroom = "조형예술관-306"
         ),
         LecturelistTimetableBlockUiModel(
             lectureName = "인적성검사와 취업실전",
             color = EverytimeTimetableBlockColor.ORANGE,
             dayIndex = 4,
             startRow = 3f,
-            rowSpan = 2f + 40f / 60f,
-        ),
+            rowSpan = 2f + 40f / 60f
+        )
     ),
     val courses: List<LecturelistCourse> = emptyList(),
     val expandedCourseIds: Set<Long> = emptySet(),

@@ -29,7 +29,7 @@ fun EverytimeReviewTopbar(
             .background(color = EverytimeTheme.colors.white)
             .padding(horizontal = 16.dp, vertical = 14.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_back),

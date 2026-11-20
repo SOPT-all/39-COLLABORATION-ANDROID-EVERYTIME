@@ -48,7 +48,7 @@ class TimetableViewModel @Inject constructor() : ViewModel() {
         sendExitSideEffect(
             TimetableSideEffect.Apply(
                 label = state.timeLabel,
-                times = state.timeQueries,
+                times = state.timeQueries
             ),
         )
     }

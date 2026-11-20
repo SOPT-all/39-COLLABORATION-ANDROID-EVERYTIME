@@ -17,7 +17,7 @@ data class TimetableUiState(
         (12..14).forEach { hour ->
             put(TimetableSlot(dayIndex = 4, hour = hour), TimetableSlotColor.ORANGE)
         }
-    },
+    }
 ) {
     val timeLabel: String?
         get() {
@@ -52,7 +52,7 @@ data class TimetableUiState(
                         "%s-%02d:00-%02d:00",
                         dayCodes[dayIndex],
                         startHour,
-                        endHour,
+                        endHour
                     )
                 }
         }
@@ -63,6 +63,6 @@ sealed interface TimetableSideEffect {
 
     data class Apply(
         val label: String?,
-        val times: List<String>,
+        val times: List<String>
     ) : TimetableSideEffect
 }

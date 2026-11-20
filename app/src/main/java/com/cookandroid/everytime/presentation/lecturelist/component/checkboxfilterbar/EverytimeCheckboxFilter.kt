@@ -28,37 +28,37 @@ fun EverytimeCheckboxFilter(
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             EverytimeCheckbox(
                 checked = hideCompleted,
-                onCheckedChange = onHideCompletedChange,
+                onCheckedChange = onHideCompletedChange
             )
 
             Text(
                 text = "이수한 강의 숨기기",
                 color = textColor,
-                style = textStyle,
+                style = textStyle
             )
         }
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             EverytimeCheckbox(
                 checked = hideRestricted,
-                onCheckedChange = onHideRestrictedChange,
+                onCheckedChange = onHideRestrictedChange
             )
 
             Text(
                 text = "수강 제한 강의 숨기기",
                 color = textColor,
-                style = textStyle,
+                style = textStyle
             )
         }
     }
