@@ -17,18 +17,15 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -36,12 +33,12 @@ import com.cookandroid.everytime.core.designsystem.theme.EverytimeTheme
 import com.cookandroid.everytime.presentation.lecturelist.component.accordion.EverytimeAccordion
 import com.cookandroid.everytime.presentation.lecturelist.component.card.EverytimeLectureCard
 import com.cookandroid.everytime.presentation.lecturelist.component.checkboxfilterbar.EverytimeCheckboxFilter
+import com.cookandroid.everytime.presentation.lecturelist.component.dialog.EverytimeSystemCategoryDialog
 import com.cookandroid.everytime.presentation.lecturelist.component.lecturefilterbar.EverytimeLectureFilterBar
 import com.cookandroid.everytime.presentation.lecturelist.component.timetable.EverytimeCompactTimetableGrid
 import com.cookandroid.everytime.presentation.lecturelist.component.timetable.EverytimeTimetableBlock
 import com.cookandroid.everytime.presentation.lecturelist.component.timetable.compactGridLayout
 import com.cookandroid.everytime.presentation.lecturelist.component.topbar.EverytimeLecturelistTopbar
-import android.app.AlertDialog as PlatformAlertDialog
 
 @Composable
 fun LecturelistRoute(
@@ -196,7 +193,7 @@ fun LecturelistScreen(
     }
 
     if (showCategoryDialog) {
-        LectureCategoryDialog(
+        EverytimeSystemCategoryDialog(
             selectedCategory = uiState.category,
             onCategorySelected = { category ->
                 onCategorySelected(category)
@@ -204,47 +201,6 @@ fun LecturelistScreen(
             },
             onDismiss = { showCategoryDialog = false }
         )
-    }
-}
-
-@Composable
-private fun LectureCategoryDialog(
-    selectedCategory: LectureCategory?,
-    onCategorySelected: (LectureCategory?) -> Unit,
-    onDismiss: () -> Unit
-) {
-    val context = LocalContext.current
-    val onSelect by rememberUpdatedState(onCategorySelected)
-    val onClose by rememberUpdatedState(onDismiss)
-
-    DisposableEffect(context, selectedCategory) {
-        val categories = listOf<LectureCategory?>(null) + LectureCategory.entries
-        val labels = categories
-            .map { it?.label ?: "없음" }
-            .toTypedArray()
-
-        val dialog = PlatformAlertDialog.Builder(context)
-            .setTitle("전공/영역")
-            .setSingleChoiceItems(
-                labels,
-                categories.indexOf(selectedCategory),
-            ) { dialog, index ->
-                dialog.dismiss()
-                onSelect(categories[index])
-            }
-            .setNegativeButton("취소") { _, _ ->
-                onClose()
-            }
-            .setOnCancelListener {
-                onClose()
-            }
-            .create()
-
-        dialog.show()
-
-        onDispose {
-            dialog.dismiss()
-        }
     }
 }
 
