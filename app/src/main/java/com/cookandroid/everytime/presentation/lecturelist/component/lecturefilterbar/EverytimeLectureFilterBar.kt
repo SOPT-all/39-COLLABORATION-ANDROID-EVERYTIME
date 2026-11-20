@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,6 +25,7 @@ fun EverytimeLectureFilterBar(
     onMajorClearClick: () -> Unit,
     onTimeClearClick: () -> Unit,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp),
     majorValue: String? = null,
     timeValue: String? = null,
     isMajorActive: Boolean = false,
@@ -32,7 +34,8 @@ fun EverytimeLectureFilterBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .horizontalScroll(state = rememberScrollState()),
+            .horizontalScroll(state = rememberScrollState())
+            .padding(contentPadding),
         horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
