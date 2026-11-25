@@ -41,6 +41,12 @@
 | https://github.com/user-attachments/assets/c2ef295d-3de4-49df-a2e6-c59435fcb0e0 | https://github.com/user-attachments/assets/853bbc66-5842-414f-af96-2473a41e267b |
 | 선택한 분반으로 이동, 키워드별 강의평 조회 | 카테고리 선택, 숨김 체크박스 적용 및 해제, 시간필터링, 전공영역 선택, 아코디언 펼침, Card펼침 |
 
+
+### QA 반영
+| 타임테이블 QA 적용 | 페이지네이션(강의평) QA 적용 |
+| :---: | :---: |
+| https://github.com/user-attachments/assets/7cdf1814-2468-46f0-abe0-c0b1c96580e9 | https://github.com/user-attachments/assets/72958faf-31f4-40f0-a341-fae4864c8a0f |
+
 ---
 
 ## 🛠 기술 스택
