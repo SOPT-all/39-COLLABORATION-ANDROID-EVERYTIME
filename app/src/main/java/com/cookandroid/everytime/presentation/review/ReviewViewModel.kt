@@ -55,9 +55,16 @@ class ReviewViewModel @Inject constructor(
         reviewJob = viewModelScope.launch {
             try {
                 val response = if (keywordId == null) {
-                    reviewRepository.getReviews(sectionId = sectionId)
+                    reviewRepository.getReviews(
+                        sectionId = sectionId,
+                        size = 30
+                    )
                 } else {
-                    reviewRepository.getKeywordReviews(sectionId = sectionId, keywordId = keywordId)
+                    reviewRepository.getKeywordReviews(
+                        sectionId = sectionId,
+                        keywordId = keywordId,
+                        size = 30
+                    )
                 }
                 ensureActive()
                 if (_uiState.value.sectionId != sectionId || _uiState.value.selectedKeywordId != keywordId) return@launch

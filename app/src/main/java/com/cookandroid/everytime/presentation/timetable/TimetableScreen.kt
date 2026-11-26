@@ -29,7 +29,7 @@ fun TimetableRoute(
     onNavigateBack: () -> Unit,
     onApply: (String?, List<String>) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: TimetableViewModel = hiltViewModel()
+    viewModel: TimetableViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -37,7 +37,9 @@ fun TimetableRoute(
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 TimetableSideEffect.NavigateBack -> onNavigateBack()
-                is TimetableSideEffect.Apply -> onApply(sideEffect.label, sideEffect.times)
+                is TimetableSideEffect.Apply -> {
+                    onApply(sideEffect.label, sideEffect.times)
+                }
             }
         }
     }
@@ -46,9 +48,10 @@ fun TimetableRoute(
         uiState = uiState,
         onDayClick = viewModel::onDayClick,
         onHourClick = viewModel::onHourClick,
+        onSlotClick = viewModel::onSlotClick,
         onNavigateBack = viewModel::onBackClick,
         onApply = viewModel::onApplyClick,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -57,22 +60,23 @@ fun TimetableScreen(
     uiState: TimetableUiState,
     onDayClick: (Int) -> Unit,
     onHourClick: (Int) -> Unit,
+    onSlotClick: (TimetableSlot) -> Unit,
     onNavigateBack: () -> Unit,
     onApply: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         EverytimeTimetableTopbar(
             text = "시간",
             onBackClick = onNavigateBack,
-            onApplyClick = onApply
+            onApplyClick = onApply,
         )
 
         Column(
             modifier = Modifier
                 .weight(1f)
                 .verticalScroll(state = rememberScrollState())
-                .padding(bottom = 16.dp)
+                .padding(bottom = 16.dp),
         ) {
             Spacer(modifier = Modifier.height(2.dp))
 
@@ -80,7 +84,7 @@ fun TimetableScreen(
                 text = "선택한 시간 내에 개설된 과목만 검색합니다.\n요일 혹은 시간을 누르면 일괄 선택할 수 있습니다.",
                 color = EverytimeTheme.colors.neutral400,
                 style = EverytimeTheme.typography.caption1,
-                modifier = Modifier.padding(horizontal = 24.dp)
+                modifier = Modifier.padding(horizontal = 24.dp),
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -90,7 +94,8 @@ fun TimetableScreen(
                 selectedSlots = uiState.selectedSlots,
                 onDayClick = onDayClick,
                 onHourClick = onHourClick,
-                modifier = Modifier.padding(horizontal = 12.dp)
+                onSlotClick = onSlotClick,
+                modifier = Modifier.padding(horizontal = 12.dp),
             )
         }
     }
@@ -99,18 +104,22 @@ fun TimetableScreen(
 @Preview(showBackground = true)
 @Composable
 private fun TimetableScreenPreview() {
+    val previewSlots = expandedGridDays.indices.map { dayIndex ->
+        TimetableSlot(dayIndex = dayIndex, hour = 9)
+    }.toSet()
+
     EverytimeTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
             TimetableScreen(
                 uiState = TimetableUiState(
-                    selectedSlots = expandedGridDays.indices.map { dayIndex ->
-                        TimetableSlot(dayIndex = dayIndex, hour = 9)
-                    }.toSet(),
+                    individuallySelectedSlots = previewSlots,
+                    selectedSlots = previewSlots,
                 ),
                 onDayClick = {},
                 onHourClick = {},
+                onSlotClick = {},
                 onNavigateBack = {},
-                onApply = {}
+                onApply = {},
             )
         }
     }

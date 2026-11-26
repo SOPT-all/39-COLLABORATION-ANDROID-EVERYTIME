@@ -3,16 +3,15 @@ package com.cookandroid.everytime.presentation.timetable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cookandroid.everytime.presentation.timetable.component.timetable.TimetableSlot
-import com.cookandroid.everytime.presentation.timetable.component.timetable.expandedGridDays
-import com.cookandroid.everytime.presentation.timetable.component.timetable.expandedGridHours
+import com.cookandroid.everytime.presentation.timetable.mapper.TimetableSelectionMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class TimetableViewModel @Inject constructor() : ViewModel() {
@@ -25,17 +24,45 @@ class TimetableViewModel @Inject constructor() : ViewModel() {
     private var exitRequested = false
 
     fun onDayClick(dayIndex: Int) {
-        val slots = expandedGridHours.map { hour ->
-            TimetableSlot(dayIndex = dayIndex, hour = hour)
-        }.toSet()
-        toggleSelection(slots)
+        updateSelection { state ->
+            val days = state.selectedDayIndices
+
+            state.copy(
+                selectedDayIndices = if (dayIndex in days) {
+                    days - dayIndex
+                } else {
+                    days + dayIndex
+                },
+            )
+        }
     }
 
     fun onHourClick(hour: Int) {
-        val slots = expandedGridDays.indices.map { dayIndex ->
-            TimetableSlot(dayIndex = dayIndex, hour = hour)
-        }.toSet()
-        toggleSelection(slots)
+        updateSelection { state ->
+            val hours = state.selectedHours
+
+            state.copy(
+                selectedHours = if (hour in hours) {
+                    hours - hour
+                } else {
+                    hours + hour
+                },
+            )
+        }
+    }
+
+    fun onSlotClick(slot: TimetableSlot) {
+        updateSelection { state ->
+            val slots = state.individuallySelectedSlots
+
+            state.copy(
+                individuallySelectedSlots = if (slot in slots) {
+                    slots - slot
+                } else {
+                    slots + slot
+                },
+            )
+        }
     }
 
     fun onBackClick() {
@@ -44,20 +71,34 @@ class TimetableViewModel @Inject constructor() : ViewModel() {
 
     fun onApplyClick() {
         val state = _uiState.value
+        val result = createSelectionResult(state)
 
         sendExitSideEffect(
             TimetableSideEffect.Apply(
-                label = state.timeLabel,
-                times = state.timeQueries
+                label = result.label,
+                times = result.times,
             ),
         )
     }
 
-    private fun toggleSelection(slots: Set<TimetableSlot>) {
-        _uiState.update { state ->
-            state.copy(selectedSlots = if (state.selectedSlots == slots) emptySet() else slots)
+    private fun updateSelection(
+        transform: (TimetableUiState) -> TimetableUiState,
+    ) {
+        _uiState.update { current ->
+            val updated = transform(current)
+            val result = createSelectionResult(updated)
+
+            updated.copy(selectedSlots = result.selectedSlots)
         }
     }
+
+    private fun createSelectionResult(
+        state: TimetableUiState,
+    ) = TimetableSelectionMapper.createResult(
+        individuallySelectedSlots = state.individuallySelectedSlots,
+        selectedDayIndices = state.selectedDayIndices,
+        selectedHours = state.selectedHours,
+    )
 
     private fun sendExitSideEffect(sideEffect: TimetableSideEffect) {
         viewModelScope.launch {

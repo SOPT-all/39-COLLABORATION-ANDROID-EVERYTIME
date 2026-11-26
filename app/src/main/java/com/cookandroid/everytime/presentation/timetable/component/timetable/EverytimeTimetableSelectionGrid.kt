@@ -20,13 +20,13 @@ import com.cookandroid.everytime.core.util.noRippleClickable
 
 data class TimetableSlot(
     val dayIndex: Int,
-    val hour: Int
+    val hour: Int,
 )
 
 enum class TimetableSlotColor {
     CORAL,
     GREEN,
-    ORANGE
+    ORANGE,
 }
 
 @Composable
@@ -35,7 +35,8 @@ fun EverytimeTimetableSelectionGrid(
     selectedSlots: Set<TimetableSlot>,
     onDayClick: (Int) -> Unit,
     onHourClick: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    onSlotClick: (TimetableSlot) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val layout = expandedGridLayout
 
@@ -45,7 +46,7 @@ fun EverytimeTimetableSelectionGrid(
         Column(
             modifier = Modifier
                 .matchParentSize()
-                .clip(RoundedCornerShape(layout.cornerRadius))
+                .clip(RoundedCornerShape(layout.cornerRadius)),
         ) {
             Row(modifier = Modifier.height(layout.headerHeight)) {
                 Spacer(modifier = Modifier.width(layout.timeColumnWidth))
@@ -55,7 +56,9 @@ fun EverytimeTimetableSelectionGrid(
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxHeight()
-                            .noRippleClickable(onClick = { onDayClick(dayIndex) })
+                            .noRippleClickable {
+                                onDayClick(dayIndex)
+                            },
                     )
                 }
             }
@@ -66,27 +69,44 @@ fun EverytimeTimetableSelectionGrid(
                         modifier = Modifier
                             .width(layout.timeColumnWidth)
                             .fillMaxHeight()
-                            .noRippleClickable(onClick = { onHourClick(hour) })
+                            .noRippleClickable {
+                                onHourClick(hour)
+                            },
                     )
 
                     repeat(layout.days.size) { dayIndex ->
-                        val slot = TimetableSlot(dayIndex = dayIndex, hour = hour)
+                        val slot = TimetableSlot(
+                            dayIndex = dayIndex,
+                            hour = hour,
+                        )
                         val isSelected = slot in selectedSlots
+
                         val cellModifier = if (isSelected) {
                             Modifier
                                 .background(color = EverytimeTheme.colors.neutral400)
-                                .border(width = 1.dp, color = EverytimeTheme.colors.neutral200)
+                                .border(
+                                    width = 1.dp,
+                                    color = EverytimeTheme.colors.neutral200,
+                                )
                         } else {
                             val color = when (highlightedSlots[slot]) {
                                 TimetableSlotColor.CORAL ->
                                     EverytimeTheme.colors.timetableCoral.copy(alpha = 0.4f)
+
                                 TimetableSlotColor.GREEN ->
                                     EverytimeTheme.colors.timetableGreen.copy(alpha = 0.4f)
+
                                 TimetableSlotColor.ORANGE ->
                                     EverytimeTheme.colors.timetableOrange.copy(alpha = 0.4f)
+
                                 null -> null
                             }
-                            if (color == null) Modifier else Modifier.background(color = color)
+
+                            if (color == null) {
+                                Modifier
+                            } else {
+                                Modifier.background(color = color)
+                            }
                         }
 
                         Box(
@@ -94,6 +114,9 @@ fun EverytimeTimetableSelectionGrid(
                                 .weight(1f)
                                 .fillMaxHeight()
                                 .then(cellModifier)
+                                .noRippleClickable {
+                                    onSlotClick(slot)
+                                },
                         )
                     }
                 }
@@ -110,11 +133,12 @@ private fun EverytimeTimetableSelectionGridPreview() {
             highlightedSlots = mapOf(
                 TimetableSlot(dayIndex = 0, hour = 9) to TimetableSlotColor.CORAL,
                 TimetableSlot(dayIndex = 2, hour = 12) to TimetableSlotColor.GREEN,
-                TimetableSlot(dayIndex = 4, hour = 12) to TimetableSlotColor.ORANGE
+                TimetableSlot(dayIndex = 4, hour = 12) to TimetableSlotColor.ORANGE,
             ),
             selectedSlots = emptySet(),
             onDayClick = {},
-            onHourClick = {}
+            onHourClick = {},
+            onSlotClick = {},
         )
     }
 }
